@@ -29,7 +29,9 @@ class ApiEtherEditor extends ApiBase {
         }
         $padId = $params['padId'];
         $apiHost = $wgEtherpadConfig['apiHost'];
-        $apiUrl = $wgEtherpadConfig['apiUrl'];
+        $apiPort = $wgEtherpadConfig['apiPort'];
+        $apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+        $apiUrl = 'http://' . $apiHost . ':' . $apiPort . $apiBaseUrl;
         $apiKey = $wgEtherpadConfig['apiKey'];
         $epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
         $userId = $wgUser->getId();

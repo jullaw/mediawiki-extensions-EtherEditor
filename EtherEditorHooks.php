@@ -28,7 +28,10 @@ class EtherEditorHooks {
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		if ( $user->getBoolOption( 'ethereditor_enableether' ) ) {
 			global $wgEtherpadConfig;
-			$apiUrl = $wgEtherpadConfig['apiUrl'];
+			$apiHost = $wgEtherpadConfig['apiHost'];
+			$apiPort = $wgEtherpadConfig['apiPort'];
+			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			$apiUrl = 'http://' . $apiHost . ':' . $apiPort . $apiBaseUrl;
 			$apiKey = $wgEtherpadConfig['apiKey'];
 			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
 
@@ -57,7 +60,9 @@ class EtherEditorHooks {
 
 		if ( $wgUser->getBoolOption( 'ethereditor_enableether' ) ) {
 			$apiHost = $wgEtherpadConfig['apiHost'];
-			$apiUrl = $wgEtherpadConfig['apiUrl'];
+			$apiPort = $wgEtherpadConfig['apiPort'];
+			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			$apiUrl = 'http://' . $apiHost . ':' . $apiPort . $apiBaseUrl;
 			$apiKey = $wgEtherpadConfig['apiKey'];
 			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
 			$userId = $wgUser->getId();
@@ -90,6 +95,9 @@ class EtherEditorHooks {
 			}
 			$output->addJsConfigVars( array(
 				'wgEtherEditorApiHost' => $apiHost,
+				'wgEtherEditorApiPort' => $apiPort,
+				'wgEtherEditorApiBaseUrl' => $apiBaseUrl,
+				'wgEtherEditorPadUrl' => $wgEtherpadConfig['pUrl'],
 				'wgEtherEditorPadName' => $groupPadId,
 				'wgEtherEditorSessionId' => $sessionId ) );
 			$wgOut->addModules( 'ext.etherEditor' );

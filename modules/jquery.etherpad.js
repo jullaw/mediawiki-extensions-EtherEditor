@@ -29,7 +29,7 @@
   $.fn.pad = function( options ) {
     var settings = {
       'host'              : 'http://beta.etherpad.org',
-      'baseUrl'           : '/p/',
+      'baseUrl'           : '/p',
       'showControls'      : false,
       'showChat'          : false,
       'showLineNumbers'   : false,
@@ -60,7 +60,7 @@
       }
 
       settings.padId = sanitizePadId( settings.padId );
-      var padUrl = settings.host+settings.baseUrl+settings.padId;
+      var padUrl = settings.host+settings.baseUrl+'/'+settings.padId;
 
       var setupEp = function () {
         var iFrameLink = '<iframe id="'+epframeId;

@@ -103,7 +103,6 @@
 		var doc = document.createElement( 'span' );
 		doc.innerHTML = html;
 		var result = compileDomToWikitext( [doc] );
-		var doSomethingUseful = 'squirtle';
 		return result;
 	};
 
@@ -112,7 +111,7 @@
 	 * 
 	 * @param {HTMLTextAreaElement} (can be jQuery-wrapped)
 	 */
-	function remoteEditor( textarea ) { 
+	function remoteEditor( textarea ) {
 		if ( typeof textarea === 'undefined' ) {
 			throw new Error( "need a textarea as argument to remoteEditor" );
 		}
@@ -122,15 +121,20 @@
 		this.config = {};
 		this.$textarea = $( textarea );
 		var userName = mw.config.get( 'wgUserName' );
-		var hostname = this.config.hostname || 'localhost:9001';
-		var baseUrl = '/p/';
+		var hostname = mw.config.get( 'wgEtherEditorApiHost' );
+		if ( hostname ) {
+			hostname += ':' + ( mw.config.get( 'wgEtherEditorApiPort' ) || '9001' );
+		} else {
+			hostname = 'localhost:9001';
+		}
+		var baseUrl = mw.config.get( 'wgEtherEditorPadUrl' );
 		var padId = mw.config.get( 'wgEtherEditorPadName' );
 		var sessionId = mw.config.get( 'wgEtherEditorSessionId' );
 		if ( !padId || !sessionId ) {
 			return false; // there was an error, clearly, so let's quit
 		}
 
-		$.cookie( 'sessionID', sessionId, { domain: mw.config.get( 'wgEtherEditorApiUrl' ), path: '/' } );
+		$.cookie( 'sessionID', sessionId, { domain: mw.config.get( 'wgEtherEditorApiHost' ), path: '/' } );
 
 		this.hasSubmitted = false;
 
@@ -180,5 +184,3 @@
 	$( '#wpTextbox1' ).remoteEditor();
 
 } )( jQuery, mediaWiki );
-
-
