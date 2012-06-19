@@ -21,8 +21,6 @@
 		}
 
 		var _this = this;
-		// todo obtain config from...?
-		this.config = {};
 		this.$textarea = $( textarea );
 		var userName = mw.config.get( 'wgUserName' );
 		var hostname = mw.config.get( 'wgEtherEditorApiHost' );
@@ -71,6 +69,8 @@
 			border: 1,
 			borderStyle: 'solid grey'
 		} );
+
+		$( '#wikiEditor-ui-toolbar' ).add( '#toolbar' ).hide();
 	};
 	
 	remoteEditor.prototype = {

@@ -37,10 +37,23 @@ class EtherEditorHooks {
 
 			$title = $article->getTitle();
 			$padId = $title->getPrefixedURL() . $baseRevId;
-			try {
-				$epClient->deletePad( $padId );
-			} catch ( Exception $e ) {
-				// this is just because the pad doesn't exist, probably nothing to worry about
+			$sessions = $epClient->listSessionsOfGroup( $padId );
+			$hasSession = false;
+			$authorId = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId )->authorID;
+			foreach ( $sessions as $sess => $sinfo ) {
+				if ( $sinfo['authorID'] == $authorId ) {
+					$epClient->deleteSession( $sess );
+				} else {
+					$hasSession = true;
+				}
+			}
+			if ( !$hasSession ) {
+				try {
+					$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
+					$epClient->deletePad( $groupId . '$' . $padId );
+				} catch ( Exception $e ) {
+					// this is just because the pad doesn't exist, probably nothing to worry about
+				}
 			}
 		}
 		return true;
@@ -83,7 +96,7 @@ class EtherEditorHooks {
 			$padId = $title->getPrefixedURL() . $baseRevId;
 			$authorResult = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId );
 			$authorId = $authorResult->authorID;
-			$groupResult = $epClient->createGroupIfNotExistsFor( "editing" );
+			$groupResult = $epClient->createGroupIfNotExistsFor( $padId );
 			$groupId = $groupResult->groupID;
 			$sessionResult = $epClient->createSession( $groupId, $authorId, time() + 3600 );
 			$sessionId = $sessionResult->sessionID;
