@@ -44,8 +44,8 @@ class ApiEtherEditor extends ApiBase {
         $groupPadId = $groupId . '$' . $padId;
         $result->addValue(
             array( 'ApiEtherEditor' ),
-            'html',
-            $epClient->getHTML( $padId )->html
+            'text',
+            $epClient->getText( $padId )->text
         );
     }
 

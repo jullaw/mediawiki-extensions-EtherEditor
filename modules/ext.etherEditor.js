@@ -3,108 +3,12 @@
  *
  * dependencies: mediawiki.uri
  *
- * @author Neil Kandalgaonkar
- * @license same terms as MediaWiki itself
+ * @author Mark Holmquist
+ * @license GPLv2+
  *
  */
 
 ( function( $, mw ) { 
-
-	var rules = {
-		br: function ( ctx ) {
-			return { start: "\n", end: "" };
-		},
-		em: function ( ctx ) {
-			return { start: "''", end: "''"};
-		},
-		u: function ( ctx ) {
-			return { start: "<ins>", end: "</ins>" };
-		},
-		strong: function ( ctx ) {
-			return { start: "'''", end: "'''"};
-		},
-		ul: function ( ctx, $ele ) {
-			return { start: "", end: "", ctx: $ele.is( '.indent' ) ? undefined : "ul" };
-		},
-		ol: function ( ctx, $ele ) {
-			return { start: "", end: "", ctx: $ele.is( '.indent' ) ? undefined : "ol" };
-		},
-		li: function ( ctx ) {
-			var lctx = false;
-			var j = ctx.length;
-			var start = '';
-			while ( j-- > 0 ) {
-				if ( ctx[j] == 'ol' || ctx[j] == 'ul' ) {
-					lctx = ctx[j];
-					start += ctx[j] == 'ol' ? '#' : '*';
-				} else if ( ctx[j] == 'ind' ) {
-					lctx = 'ind';
-					start += ':';
-				}
-			}
-			if ( lctx ) {
-				if ( lctx == 'ol' ) {
-					return { absstart: "\n", start: start, end: "" };
-				} else if ( lctx == 'ul' ) {
-					return { absstart: "\n", start: start, end: "" };
-				} else {
-					return { absstart: "\n", start: start, end: "" };
-				}
-			} else {
-				return { start: "", end: "" };
-			}
-		},
-		'.indent': function ( ctx ) {
-			return { start: "", end: "", ctx: "ind" };
-		},
-	};
-
-	var compileDomToWikitext = function( dom, ctx ) {
-		ctx = ctx || [];
-		var wt = '';
-		$.each( dom, function () {
-			if ( this.nodeName == '#text' ) {
-				wt += this.textContent;
-			} else {
-				var $this = $( this );
-				var prewt = '';
-				var haslist = false;
-				$.each( rules, function ( j, rule ) {
-					if ( $this.is( j ) ) {
-						var newrule = rule( ctx, $this );
-						if ( newrule.absstart ) {
-							prewt = newrule.absstart + prewt;
-						}
-						prewt += newrule.start;
-						wt += prewt;
-						if ( newrule.ctx ) {
-							ctx.push( newrule.ctx );
-						}
-					}
-				} );
-
-				wt += compileDomToWikitext( this.childNodes, ctx );
-
-				$.each( rules, function ( j, rule ) {
-					if ( $this.is( j ) ) {
-						var newrule = rule( ctx, $this );
-						wt += newrule.end;
-						if ( newrule.ctx ) {
-							ctx.pop();
-						}
-					}
-				} );
-			}
-		} );
-		return wt;
-	};
-
-	var compileHtmlToWikitext = function( html ) {
-		var doc = document.createElement( 'span' );
-		doc.innerHTML = html;
-		var result = compileDomToWikitext( [doc] );
-		return result;
-	};
 
 	/**
 	 * Creates a new remote editor object
@@ -145,7 +49,7 @@
 				_this.hasSubmitted = true;
 				var __this = this;
 				_this.$textarea.pad( { getContents: true, callback: function ( data ) {
-					_this.$textarea.html( compileHtmlToWikitext( data.ApiEtherEditor.html ) );
+					_this.$textarea.html( data.ApiEtherEditor.text );
 					$( __this ).submit();
 					return 0;
 				} } );
