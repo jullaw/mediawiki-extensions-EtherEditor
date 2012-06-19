@@ -27,7 +27,7 @@ class EtherEditorHooks {
 	public static function saveComplete( &$article, &$user, $text, $summary, $minoredit,
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		if ( $user->getBoolOption( 'ethereditor_enableether' ) ) {
-			global $wgEtherpadConfig;
+			global $wgUser, $wgEtherpadConfig;
 			$apiHost = $wgEtherpadConfig['apiHost'];
 			$apiPort = $wgEtherpadConfig['apiPort'];
 			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
@@ -36,8 +36,12 @@ class EtherEditorHooks {
 			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
 
 			$title = $article->getTitle();
+			if ( ! $baseRevId ) {
+				$baseRevId = 0;
+			}
 			$padId = $title->getPrefixedURL() . $baseRevId;
-			$sessions = $epClient->listSessionsOfGroup( $padId );
+			$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
+			$sessions = $epClient->listSessionsOfGroup( $groupId );
 			$hasSession = false;
 			$authorId = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId )->authorID;
 			foreach ( $sessions as $sess => $sinfo ) {
@@ -49,8 +53,8 @@ class EtherEditorHooks {
 			}
 			if ( !$hasSession ) {
 				try {
-					$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
 					$epClient->deletePad( $groupId . '$' . $padId );
+					$epClient->deleteGroup( $padId );
 				} catch ( Exception $e ) {
 					// this is just because the pad doesn't exist, probably nothing to worry about
 				}
