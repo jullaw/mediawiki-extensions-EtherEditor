@@ -45,7 +45,7 @@ class EtherEditorHooks {
 			$hasSession = false;
 			$authorId = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId )->authorID;
 			foreach ( $sessions as $sess => $sinfo ) {
-				if ( $sinfo['authorID'] == $authorId ) {
+				if ( $sinfo->authorID == $authorId ) {
 					$epClient->deleteSession( $sess );
 				} else {
 					$hasSession = true;
