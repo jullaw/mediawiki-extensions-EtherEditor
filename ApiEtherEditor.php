@@ -28,7 +28,7 @@ class ApiEtherEditor extends ApiBase {
             return;
         }
         $padId = $params['padId'];
-        $apiHost = $wgEtherpadConfig['apiHost'];
+        $apiHost = $wgEtherpadConfig['apiBackend'];
         $apiPort = $wgEtherpadConfig['apiPort'];
         $apiBaseUrl = $wgEtherpadConfig['apiUrl'];
         $apiUrl = 'http://' . $apiHost . ':' . $apiPort . $apiBaseUrl;
