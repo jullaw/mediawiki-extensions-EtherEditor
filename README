@@ -14,8 +14,10 @@ configuration. It should look something like this:
 
 require_once( "$IP/extensions/EtherEditor/EtherEditor.php" );
 $wgEtherpadConfig = array(
-    // the API host, for cookies
+    // the API host, for cookies (should probably be the same as $wgServer)
     'apiHost' => 'localhost',
+    // the API host for backend calls (usually localhost)
+    'apiBackend' => 'localhost',
     // the API port (because it's often 9001)
     'apiPort' => '9001',
     // the API root path (usually just '/api'
