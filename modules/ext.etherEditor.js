@@ -57,6 +57,7 @@
 
 		this.$textarea.pad( {
 			padId: padId,
+			baseUrl: baseUrl,
 			hideQRCode: true,
 			host: 'http://' + hostname,
 			showControls: true,
