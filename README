@@ -22,8 +22,8 @@ $wgEtherpadConfig = array(
     'apiPort' => '9001',
     // the API root path (usually just '/api'
     'apiUrl' => '/api',
-    // the pad root path (usually just '/p/')
-    'pUrl' => '/p/',
+    // the pad root path (usually just '/p')
+    'pUrl' => '/p',
     // the API key, found in APIKEY.txt in your etherpad lite instance directory
     'apiKey' => 'secret',
 );

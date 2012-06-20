@@ -40,7 +40,7 @@
 
 		this.hasSubmitted = false;
 
-		this.$textarea.closest( 'form' ).submit( function ( e ) {
+		$( 'input[type="submit"]' ).click( function ( e ) {
 			if ( ! _this.hasSubmitted ) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -48,7 +48,7 @@
 				var __this = this;
 				_this.$textarea.pad( { getContents: true, callback: function ( data ) {
 					_this.$textarea.html( data.ApiEtherEditor.text );
-					$( __this ).submit();
+					$( __this ).click();
 					return 0;
 				} } );
 				return 0;
