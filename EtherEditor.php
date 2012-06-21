@@ -19,17 +19,18 @@ $wgExtensionCredits['other'][] = array(
 	'name' => 'EtherEditor',
 	'author' => array( 'Neil Kandalgaonkar', 'Mark Holmquist' ),
 	'version' => '0.1.0',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:EtherEditor',
+	'url' => 'https://www.mediawiki.org/wiki/Extension:EtherEditor',
 	'descriptionmsg' => 'ethereditor-desc',
 );
+$dir = dirname( __FILE__ );
 
-$wgAutoloadClasses['EtherEditorHooks'] = dirname( __FILE__ ) . '/EtherEditorHooks.php';
-$wgAutoloadClasses['EtherEditorPad'] = dirname( __FILE__ ) . '/includes/EtherEditorpad.php';
-$wgAutoloadClasses['EtherpadLiteClient'] = dirname( __FILE__ ) . '/EtherpadLiteClient.php';
-$wgAutoloadClasses['ApiEtherEditor'] = dirname( __FILE__ ) . '/ApiEtherEditor.php';
+$wgAutoloadClasses['EtherEditorHooks'] = $dir . '/EtherEditorHooks.php';
+$wgAutoloadClasses['EtherEditorPad'] = $dir) . '/includes/EtherEditorpad.php';
+$wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/EtherpadLiteClient.php';
+$wgAutoloadClasses['ApiEtherEditor'] = $dir . '/ApiEtherEditor.php';
 
 $etherEditorTpl = array(
-	'localBasePath' => dirname( __FILE__ ) . '/modules',
+	'localBasePath' => $dir . '/modules',
 	'remoteExtPath' => 'EtherEditor/modules',
 	'group' => 'ext.etherEditor',
 );
@@ -48,7 +49,7 @@ $wgResourceModules += array(
 	)
 );
 
-$wgExtensionMessagesFiles['WikiEditor'] = dirname( __FILE__ ) . '/EtherEditor.i18n.php';
+$wgExtensionMessagesFiles['WikiEditor'] = $dir . '/EtherEditor.i18n.php';
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'EtherEditorHooks::onSchemaUpdate';
 $wgHooks['EditPage::showEditForm:initial'][] = 'EtherEditorHooks::editPageShowEditFormInitial';
 $wgHooks['ArticleSaveComplete'][] = 'EtherEditorHooks::saveComplete';
@@ -57,4 +58,3 @@ $wgHooks['SkinTemplateNavigation'][] = 'EtherEditorHooks::onSkinTemplateNavigati
 
 $wgAPIModules['ApiEtherEditor'] = 'ApiEtherEditor';
 
-?>
