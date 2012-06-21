@@ -54,6 +54,8 @@
 				return 0;
 			}
 		} );
+		
+		this.$textarea.after( $( '<input type="hidden" name="enableether" value="true" />' ) );
 
 		this.$textarea.pad( {
 			padId: padId,

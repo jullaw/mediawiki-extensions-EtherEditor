@@ -5,27 +5,6 @@
     [/:+/g, '_']
   ];
 
-  sanitizePadId = function(padId) {
-    var transform_index = arguments[1] || 0;
-    //we're out of possible transformations, so just return it                                                                                                                                                                                                                                                                  
-    if(transform_index >= padIdTransforms.length)
-    {
-      return padId;
-    }
-    else
-    {
-      //get the next transformation *that's different*                                                                                                                                                                                                                                                                      
-      var transformedPadId = padId;
-      while(transformedPadId == padId && transform_index < padIdTransforms.length)
-      {
-        transformedPadId = padId.replace(padIdTransforms[transform_index][0], padIdTransforms[transform_index][1]);
-        transform_index += 1;
-      }
-      //check the next transform                                                                                                                                                                                                                                                                                            
-      return sanitizePadId(transformedPadId, transform_index);
-    }
-  }
-
   $.fn.pad = function( options ) {
     var settings = {
       'host'              : 'http://beta.etherpad.org',
@@ -59,7 +38,6 @@
         $.extend( settings, options );
       }
 
-      settings.padId = sanitizePadId( settings.padId );
       var padUrl = settings.host+settings.baseUrl+'/'+settings.padId;
 
       var setupEp = function () {
@@ -107,7 +85,7 @@
       $.ajax({
         url: mw.util.wikiScript( 'api' ),
         method: 'GET',
-        data: { format: 'json', action: 'ApiEtherEditor', padId: sanitizePadId( settings.padId ) },
+        data: { format: 'json', action: 'ApiEtherEditor', padId: settings.padId },
         success: function(data) {
           if ( typeof options.callback == 'function' ) {
             options.callback(data);

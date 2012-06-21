@@ -24,6 +24,7 @@ $wgExtensionCredits['other'][] = array(
 );
 
 $wgAutoloadClasses['EtherEditorHooks'] = dirname( __FILE__ ) . '/EtherEditorHooks.php';
+$wgAutoloadClasses['EtherEditorPad'] = dirname( __FILE__ ) . '/includes/EtherEditorpad.php';
 $wgAutoloadClasses['EtherpadLiteClient'] = dirname( __FILE__ ) . '/EtherpadLiteClient.php';
 $wgAutoloadClasses['ApiEtherEditor'] = dirname( __FILE__ ) . '/ApiEtherEditor.php';
 
@@ -48,9 +49,11 @@ $wgResourceModules += array(
 );
 
 $wgExtensionMessagesFiles['WikiEditor'] = dirname( __FILE__ ) . '/EtherEditor.i18n.php';
+$wgHooks['LoadExtensionSchemaUpdates'][] = 'EtherEditorHooks::onSchemaUpdate';
 $wgHooks['EditPage::showEditForm:initial'][] = 'EtherEditorHooks::editPageShowEditFormInitial';
 $wgHooks['ArticleSaveComplete'][] = 'EtherEditorHooks::saveComplete';
 $wgHooks['GetPreferences'][] = 'EtherEditorHooks::getPreferences';
+$wgHooks['SkinTemplateNavigation'][] = 'EtherEditorHooks::onSkinTemplateNavigation';
 
 $wgAPIModules['ApiEtherEditor'] = 'ApiEtherEditor';
 

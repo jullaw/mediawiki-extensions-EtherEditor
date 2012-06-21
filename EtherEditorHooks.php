@@ -8,7 +8,24 @@
 
 class EtherEditorHooks {
 	/**
+	 * Abstraction of all possible ways to enable the EtherEditor
+	 * 
+	 * @since 0.1.0
+	 * 
+	 * @param OutputPage $output
+	 * @returns boolean
+	 */
+	protected static function isUsingEther( $output ) {
+		global $wgUser;
+		return ( $wgUser->isLoggedIn()
+			&& $wgUser->getBoolOption( 'ethereditor_enableether' )
+			|| $output->getRequest()->getCheck( 'enableether' ) );
+	}
+
+	/**
 	 * ArticleSaveComplete hook
+	 * 
+	 * @since 0.0.1
 	 * 
 	 * @param Article $article needed to find the title
 	 * @param User $user
@@ -26,7 +43,8 @@ class EtherEditorHooks {
 	 */
 	public static function saveComplete( &$article, &$user, $text, $summary, $minoredit,
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
-		if ( $user->getBoolOption( 'ethereditor_enableether' ) ) {
+		global $wgOut;
+		if ( self::isUsingEther( $wgOut ) ) {
 			global $wgUser, $wgEtherpadConfig;
 			$apiBackend = $wgEtherpadConfig['apiBackend'];
 			$apiPort = $wgEtherpadConfig['apiPort'];
@@ -43,8 +61,9 @@ class EtherEditorHooks {
 			$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
 			$sessions = $epClient->listSessionsOfGroup( $groupId );
 			$hasSession = false;
+			$userId = $wgUser->getId();
 			$authorId = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId )->authorID;
-			foreach ( $sessions as $sess => $sinfo ) {
+			foreach ( (array) $sessions as $sess => $sinfo ) {
 				if ( $sinfo->authorID == $authorId ) {
 					$epClient->deleteSession( $sess );
 				} else {
@@ -69,13 +88,15 @@ class EtherEditorHooks {
 	 * Adds the modules to the edit form
 	 * Creates an etherpad if necessary
 	 * 
+	 * @since 0.0.1
+	 * 
 	 * @param $editPage page being edited
 	 * @param $output output for the edit page
 	 */
 	public static function editPageShowEditFormInitial( $editPage, $output ) {
 		global $wgOut, $wgEtherpadConfig, $wgUser;
 
-		if ( $wgUser->getBoolOption( 'ethereditor_enableether' ) ) {
+		if ( self::isUsingEther( $output ) ) {
 			$apiHost = $wgEtherpadConfig['apiHost'];
 			$apiBackend = $wgEtherpadConfig['apiBackend'];
 			$apiPort = $wgEtherpadConfig['apiPort'];
@@ -138,6 +159,42 @@ class EtherEditorHooks {
 		    'label-message' => 'ethereditor-prefs-enable-ether',
 		    'section' => 'editing/advancedediting'
 		);
+		return true;
+	}
+	/**
+	 * Schema update to set up the needed database tables.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param DatabaseUpdater $updater
+	 *
+	 * @return true
+	 */
+	public static function onSchemaUpdate( $updater = null ) {
+		$updater->addExtensionTable( 'ethereditor_pads', dirname( __FILE__ ) . '/EtherEditor.sql' );
+		return true;
+	}
+
+	/**
+	 * Hook to add a link to the top bar.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param $sktemplate
+	 * @param $links the list of links
+	 *
+	 * @return true
+	 */
+	public static function onSkinTemplateNavigation (&$skin, &$links) {
+		global $wgUser;
+		if ( $wgUser->isLoggedIn() ) {
+			$title = $skin->getTitle();
+			$links['views']['collaborate'] = array(
+				'class' => false,
+				'text' => wfMessage( 'ethereditor-collaborate-button')->text(),
+				'href' => $title->getLocalUrl( 'action=edit&enableether=true' )
+			);
+		}
 		return true;
 	}
 }

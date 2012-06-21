@@ -14,6 +14,7 @@ $messages = array();
 $messages['en'] = array(
     'ethereditor-desc' => 'Allows users to edit via Etherpad, a web application for collaborative editing.',
     'ethereditor-prefs-enable-ether' => 'Enable collaborative editor (very experimental)',
+    'ethereditor-collaborate-button' => 'Collaborate',
 );
 
 /** Message documentation
@@ -22,4 +23,5 @@ $messages['en'] = array(
 $messages['qqq'] = array(
     'ethereditor-desc' => 'Description of the extension.',
     'ethereditor-prefs-enable-ether' => 'A preference that enables the experimental collaborative editor.',
+    'ethereditor-collaborate-button' => 'A button at the top of the page (near read/edit) that invites the user to collaborate with others.',
 );
