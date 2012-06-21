@@ -46,11 +46,20 @@
 				e.stopPropagation();
 				_this.hasSubmitted = true;
 				var __this = this;
-				_this.$textarea.pad( { getContents: true, callback: function ( data ) {
-					_this.$textarea.html( data.ApiEtherEditor.text );
-					$( __this ).click();
-					return 0;
-				} } );
+				$.ajax( {
+					url: mw.util.wikiScript( 'api' ),
+					method: 'GET',
+					data: { format: 'json', action: 'ApiEtherEditor', padId: padId },
+					success: function( data ) {
+						_this.$textarea.html( data.ApiEtherEditor.text );
+						$( __this ).click();
+						return 0;
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					dataType: 'json'
+				} );
 				return 0;
 			}
 		} );

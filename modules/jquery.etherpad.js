@@ -73,31 +73,10 @@
       setupEp();
     }
 
-    // This reads the etherpad contents if required
     else {
-      var oldoptions = $self.data( 'ep-options' );
-      
-      if ( typeof oldoptions == 'object' ) {
-        options = $.extend( settings, options, oldoptions );
-      }
-
-      // perform an ajax call on contentsUrl and write it to the parent
-      $.ajax({
-        url: mw.util.wikiScript( 'api' ),
-        method: 'GET',
-        data: { format: 'json', action: 'ApiEtherEditor', padId: settings.padId },
-        success: function(data) {
-          if ( typeof options.callback == 'function' ) {
-            options.callback(data);
-          } else {
-            $self.html(data);
-          }
-        },
-        xhrFields: {
-          withCredentials: true
-        },
-        dataType: 'json'
-      });
+      // there is no need for this, we don't use this feature of the library.
+      // since I already monkeyed around with it, I figured it's best to just
+      // remove this part.
     }
     
     

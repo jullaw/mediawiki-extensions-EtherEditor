@@ -57,7 +57,7 @@ class EtherEditorHooks {
 			if ( ! $baseRevId ) {
 				$baseRevId = 0;
 			}
-			$padId = $title->getPrefixedURL() . $baseRevId;
+			$padId = $title->getPrefixedURL();
 			$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
 			$sessions = $epClient->listSessionsOfGroup( $groupId );
 			$hasSession = false;
@@ -108,18 +108,7 @@ class EtherEditorHooks {
 
 			$title = $editPage->getTitle();
 			$text = $editPage->getContent();
-			if ( $text || $title->exists() ) {
-				$baseRev = $editPage->getBaseRevision();
-				if ( $baseRev ) {
-					$baseRevId = $baseRev->getId();
-				}
-			} else {
-				if ( $text == false )  {
-					$text = '';
-				}
-				$baseRevId = 0;
-			}
-			$padId = $title->getPrefixedURL() . $baseRevId;
+			$padId = $title->getPrefixedURL();
 			$authorResult = $epClient->createAuthorIfNotExistsFor( $userId, $wgUser->getName() );
 			$authorId = $authorResult->authorID;
 			$groupResult = $epClient->createGroupIfNotExistsFor( $padId );

@@ -37,7 +37,7 @@ class ApiEtherEditor extends ApiBase {
         $userId = $wgUser->getId();
         $authorResult = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId );
         $authorId = $authorResult->authorID;
-        $groupResult = $epClient->createGroupIfNotExistsFor( "editing" );
+        $groupResult = $epClient->createGroupIfNotExistsFor( $padId );
         $groupId = $groupResult->groupID;
         $sessionResult = $epClient->createSession( $groupId, $authorId, time() + 3600 );
         $sessionId = $sessionResult->sessionID;
