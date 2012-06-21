@@ -25,7 +25,7 @@ $wgExtensionCredits['other'][] = array(
 $dir = dirname( __FILE__ );
 
 $wgAutoloadClasses['EtherEditorHooks'] = $dir . '/EtherEditorHooks.php';
-$wgAutoloadClasses['EtherEditorPad'] = $dir) . '/includes/EtherEditorpad.php';
+$wgAutoloadClasses['EtherEditorPad'] = $dir . '/includes/EtherEditorpad.php';
 $wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/EtherpadLiteClient.php';
 $wgAutoloadClasses['ApiEtherEditor'] = $dir . '/ApiEtherEditor.php';
 
