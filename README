@@ -4,13 +4,17 @@ First, you'll need to install Etherpad Lite itself. Instructions for that are he
 
 https://github.com/Pita/etherpad-lite/blob/master/README.md#installation
 
-Next, you'll need to install the ep_wikitext plugin. That's as simple as downloading the plugin
-(from https://gitorious.org/ep_wikitext/ep_wikitext for now) and putting it in the node_modules
-directory in the etherpad instance. Once it's installed, you should restart Etherpad Lite and
-make sure it works, stand-alone, as a wikitext editor.
+Next, you'll need to install a few Etherpad Lite plugins. That's as simple as
+downloading the plugins and putting them in the node_modules directory in the
+etherpad instance. Once they are installed, you should restart Etherpad Lite
+and make sure it works, stand-alone, as a wikitext editor. The repositories for
+the necessary plugins can be found here:
 
-Finally, put this extension into your mediawiki extensions directory, and add the necessary
-configuration. It should look something like this:
+https://gitorious.org/ep_plugins
+
+Finally, put this extension into your mediawiki extensions directory, and add
+the necessary configuration to LocalSettings.php. It should look something like
+this:
 
 require_once( "$IP/extensions/EtherEditor/EtherEditor.php" );
 $wgEtherpadConfig = array(

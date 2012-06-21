@@ -62,7 +62,7 @@ class EtherEditorHooks {
 			$sessions = $epClient->listSessionsOfGroup( $groupId );
 			$hasSession = false;
 			$userId = $wgUser->getId();
-			$authorId = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId )->authorID;
+			$authorId = $epClient->createAuthorIfNotExistsFor( $userId, $wgUser->getName() )->authorID;
 			foreach ( (array) $sessions as $sess => $sinfo ) {
 				if ( $sinfo->authorID == $authorId ) {
 					$epClient->deleteSession( $sess );
@@ -120,7 +120,7 @@ class EtherEditorHooks {
 				$baseRevId = 0;
 			}
 			$padId = $title->getPrefixedURL() . $baseRevId;
-			$authorResult = $epClient->createAuthorIfNotExistsFor( $wgUser->getName(), $userId );
+			$authorResult = $epClient->createAuthorIfNotExistsFor( $userId, $wgUser->getName() );
 			$authorId = $authorResult->authorID;
 			$groupResult = $epClient->createGroupIfNotExistsFor( $padId );
 			$groupId = $groupResult->groupID;
