@@ -35,6 +35,15 @@ $messages['de'] = array(
 	'ethereditor-collaborate-button' => 'Mitmachen',
 );
 
+/** Spanish (español)
+ * @author Armando-Martin
+ */
+$messages['es'] = array(
+	'ethereditor-desc' => 'Permite a los usuarios editar a través de Etherpad, una aplicación web para edición colaborativa',
+	'ethereditor-prefs-enable-ether' => 'Activar el editor colaborativo (muy experimental)',
+	'ethereditor-collaborate-button' => 'Colaborar',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
@@ -44,13 +53,22 @@ $messages['gl'] = array(
 	'ethereditor-collaborate-button' => 'Colaborar',
 );
 
-/** Upper Sorbian (Hornjoserbsce)
+/** Upper Sorbian (hornjoserbsce)
  * @author Michawiki
  */
 $messages['hsb'] = array(
 	'ethereditor-desc' => 'Źmóžnja wužiwarjam z pomocu Etherpada wobdźěłać, webaplikacija za zhromadne wobdźěłowanje',
 	'ethereditor-prefs-enable-ether' => 'Editor za zhromadne wodźěłowanje zmóžnić (jara eksperimentelny)',
 	'ethereditor-collaborate-button' => 'Sobudźěłać',
+);
+
+/** Interlingua (interlingua)
+ * @author McDutchie
+ */
+$messages['ia'] = array(
+	'ethereditor-desc' => 'Permitte al usatores de modificar per medio de Etherpad, un application web pro le modification collaborative',
+	'ethereditor-prefs-enable-ether' => 'Activar le editor collaborative (multo experimental)',
+	'ethereditor-collaborate-button' => 'Collaborar',
 );
 
 /** Italian (italiano)
@@ -60,6 +78,13 @@ $messages['it'] = array(
 	'ethereditor-desc' => "Consente agli utenti di modificare tramite Etherpad, un'applicazione web per l'editing collaborativo",
 	'ethereditor-prefs-enable-ether' => 'Abilita la modifica collaborativa (molto sperimentale)',
 	'ethereditor-collaborate-button' => 'Collabora',
+);
+
+/** Luxembourgish (Lëtzebuergesch)
+ * @author Robby
+ */
+$messages['lb'] = array(
+	'ethereditor-prefs-enable-ether' => 'De kollaborativen Editeur aktivéieren (experimentell)',
 );
 
 /** Macedonian (македонски)
