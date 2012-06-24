@@ -96,6 +96,15 @@ $messages['mk'] = array(
 	'ethereditor-collaborate-button' => 'Соработувајте',
 );
 
+/** Dutch (Nederlands)
+ * @author Siebrand
+ */
+$messages['nl'] = array(
+	'ethereditor-desc' => 'Maakt het mogelijk om te bewerken via Etherpas, een webapplicatie voor samen bewerken',
+	'ethereditor-prefs-enable-ether' => 'Gezamenlijke tekstverwerker inschakelen (experimenteel)',
+	'ethereditor-collaborate-button' => 'Samenwerken',
+);
+
 /** Tagalog (Tagalog)
  * @author AnakngAraw
  */
