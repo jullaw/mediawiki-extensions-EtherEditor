@@ -57,7 +57,7 @@ class GetEtherPadText extends ApiBase {
 	}
 
 	public function getVersion() {
-		return __CLASS__ . ': 0.2.0';
+		return __CLASS__ . ': 0.2.1';
 	}
 }
 

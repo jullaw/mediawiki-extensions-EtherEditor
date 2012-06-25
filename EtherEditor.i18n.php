@@ -16,6 +16,7 @@ $messages['en'] = array(
 	'ethereditor-prefs-enable-ether' => 'Enable collaborative editor (very experimental)',
 	'ethereditor-collaborate-button' => 'Collaborate',
     'ethereditor-fork-button' => 'Fork this pad',
+    'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
 );
 
 /** Message documentation (Message documentation)
@@ -26,6 +27,7 @@ $messages['qqq'] = array(
 	'ethereditor-prefs-enable-ether' => 'A preference that enables the experimental collaborative editor.',
 	'ethereditor-collaborate-button' => 'A button at the top of the page (near read/edit) that invites the user to collaborate with others.',
     'ethereditor-fork-button' => 'A button above the textarea that allows the user to create a separate pad.',
+    'ethereditor-contrib-button' => 'A button that will populate the edit summary with the list of contributors saved in the database.',
 );
 
 /** German (Deutsch)

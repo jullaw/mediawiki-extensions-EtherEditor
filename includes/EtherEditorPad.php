@@ -209,6 +209,7 @@ class EtherEditorPad {
 
 	/**
 	 * Authenticates a user to the group.
+	 * Also adds them to the list of collaborators in the database
 	 *
 	 * @since 0.2.0
 	 *
@@ -228,7 +229,51 @@ class EtherEditorPad {
 
 		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
 		$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
+
+		$this->addToContribs( $user->getName(), $authorId );
+
 		return $epClient->createSession( $this->groupId, $authorId, time() + 3600 )->sessionID;
+	}
+
+	/**
+	 * Adds a user to the list of contributors
+	 *
+	 * @since 0.2.1
+	 *
+	 * @param string the username to add
+	 * @param string the authorId returned by Etherpad
+	 *
+	 * @return boolean success indicator
+	 */
+	protected function addToContribs( $username, $authorId ) {
+		$dbr = wfGetDB( DB_SLAVE );
+		$contrib = $dbr->selectRow(
+			'ethereditor_contribs',
+			array(
+				'contrib_id',
+				'username'
+			),
+			array(
+				'pad_id' => $this->id,
+				'username' => $username
+			)
+		);
+
+		if ( !$contrib ) {
+			$dbw = wfGetDB( DB_MASTER );
+
+			return $dbw->insert(
+				'ethereditor_contribs',
+				array(
+					'pad_id' => $this->id,
+					'username' => $username,
+					'ep_user_id' => $authorId,
+					'has_contributed' => 1
+				),
+				__METHOD__
+			);
+		}
+		return true;
 	}
 
 	/**
@@ -420,6 +465,29 @@ class EtherEditorPad {
 			array(
 				'page_title' => $this->pageTitle,
 				'public_pad' => '1'
+			)
+		)->result;
+	}
+
+	/**
+	 * Get the current list of contributors to this pad. Could be big!
+	 *
+	 * @since 0.2.1
+	 *
+	 * @return array Array of contributors
+	 */
+	public function getContribs() {
+		$dbr = wfGetDB( DB_SLAVE );
+
+		return $dbr->select(
+			'ethereditor_contribs',
+			array(
+				'contrib_id',
+				'username'
+			),
+			array(
+				'pad_id' => $this->id,
+				'has_contributed' => 1
 			)
 		)->result;
 	}

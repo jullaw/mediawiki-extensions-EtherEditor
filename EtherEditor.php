@@ -7,7 +7,7 @@
  *
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  * @license GPL v2 or later
- * @version 0.2.0
+ * @version 0.2.1
  */
 
 
@@ -17,7 +17,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'EtherEditor',
 	'author' => array( 'Mark Holmquist' ),
-	'version' => '0.2.0',
+	'version' => '0.2.1',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:EtherEditor',
 	'descriptionmsg' => 'ethereditor-desc',
 );
@@ -29,6 +29,7 @@ $wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/EtherpadLiteClient.php';
 $wgAutoloadClasses['GetEtherPadText'] = $dir . '/GetEtherPadText.php';
 $wgAutoloadClasses['ForkEtherPad'] = $dir . '/ForkEtherPad.php';
 $wgAutoloadClasses['EtherPadAuth'] = $dir . '/EtherPadAuth.php';
+$wgAutoloadClasses['GetContribs'] = $dir . '/GetContribs.php';
 
 $etherEditorTpl = array(
 	'localBasePath' => $dir . '/modules',
@@ -47,6 +48,7 @@ $wgResourceModules += array(
 		),
 		'messages' => array(
 			'ethereditor-fork-button',
+			'ethereditor-contrib-button',
 		),
 		'dependencies' => array(
 			'jquery.etherpad',
@@ -65,3 +67,4 @@ $wgHooks['SkinTemplateNavigation'][] = 'EtherEditorHooks::onSkinTemplateNavigati
 $wgAPIModules['GetEtherPadText'] = 'GetEtherPadText';
 $wgAPIModules['ForkEtherPad'] = 'ForkEtherPad';
 $wgAPIModules['EtherPadAuth'] = 'EtherPadAuth';
+$wgAPIModules['GetContribs'] = 'GetContribs';

@@ -17,8 +17,8 @@ class EtherEditorHooks {
 	 */
 	protected static function isUsingEther( $output, $user ) {
 		return ( $user->isLoggedIn()
-			&& $user->getBoolOption( 'ethereditor_enableether' )
-			|| $output->getRequest()->getCheck( 'enableether' ) );
+			&& ( $user->getBoolOption( 'ethereditor_enableether' )
+			|| $output->getRequest()->getCheck( 'enableether' ) ) );
 	}
 
 	/**

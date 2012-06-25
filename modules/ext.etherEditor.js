@@ -97,6 +97,23 @@
 			} );
 		},
 		/**
+		 * Add the list of contributors to the edit summary field
+		 */
+		populateSummary: function () {
+			var _this = this;
+			var contribs = _this.contribs;
+			var $smry = $( '#wpSummary' );
+			var contribstr = '';
+			for ( var cx in contribs ) {
+				var contrib = contribs[cx];
+				contribstr += contrib.username;
+				if ( cx + 1 < contribs.length ) {
+					contribstr += ', ';
+				}
+			}
+			$smry.val( $smry.val() + ' Contributors in EtherEditor: ' + contribstr );
+		},
+		/**
 		 * Adds some controls to the form specific to the extension.
 		*/
 		initializeControls: function () {
@@ -121,6 +138,24 @@
 				return false;
 			} );
 			$ctrls.append( $forkbtn );
+
+			var $contribbtn = $( '<button></button>' );
+			$contribbtn.html( mw.msg( 'ethereditor-contrib-button' ) );
+			$contribbtn.click( function () {
+				$.ajax( {
+					url: mw.util.wikiScript( 'api' ),
+					method: 'GET',
+					data: { format: 'json', action: 'GetContribs', padId: _this.dbId },
+					success: function( data ) {
+						_this.contribs = data.GetContribs.contribs;
+						_this.populateSummary();
+						return 0;
+					},
+					dataType: 'json'
+				} );
+				return false;
+			} );
+			$ctrls.append( $contribbtn );
 
 			_this.$textarea.before( $ctrls );
 		},
