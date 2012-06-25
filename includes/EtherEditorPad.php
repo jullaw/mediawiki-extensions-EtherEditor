@@ -32,12 +32,13 @@ class EtherEditorPad {
 	protected $epid;
 
 	/**
-	 * The revision off of which the pad is based; could be latest or not.
+	 * The etherpad-generated group ID for this pad.
+	 * This is used to authenticate users, so it's good to keep it around.
 	 *
-	 * @since 0.1.0
-	 * @var int
+	 * @since 0.2.0
+	 * @var string
 	 */
-	protected $baseRevision;
+	protected $groupId;
 
 	/**
 	 * The article being edited in the pad.
@@ -46,10 +47,10 @@ class EtherEditorPad {
 	 * @var string
 	 */
 	protected $baseRevision;
-	
+
 	/**
 	 * Whether the pad is public or not.
-	 * 
+	 *
 	 * @since 0.1.0
 	 * @var boolean
 	 */
@@ -62,33 +63,53 @@ class EtherEditorPad {
 	 *
 	 * @param integer $id
 	 * @param integer $epid
+	 * @param string  $groupId
 	 * @param string  $pageTitle
-	 * @param boolean $baseRevision
+	 * @param boolean $publicPad
 	 */
-	public function __construct( $id, $epid, $pageTitle, $baseRevision, $publicPad ) {
+	public function __construct( $id, $epid, $groupId, $pageTitle, $publicPad ) {
 		$this->id = $id;
 		$this->epid = $epid;
+		$this->groupId = $groupId;
 		$this->pageTitle = $pageTitle;
-		$this->baseRevision = $baseRevision;
 		$this->publicPad = $publicPad;
+		$this->writeToDB();
 	}
 
 	/**
-	 * Returns the public pad with specified title and revision, or a new pad if there is no such pad.
+	 * Returns the public pad with specified title,
+	 * or a new pad with the specified text if there is no such pad.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.0
 	 *
 	 * @param string $pageTitle
-	 * @param integer $baseRevision
+	 * @param string $text
 	 *
 	 * @return EtherEditorPad
 	 */
-	public static function newFromName( $pageTitle, $baseRevision = 0 ) {
+	public static function newFromNameAndText( $pageTitle, $text ) {
 		return self::newFromDB( array(
 			'page_title' => $pageTitle,
-			'base_revision' => $baseRevision,
 			'public_pad' => 1
-		) );
+		), $text );
+	}
+
+	/**
+	 * Returns a new pad with the same text as the old pad.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param string $padId the ID for the old pad
+	 *
+	 * @return EtherEditorPad
+	 */
+	public static function newFromOldPadId( $padId ) {
+		$oldPad = self::newFromId( $padId );
+		return self::newFromDB( array(
+			'pad_id' => -1,
+			'page_title' => $oldPad->getPageTitle(),
+			'public_pad' => 1
+		), $oldPad->getText() );
 	}
 
 	/**
@@ -106,17 +127,18 @@ class EtherEditorPad {
 
 	/**
 	 * Returns a new instance of EtherEditorPad built from a database result
-	 * obtained by doing a select with the provided conditions on the _pads table.
+	 * obtained by doing a select with the provided conditions on the pads table.
 	 * If no pad matches the conditions and the conditions cannot be artifically
 	 * met, false will be returned.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param array $conditions
+	 * @param array $conditions the stuff to put into the database
+	 * @param string $text the text to put into the pad right away
 	 *
 	 * @return EtherEditorPad or false
 	 */
-	protected static function newFromDB( array $conditions ) {
+	protected static function newFromDB( array $conditions, $text='' ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		$pad = $dbr->selectRow(
@@ -124,27 +146,42 @@ class EtherEditorPad {
 			array(
 				'pad_id',
 				'ep_pad_id',
+				'group_id',
 				'page_title',
-				'base_revision',
 				'public_pad'
 			),
 			$conditions
 		);
 
 		if ( !$pad ) {
-			return self::newRemotePad( $conditions );
+			$conditions['extra_title'] = '';
+			if ( isset( $conditions['pad_id'] ) && $conditions['pad_id'] == -1 ) {
+				unset( $conditions['pad_id'] );
+				$conditions['extra_title'] = time();
+			}
+			return self::newRemotePad( $conditions, $text );
 		}
 
 		return new self(
 			$pad->pad_id,
 			$pad->ep_pad_id,
+			$pad->group_id,
 			$pad->page_title,
-			$pad->base_revision,
 			$pad->public_pad
 		);
 	}
-	
-	protected static function newRemotePad( $conditions ) {
+
+	/**
+	 * Makes a new remote pad.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param array $conditions the stuff to put into the database
+	 * @param string $text the text to put into the pad right away
+	 *
+	 * @return EtherEditorPad or false
+	 */
+	protected static function newRemotePad( $conditions, $text='' ) {
 		global $wgEtherpadConfig;
 
 		$apiBackend = $wgEtherpadConfig['apiBackend'];
@@ -152,9 +189,46 @@ class EtherEditorPad {
 		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
 		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
 		$apiKey = $wgEtherpadConfig['apiKey'];
-		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		$padId = $conditions['page_title'] . $conditions['extra_title'];
 
-		
+		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
+		try {
+			$epClient->createGroupPad( $groupId, $padId, $text );
+		} catch ( Exception $e ) {
+			// this is just because the pad already exists, probably nothing to worry about
+		}
+		return new self(
+			null,
+			$groupId . '$' . $padId,
+			$groupId,
+			$conditions['page_title'],
+			$conditions['public_pad']
+		);
+	}
+
+	/**
+	 * Authenticates a user to the group.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @param User the user to authenticate
+	 *
+	 * @return sessionId or false
+	 */
+	public function authenticateUser( $user ) {
+		global $wgEtherpadConfig;
+
+		$apiBackend = $wgEtherpadConfig['apiBackend'];
+		$apiPort = $wgEtherpadConfig['apiPort'];
+		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
+		$apiKey = $wgEtherpadConfig['apiKey'];
+		$padId = $conditions['page_title'] . $conditions['extra_title'];
+
+		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
+		return $epClient->createSession( $this->groupId, $authorId, time() + 3600 )->sessionID;
 	}
 
 	/**
@@ -178,27 +252,16 @@ class EtherEditorPad {
 	public function getEpId() {
 		return $this->epid;
 	}
-	
+
 	/**
 	 * Returns the title of the page being edited in the pad.
-	 * 
+	 *
 	 * @since 0.1.0
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getPageTitle() {
 		return $this->pageTitle;
-	}
-
-	/**
-	 * Returns the revision being edited in the pad.
-	 * 
-	 * @since 0.1.0
-	 * 
-	 * @return string
-	 */
-	public function getBaseRevision() {
-		return $this->baseRevision;
 	}
 
 	/**
@@ -210,6 +273,37 @@ class EtherEditorPad {
 	 */
 	public function getIsPublic() {
 		return $this->publicPad;
+	}
+
+	/**
+	 * Returns the group ID for the pad.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return boolean
+	 */
+	public function getGroupId() {
+		return $this->groupId;
+	}
+
+	/**
+	 * Returns the text of the pad.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return string the text of the pad
+	 */
+	public function getText() {
+		global $wgEtherpadConfig;
+		$padId = $this->epid;
+		$groupId = $this->groupId;
+		$apiBackend = $wgEtherpadConfig['apiBackend'];
+		$apiPort = $wgEtherpadConfig['apiPort'];
+		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
+		$apiKey = $wgEtherpadConfig['apiKey'];
+		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		return $epClient->getText( $padId )->text;
 	}
 
 	/**
@@ -243,8 +337,8 @@ class EtherEditorPad {
 			'ethereditor_pads',
 			array(
 				'ep_pad_id' => $this->epid,
+				'group_id' => $this->groupId,
 				'page_title' => $this->pageTitle,
-				'base_revision' => $this->baseRevision,
 				'public_pad' => $this->publicPad,
 			),
 			__METHOD__,
@@ -272,12 +366,12 @@ class EtherEditorPad {
 			'ethereditor_pads',
 			array(
 				'ep_pad_id' => $this->epid,
+				'group_id' => $this->groupId,
 				'page_title' => $this->pageTitle,
-				'base_revision' => $this->baseRevision,
 				'public_pad' => $this->publicPad,
 			),
 			array( 'pad_id' => $this->id ),
-			__METHOD__ 
+			__METHOD__
 		);
 
 		return $success;
@@ -300,10 +394,33 @@ class EtherEditorPad {
 		$d1 = $dbw->delete(
 			'ethereditor_pads',
 			array( 'pad_id' => $this->id ),
-			__METHOD__ 
+			__METHOD__
 		);
 
 		return $d1;
 	}
 
+	/**
+	 * Get other pads for this page, if they exist
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return array Array of pad IDs
+	 */
+	public function getOtherPads() {
+		$dbr = wfGetDB( DB_SLAVE );
+
+		return $dbr->select(
+			'ethereditor_pads',
+			array(
+				'pad_id',
+				'ep_pad_id',
+				'group_id'
+			),
+			array(
+				'page_title' => $this->pageTitle,
+				'public_pad' => '1'
+			)
+		)->result;
+	}
 }

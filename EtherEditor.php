@@ -1,33 +1,34 @@
 <?php
 /**
  * EtherEditor extension
- * 
+ *
  * @file
  * @ingroup Extensions
- * 
- * @author Neil Kandalgaonkar <neilk@wikimedia.org>
+ *
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  * @license GPL v2 or later
- * @version 0.1.0
+ * @version 0.2.0
  */
- 
+
 
 /* Setup */
 
 $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'EtherEditor',
-	'author' => array( 'Neil Kandalgaonkar', 'Mark Holmquist' ),
-	'version' => '0.1.0',
+	'author' => array( 'Mark Holmquist' ),
+	'version' => '0.2.0',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:EtherEditor',
 	'descriptionmsg' => 'ethereditor-desc',
 );
 $dir = dirname( __FILE__ );
 
 $wgAutoloadClasses['EtherEditorHooks'] = $dir . '/EtherEditorHooks.php';
-$wgAutoloadClasses['EtherEditorPad'] = $dir . '/includes/EtherEditorpad.php';
+$wgAutoloadClasses['EtherEditorPad'] = $dir . '/includes/EtherEditorPad.php';
 $wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/EtherpadLiteClient.php';
-$wgAutoloadClasses['ApiEtherEditor'] = $dir . '/ApiEtherEditor.php';
+$wgAutoloadClasses['GetEtherPadText'] = $dir . '/GetEtherPadText.php';
+$wgAutoloadClasses['ForkEtherPad'] = $dir . '/ForkEtherPad.php';
+$wgAutoloadClasses['EtherPadAuth'] = $dir . '/EtherPadAuth.php';
 
 $etherEditorTpl = array(
 	'localBasePath' => $dir . '/modules',
@@ -41,7 +42,12 @@ $wgResourceModules += array(
 	),
 
     'ext.etherEditor' => $etherEditorTpl + array(
-		'scripts' => 'ext.etherEditor.js',
+		'scripts' => array(
+			'ext.etherEditor.js',
+		),
+		'messages' => array(
+			'ethereditor-fork-button',
+		),
 		'dependencies' => array(
 			'jquery.etherpad',
 			'jquery.cookie',
@@ -56,5 +62,6 @@ $wgHooks['ArticleSaveComplete'][] = 'EtherEditorHooks::saveComplete';
 $wgHooks['GetPreferences'][] = 'EtherEditorHooks::getPreferences';
 $wgHooks['SkinTemplateNavigation'][] = 'EtherEditorHooks::onSkinTemplateNavigation';
 
-$wgAPIModules['ApiEtherEditor'] = 'ApiEtherEditor';
-
+$wgAPIModules['GetEtherPadText'] = 'GetEtherPadText';
+$wgAPIModules['ForkEtherPad'] = 'ForkEtherPad';
+$wgAPIModules['EtherPadAuth'] = 'EtherPadAuth';

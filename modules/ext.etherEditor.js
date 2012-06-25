@@ -8,11 +8,11 @@
  *
  */
 
-( function( $, mw ) { 
+( function( $, mw ) {
 
 	/**
 	 * Creates a new remote editor object
-	 * 
+	 *
 	 * @param {HTMLTextAreaElement} (can be jQuery-wrapped)
 	 */
 	function remoteEditor( textarea ) {
@@ -22,21 +22,15 @@
 
 		var _this = this;
 		this.$textarea = $( textarea );
-		var userName = mw.config.get( 'wgUserName' );
-		var hostname = mw.config.get( 'wgEtherEditorApiHost' );
-		if ( hostname ) {
-			hostname += ':' + ( mw.config.get( 'wgEtherEditorApiPort' ) || '9001' );
-		} else {
-			hostname = 'localhost:9001';
-		}
-		var baseUrl = mw.config.get( 'wgEtherEditorPadUrl' );
-		var padId = mw.config.get( 'wgEtherEditorPadName' );
-		var sessionId = mw.config.get( 'wgEtherEditorSessionId' );
-		if ( !padId || !sessionId ) {
+		_this.userName = mw.config.get( 'wgUserName' );
+		_this.hostname = _this.getHostName();
+		_this.baseUrl = mw.config.get( 'wgEtherEditorPadUrl' );
+		_this.padId = mw.config.get( 'wgEtherEditorPadName' );
+		_this.dbId = mw.config.get( 'wgEtherEditorDbId' );
+		_this.sessionId = mw.config.get( 'wgEtherEditorSessionId' );
+		if ( !_this.padId || !_this.sessionId ) {
 			return false; // there was an error, clearly, so let's quit
 		}
-
-		$.cookie( 'sessionID', sessionId, { domain: mw.config.get( 'wgEtherEditorApiHost' ), path: '/' } );
 
 		this.hasSubmitted = false;
 
@@ -49,46 +43,134 @@
 				$.ajax( {
 					url: mw.util.wikiScript( 'api' ),
 					method: 'GET',
-					data: { format: 'json', action: 'ApiEtherEditor', padId: padId },
+					data: { format: 'json', action: 'GetEtherPadText', padId: _this.dbId },
 					success: function( data ) {
-						_this.$textarea.html( data.ApiEtherEditor.text );
+						_this.$textarea.html( data.GetEtherPadText.text );
 						$( __this ).click();
 						return 0;
-					},
-					xhrFields: {
-						withCredentials: true
 					},
 					dataType: 'json'
 				} );
 				return 0;
 			}
 		} );
-		
+
 		this.$textarea.after( $( '<input type="hidden" name="enableether" value="true" />' ) );
 
-		this.$textarea.pad( {
-			padId: padId,
-			baseUrl: baseUrl,
-			hideQRCode: true,
-			host: 'http://' + hostname,
-			showControls: true,
-			showLineNumbers: false,
-			showChat: true,
-			noColors: false,
-			useMonospaceFont: true,
-			userName: userName,
-			height: this.$textarea.height(),
-			width: this.$textarea.width(),
-			border: 1,
-			borderStyle: 'solid grey'
-		} );
+		this.initializePad();
+		this.initializeControls();
+		this.initializePadList();
 
 		$( '#wikiEditor-ui-toolbar' ).add( '#toolbar' ).hide();
 	};
-	
+
 	remoteEditor.prototype = {
-		// this stuff was removed to test the jquery plugin, presumably it can do
-		// everything we need, so no need to mess around with this stuff.
+		/**
+		 * Get the hostname for the Etherpad Lite instance
+		 */
+		getHostName: function () {
+			var hostname = mw.config.get( 'wgEtherEditorApiHost' );
+			if ( hostname ) {
+				hostname += ':' + ( mw.config.get( 'wgEtherEditorApiPort' ) || '9001' );
+			} else {
+				hostname = 'localhost:9001';
+			}
+			return hostname;
+		},
+		/**
+		 * Authenticate the current user to the current pad.
+		 *
+		 * @param function cb the callback for after the authentication is done
+		 */
+		authenticateUser: function ( cb ) {
+			var _this = this;
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: { format: 'json', action: 'EtherPadAuth', padId: _this.dbId },
+				success: function( data ) {
+					_this.sessionId = data.EtherPadAuth.sessionId;
+					cb();
+					return 0;
+				},
+				dataType: 'json'
+			} );
+		},
+		/**
+		 * Adds some controls to the form specific to the extension.
+		*/
+		initializeControls: function () {
+			var _this = this;
+			var $ctrls = $( '<div></div>' );
+
+			var $forkbtn = $( '<button></button>' );
+			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
+			$forkbtn.click( function () {
+				$.ajax( {
+					url: mw.util.wikiScript( 'api' ),
+					method: 'GET',
+					data: { format: 'json', action: 'ForkEtherPad', padId: _this.dbId },
+					success: function( data ) {
+						_this.padId = data.ForkEtherPad.padId;
+						_this.sessionId = data.ForkEtherPad.sessionId;
+						_this.initializePad();
+						return 0;
+					},
+					dataType: 'json'
+				} );
+				return false;
+			} );
+			$ctrls.append( $forkbtn );
+
+			_this.$textarea.before( $ctrls );
+		},
+		/**
+		 * Adds a list of other pads to the page, so you can have multiple.
+		*/
+		initializePadList: function () {
+			var _this = this;
+			var pads = mw.config.get( 'wgEtherEditorOtherPads' );
+			if ( pads && pads.length ) {
+				var $select = $( '<select></select>' );
+				for ( var px in pads ) {
+					var pad = pads[px];
+					var $option = $( '<option></option>' );
+					$option.html( pad.ep_pad_id );
+					$option.val( pad.pad_id );
+					$select.append( $option );
+				}
+				$select.change( function () {
+					_this.padId = $( 'option:selected', $( this ) ).html();
+					_this.dbId = $( 'option:selected', $( this ) ).val();
+					_this.authenticateUser( function () {
+						_this.initializePad();
+					} );
+				} );
+				_this.$textarea.before( $select );
+			}
+		},
+		/**
+		 * Initializes the pad.
+		*/
+		initializePad: function () {
+			$.cookie( 'sessionID', this.sessionId, { domain: mw.config.get( 'wgEtherEditorApiHost' ), path: '/' } );
+			this.$textarea.pad( {
+				padId: this.padId,
+				baseUrl: this.baseUrl,
+				hideQRCode: true,
+				host: 'http://' + this.hostname,
+				showControls: true,
+				showLineNumbers: false,
+				showChat: true,
+				noColors: false,
+				useMonospaceFont: true,
+				userName: this.userName,
+				height: this.$textarea.height(),
+				width: this.$textarea.width(),
+				border: 1,
+				borderStyle: 'solid grey'
+			} );
+		}
 	};
 
 	$.fn.remoteEditor = function() {
@@ -97,7 +179,7 @@
 			var editor = new remoteEditor( textarea );
 		} );
 	};
-	
+
 	$( '#wpTextbox1' ).remoteEditor();
 
 } )( jQuery, mediaWiki );

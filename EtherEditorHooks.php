@@ -1,7 +1,7 @@
 <?php
 /**
  * Hooks for EtherEditor extension
- * 
+ *
  * @file
  * @ingroup Extensions
  */
@@ -9,24 +9,23 @@
 class EtherEditorHooks {
 	/**
 	 * Abstraction of all possible ways to enable the EtherEditor
-	 * 
+	 *
 	 * @since 0.1.0
-	 * 
+	 *
 	 * @param OutputPage $output
 	 * @returns boolean
 	 */
-	protected static function isUsingEther( $output ) {
-		global $wgUser;
-		return ( $wgUser->isLoggedIn()
-			&& $wgUser->getBoolOption( 'ethereditor_enableether' )
+	protected static function isUsingEther( $output, $user ) {
+		return ( $user->isLoggedIn()
+			&& $user->getBoolOption( 'ethereditor_enableether' )
 			|| $output->getRequest()->getCheck( 'enableether' ) );
 	}
 
 	/**
 	 * ArticleSaveComplete hook
-	 * 
+	 *
 	 * @since 0.0.1
-	 * 
+	 *
 	 * @param Article $article needed to find the title
 	 * @param User $user
 	 * @param string $text
@@ -39,12 +38,12 @@ class EtherEditorHooks {
 	 * @param Status $status
 	 * @param integer $baseRevId need this to find the padId
 	 * @param boolean $redirect
-	 * 
+	 *
 	 */
 	public static function saveComplete( &$article, &$user, $text, $summary, $minoredit,
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		global $wgOut;
-		if ( self::isUsingEther( $wgOut ) ) {
+		if ( self::isUsingEther( $wgOut, $user ) ) {
 			global $wgUser, $wgEtherpadConfig;
 			$apiBackend = $wgEtherpadConfig['apiBackend'];
 			$apiPort = $wgEtherpadConfig['apiPort'];
@@ -54,11 +53,12 @@ class EtherEditorHooks {
 			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
 
 			$title = $article->getTitle();
-			if ( ! $baseRevId ) {
-				$baseRevId = 0;
-			}
+
 			$padId = $title->getPrefixedURL();
-			$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
+			$epPad = EtherEditorPad::newFromNameAndText( $padId, $text );
+
+			$groupId = $epPad->getGroupId();
+			$groupPadId = $groupId . '$' . $padId;
 			$sessions = $epClient->listSessionsOfGroup( $groupId );
 			$hasSession = false;
 			$userId = $wgUser->getId();
@@ -70,33 +70,25 @@ class EtherEditorHooks {
 					$hasSession = true;
 				}
 			}
-			if ( !$hasSession ) {
-				try {
-					$epClient->deletePad( $groupId . '$' . $padId );
-					$epClient->deleteGroup( $padId );
-				} catch ( Exception $e ) {
-					// this is just because the pad doesn't exist, probably nothing to worry about
-				}
-			}
 		}
 		return true;
 	}
 
 	/**
 	 * EditPage::showEditForm:initial hook
-	 * 
+	 *
 	 * Adds the modules to the edit form
 	 * Creates an etherpad if necessary
-	 * 
+	 *
 	 * @since 0.0.1
-	 * 
+	 *
 	 * @param $editPage page being edited
 	 * @param $output output for the edit page
 	 */
 	public static function editPageShowEditFormInitial( $editPage, $output ) {
 		global $wgOut, $wgEtherpadConfig, $wgUser;
 
-		if ( self::isUsingEther( $output ) ) {
+		if ( self::isUsingEther( $output, $wgUser ) ) {
 			$apiHost = $wgEtherpadConfig['apiHost'];
 			$apiBackend = $wgEtherpadConfig['apiBackend'];
 			$apiPort = $wgEtherpadConfig['apiPort'];
@@ -104,29 +96,22 @@ class EtherEditorHooks {
 			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
 			$apiKey = $wgEtherpadConfig['apiKey'];
 			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
-			$userId = $wgUser->getId();
 
 			$title = $editPage->getTitle();
 			$text = $editPage->getContent();
 			$padId = $title->getPrefixedURL();
-			$authorResult = $epClient->createAuthorIfNotExistsFor( $userId, $wgUser->getName() );
-			$authorId = $authorResult->authorID;
-			$groupResult = $epClient->createGroupIfNotExistsFor( $padId );
-			$groupId = $groupResult->groupID;
-			$sessionResult = $epClient->createSession( $groupId, $authorId, time() + 3600 );
-			$sessionId = $sessionResult->sessionID;
-			$groupPadId = $groupId . '$' . $padId;
-			try {
-				$epClient->createGroupPad( $groupId, $padId, $text );
-			} catch ( Exception $e ) {
-				// this is just because the pad already exists, probably nothing to worry about
-			}
+
+			$epPad = EtherEditorPad::newFromNameAndText( $padId, $text );
+			$sessionId = $epPad->authenticateUser( $wgUser );
+
 			$output->addJsConfigVars( array(
+				'wgEtherEditorDbId' => $epPad->getId(),
+				'wgEtherEditorOtherPads' => $epPad->getOtherPads(),
 				'wgEtherEditorApiHost' => $apiHost,
 				'wgEtherEditorApiPort' => $apiPort,
 				'wgEtherEditorApiBaseUrl' => $apiBaseUrl,
 				'wgEtherEditorPadUrl' => $wgEtherpadConfig['pUrl'],
-				'wgEtherEditorPadName' => $groupPadId,
+				'wgEtherEditorPadName' => $epPad->getEpId(),
 				'wgEtherEditorSessionId' => $sessionId ) );
 			$wgOut->addModules( 'ext.etherEditor' );
 		}
@@ -136,9 +121,9 @@ class EtherEditorHooks {
 
 	/**
 	 * GetPreferences hook
-	 * 
+	 *
 	 * Adds EtherEditor-releated items to the preferences
-	 * 
+	 *
 	 * @param $user User current user
 	 * @param $preferences array list of default user preference controls
 	 */
@@ -161,6 +146,11 @@ class EtherEditorHooks {
 	 */
 	public static function onSchemaUpdate( $updater = null ) {
 		$updater->addExtensionTable( 'ethereditor_pads', dirname( __FILE__ ) . '/EtherEditor.sql' );
+
+		// Add the group_id field
+		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'group_id',
+			dirname( __FILE__ ) . '/EtherEditor.patch.sql', true ) );
+
 		return true;
 	}
 

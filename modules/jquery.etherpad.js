@@ -23,14 +23,16 @@
       'toggleTextOn'      : 'Disable Rich-text',
       'toggleTextOff'     : 'Enable Rich-text'
     };
-    
+
     var $self = this;
     if (!$self.length) return;
     if (!$self.attr('id')) throw new Error('No "id" attribute');
-    
+
     var useValue = $self.is( 'textarea' );
     var selfId = $self.attr('id');
     var epframeId = 'epframe'+ selfId;
+    var $other = $( '#' + epframeId );
+    $other.remove();
     // This writes a new frame if required
     if ( !options.getContents ) {
       if ( options ) {
@@ -56,20 +58,20 @@
   //          iFrameLink += '; width:'+settings.width;
   //          iFrameLink += '; height:'+settings.height;
             iFrameLink += ';" width="'+ '100%';//settings.width;
-            iFrameLink += '" height="'+ settings.height; 
+            iFrameLink += '" height="'+ settings.height;
             iFrameLink += '"></iframe>';
-        
-        
+
+
         var $iFrameLink = $(iFrameLink);
-        
+
         if (useValue) {
           $self.hide().after($iFrameLink);
         }
-        else {      
+        else {
           $self.html($iFrameLink);
         }
       };
-      
+
       setupEp();
     }
 
@@ -78,8 +80,8 @@
       // since I already monkeyed around with it, I figured it's best to just
       // remove this part.
     }
-    
-    
+
+
     return $self;
   };
 })( jQuery );
