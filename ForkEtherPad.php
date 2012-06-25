@@ -30,6 +30,11 @@ class ForkEtherPad extends ApiBase {
 		);
 		$result->addValue(
 			array( 'ForkEtherPad' ),
+			'dbId',
+			$epPad->getId()
+		);
+		$result->addValue(
+			array( 'ForkEtherPad' ),
 			'sessionId',
 			$sessionId
 		);
@@ -68,4 +73,3 @@ class ForkEtherPad extends ApiBase {
 		return __CLASS__ . ': 0.2.1';
 	}
 }
-

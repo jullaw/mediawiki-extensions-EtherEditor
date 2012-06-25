@@ -129,6 +129,7 @@
 					data: { format: 'json', action: 'ForkEtherPad', padId: _this.dbId },
 					success: function( data ) {
 						_this.padId = data.ForkEtherPad.padId;
+						_this.dbId = data.ForkEtherPad.dbId;
 						_this.sessionId = data.ForkEtherPad.sessionId;
 						_this.initializePad();
 						return 0;

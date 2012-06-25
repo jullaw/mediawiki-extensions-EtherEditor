@@ -225,7 +225,6 @@ class EtherEditorPad {
 		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
 		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
 		$apiKey = $wgEtherpadConfig['apiKey'];
-		$padId = $conditions['page_title'] . $conditions['extra_title'];
 
 		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
 		$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
