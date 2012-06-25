@@ -142,7 +142,7 @@ class EtherEditorPad {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		$pad = $dbr->selectRow(
-			$wgDBprefix . 'ethereditor_pads',
+			'ethereditor_pads',
 			array(
 				'pad_id',
 				'ep_pad_id',
@@ -247,7 +247,7 @@ class EtherEditorPad {
 	protected function addToContribs( $username, $authorId ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$contrib = $dbr->selectRow(
-			$wgDBprefix . 'ethereditor_contribs',
+			'ethereditor_contribs',
 			array(
 				'contrib_id',
 				'username'
@@ -262,7 +262,7 @@ class EtherEditorPad {
 			$dbw = wfGetDB( DB_MASTER );
 
 			return $dbw->insert(
-				$wgDBprefix . 'ethereditor_contribs',
+				'ethereditor_contribs',
 				array(
 					'pad_id' => $this->id,
 					'username' => $username,
@@ -378,7 +378,7 @@ class EtherEditorPad {
 		$dbw = wfGetDB( DB_MASTER );
 
 		$success = $dbw->insert(
-			$wgDBprefix . 'ethereditor_pads',
+			'ethereditor_pads',
 			array(
 				'ep_pad_id' => $this->epid,
 				'group_id' => $this->groupId,
@@ -407,7 +407,7 @@ class EtherEditorPad {
 		$dbw = wfGetDB( DB_MASTER );
 
 		$success = $dbw->update(
-			$wgDBprefix . 'ethereditor_pads',
+			'ethereditor_pads',
 			array(
 				'ep_pad_id' => $this->epid,
 				'group_id' => $this->groupId,
@@ -436,7 +436,7 @@ class EtherEditorPad {
 		$dbw = wfGetDB( DB_MASTER );
 
 		$d1 = $dbw->delete(
-			$wgDBprefix . 'ethereditor_pads',
+			'ethereditor_pads',
 			array( 'pad_id' => $this->id ),
 			__METHOD__
 		);
@@ -455,7 +455,7 @@ class EtherEditorPad {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		return $dbr->select(
-			$wgDBprefix . 'ethereditor_pads',
+			'ethereditor_pads',
 			array(
 				'pad_id',
 				'ep_pad_id',
@@ -479,7 +479,7 @@ class EtherEditorPad {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		return $dbr->select(
-			$wgDBprefix . 'ethereditor_contribs',
+			'ethereditor_contribs',
 			array(
 				'contrib_id',
 				'username'
