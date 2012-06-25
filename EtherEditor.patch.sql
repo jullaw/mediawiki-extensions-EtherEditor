@@ -3,4 +3,4 @@
 -- Author: Mark Holmquist < mtraceur@member.fsf.org >
 
 -- Add group_id
-ALTER TABLE ethereditor_pads ADD COLUMN group_id VARCHAR(18) NOT NULL DEFAULT '';
+ALTER TABLE /*$wgDBprefix*/ethereditor_pads ADD COLUMN group_id VARCHAR(18) NOT NULL DEFAULT '';
