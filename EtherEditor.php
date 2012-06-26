@@ -25,11 +25,11 @@ $dir = dirname( __FILE__ );
 
 $wgAutoloadClasses['EtherEditorHooks'] = $dir . '/EtherEditorHooks.php';
 $wgAutoloadClasses['EtherEditorPad'] = $dir . '/includes/EtherEditorPad.php';
-$wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/EtherpadLiteClient.php';
-$wgAutoloadClasses['GetEtherPadText'] = $dir . '/GetEtherPadText.php';
-$wgAutoloadClasses['ForkEtherPad'] = $dir . '/ForkEtherPad.php';
-$wgAutoloadClasses['EtherPadAuth'] = $dir . '/EtherPadAuth.php';
-$wgAutoloadClasses['GetContribs'] = $dir . '/GetContribs.php';
+$wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/includes/EtherpadLiteClient.php';
+$wgAutoloadClasses['GetEtherPadText'] = $dir . '/api/GetEtherPadText.php';
+$wgAutoloadClasses['ForkEtherPad'] = $dir . '/api/ForkEtherPad.php';
+$wgAutoloadClasses['EtherPadAuth'] = $dir . '/api/EtherPadAuth.php';
+$wgAutoloadClasses['GetContribs'] = $dir . '/api/GetContribs.php';
 
 $etherEditorTpl = array(
 	'localBasePath' => $dir . '/modules',

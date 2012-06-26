@@ -145,11 +145,11 @@ class EtherEditorHooks {
 	 * @return true
 	 */
 	public static function onSchemaUpdate( $updater = null ) {
-		$updater->addExtensionTable( 'ethereditor_pads', dirname( __FILE__ ) . '/EtherEditor.sql' );
+		$updater->addExtensionTable( 'ethereditor_pads', dirname( __FILE__ ) . '/sql/EtherEditor.sql' );
 
 		// Add the group_id field
 		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'group_id',
-			dirname( __FILE__ ) . '/EtherEditor.patch.sql', true ) );
+			dirname( __FILE__ ) . '/sql/AddGroupId.patch.sql', true ) );
 
 		return true;
 	}
