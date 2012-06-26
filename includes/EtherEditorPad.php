@@ -484,7 +484,7 @@ class EtherEditorPad {
 				'public_pad' => '1'
 			),
 			__METHOD__
-		)->result );
+		) );
 	}
 
 	/**
@@ -508,6 +508,6 @@ class EtherEditorPad {
 				'has_contributed' => 1
 			),
 			__METHOD__
-		)->result );
+		) );
 	}
 }
