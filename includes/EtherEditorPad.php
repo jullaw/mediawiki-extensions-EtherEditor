@@ -482,7 +482,8 @@ class EtherEditorPad {
 			array(
 				'page_title' => $this->pageTitle,
 				'public_pad' => '1'
-			)
+			),
+			__METHOD__
 		)->result );
 	}
 
@@ -505,7 +506,8 @@ class EtherEditorPad {
 			array(
 				'pad_id' => $this->id,
 				'has_contributed' => 1
-			)
+			),
+			__METHOD__
 		)->result );
 	}
 }
