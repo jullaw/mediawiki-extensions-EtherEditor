@@ -11,6 +11,24 @@
  * @license GNU GPL v2+
  * @author Mark Holmquist < mtraceur@member.fsf.org >
  */
+
+/**
+ * Utility function for converting a database result to an array for JSON
+ *
+ * @since 0.2.2
+ *
+ * @param ResultWrapper $result the result object
+ *
+ * @return array an array of associative arrays of the results
+ */
+function resToArray( $result ) {
+	$arr = array();
+	foreach ( $result as $row ) {
+		$arr[] = $row;
+	}
+	return $arr;
+}
+
 class EtherEditorPad {
 
 	/**
@@ -454,7 +472,7 @@ class EtherEditorPad {
 	public function getOtherPads() {
 		$dbr = wfGetDB( DB_SLAVE );
 
-		return $dbr->select(
+		return resToArray( $dbr->select(
 			'ethereditor_pads',
 			array(
 				'pad_id',
@@ -465,7 +483,7 @@ class EtherEditorPad {
 				'page_title' => $this->pageTitle,
 				'public_pad' => '1'
 			)
-		)->result;
+		)->result );
 	}
 
 	/**
@@ -478,7 +496,7 @@ class EtherEditorPad {
 	public function getContribs() {
 		$dbr = wfGetDB( DB_SLAVE );
 
-		return $dbr->select(
+		return resToArray( $dbr->select(
 			'ethereditor_contribs',
 			array(
 				'contrib_id',
@@ -488,6 +506,6 @@ class EtherEditorPad {
 				'pad_id' => $this->id,
 				'has_contributed' => 1
 			)
-		)->result;
+		)->result );
 	}
 }
