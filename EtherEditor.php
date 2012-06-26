@@ -30,6 +30,7 @@ $wgAutoloadClasses['GetEtherPadText'] = $dir . '/api/GetEtherPadText.php';
 $wgAutoloadClasses['ForkEtherPad'] = $dir . '/api/ForkEtherPad.php';
 $wgAutoloadClasses['EtherPadAuth'] = $dir . '/api/EtherPadAuth.php';
 $wgAutoloadClasses['GetContribs'] = $dir . '/api/GetContribs.php';
+$wgAutoloadClasses['KickFromPad'] = $dir . '/api/KickFromPad.php';
 
 $etherEditorTpl = array(
 	'localBasePath' => $dir . '/modules',
@@ -49,6 +50,7 @@ $wgResourceModules += array(
 		'messages' => array(
 			'ethereditor-fork-button',
 			'ethereditor-contrib-button',
+			'ethereditor-kick-button',
 		),
 		'dependencies' => array(
 			'jquery.etherpad',
@@ -68,3 +70,4 @@ $wgAPIModules['GetEtherPadText'] = 'GetEtherPadText';
 $wgAPIModules['ForkEtherPad'] = 'ForkEtherPad';
 $wgAPIModules['EtherPadAuth'] = 'EtherPadAuth';
 $wgAPIModules['GetContribs'] = 'GetContribs';
+$wgAPIModules['KickFromPad'] = 'KickFromPad';

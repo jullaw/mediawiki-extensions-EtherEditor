@@ -59,12 +59,12 @@ class EtherEditorPad {
 	protected $groupId;
 
 	/**
-	 * The article being edited in the pad.
+	 * The admin of this pad.
 	 *
-	 * @since 0.1.0
+	 * @since 0.2.2
 	 * @var string
 	 */
-	protected $baseRevision;
+	protected $adminUser;
 
 	/**
 	 * Whether the pad is public or not.
@@ -85,11 +85,12 @@ class EtherEditorPad {
 	 * @param string  $pageTitle
 	 * @param boolean $publicPad
 	 */
-	public function __construct( $id, $epid, $groupId, $pageTitle, $publicPad ) {
+	public function __construct( $id, $epid, $groupId, $pageTitle, $adminUser, $publicPad ) {
 		$this->id = $id;
 		$this->epid = $epid;
 		$this->groupId = $groupId;
 		$this->pageTitle = $pageTitle;
+		$this->adminUser = $adminUser;
 		$this->publicPad = $publicPad;
 		$this->writeToDB();
 	}
@@ -118,14 +119,16 @@ class EtherEditorPad {
 	 * @since 0.2.0
 	 *
 	 * @param string $padId the ID for the old pad
+	 * @param User $user the user who will be administrator
 	 *
 	 * @return EtherEditorPad
 	 */
-	public static function newFromOldPadId( $padId ) {
+	public static function newFromOldPadId( $padId, $user ) {
 		$oldPad = self::newFromId( $padId );
 		return self::newFromDB( array(
 			'pad_id' => -1,
 			'page_title' => $oldPad->getPageTitle(),
+			'admin_user' => $user->getName(),
 			'public_pad' => 1
 		), $oldPad->getText() );
 	}
@@ -166,6 +169,7 @@ class EtherEditorPad {
 				'ep_pad_id',
 				'group_id',
 				'page_title',
+				'admin_user',
 				'public_pad'
 			),
 			$conditions
@@ -185,6 +189,7 @@ class EtherEditorPad {
 			$pad->ep_pad_id,
 			$pad->group_id,
 			$pad->page_title,
+			$pad->admin_user,
 			$pad->public_pad
 		);
 	}
@@ -216,11 +221,15 @@ class EtherEditorPad {
 		} catch ( Exception $e ) {
 			// this is just because the pad already exists, probably nothing to worry about
 		}
+		if ( !isset( $conditions['admin_user'] ) ) {
+			$conditions['admin_user'] = '';
+		}
 		return new self(
 			null,
 			$groupId . '$' . $padId,
 			$groupId,
 			$conditions['page_title'],
+			$conditions['admin_user'],
 			$conditions['public_pad']
 		);
 	}
@@ -236,20 +245,97 @@ class EtherEditorPad {
 	 * @return sessionId or false
 	 */
 	public function authenticateUser( $user ) {
-		global $wgEtherpadConfig;
+		if ( !$this->isKicked( $user ) ) {
+			global $wgEtherpadConfig;
 
-		$apiBackend = $wgEtherpadConfig['apiBackend'];
-		$apiPort = $wgEtherpadConfig['apiPort'];
-		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-		$apiKey = $wgEtherpadConfig['apiKey'];
+			$apiBackend = $wgEtherpadConfig['apiBackend'];
+			$apiPort = $wgEtherpadConfig['apiPort'];
+			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
+			$apiKey = $wgEtherpadConfig['apiKey'];
 
-		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
-		$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
+			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+			$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
 
-		$this->addToContribs( $user->getName(), $authorId );
+			$this->addToContribs( $user->getName(), $authorId );
 
-		return $epClient->createSession( $this->groupId, $authorId, time() + 3600 )->sessionID;
+			return $epClient->createSession( $this->groupId, $authorId, time() + 3600 )->sessionID;
+		}
+		return false;
+	}
+
+	/**
+	 * Kicks a user from the pad.
+	 * Also removes them from the list of collaborators in the database
+	 *
+	 * @since 0.2.2
+	 *
+	 * @param User the user doing the kicking
+	 * @param User the user to kick
+	 *
+	 * @return sessionId or false
+	 */
+	public function kickUser( $user, $kickuser ) {
+		$isAdmin = $this->isAdmin( $user );
+		if ( $isAdmin ) {
+			if ( !$kickuser || $this->isKicked( $kickuser ) ) {
+				return true;
+			}
+			global $wgEtherpadConfig;
+
+			$apiBackend = $wgEtherpadConfig['apiBackend'];
+			$apiPort = $wgEtherpadConfig['apiPort'];
+			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
+			$apiKey = $wgEtherpadConfig['apiKey'];
+			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+
+			$authorId = $epClient->createAuthorIfNotExistsFor( $kickuser->getId(), $kickuser->getName() )->authorID;
+			$sessions = (array) $epClient->listSessionsOfAuthor( $authorId );
+			foreach ( $sessions as $sid => $sess ) {
+				if ( $sess->groupID == $this->groupId ) {
+					$epClient->deleteSession( $sid );
+				}
+			}
+
+			$this->removeFromContribs( $kickuser->getName() );
+		}
+		return $isAdmin; // The user not being admin is the only possible error
+	}
+
+	/**
+	 * Check whether a user is admin
+	 *
+	 * @since 0.2.2
+	 *
+	 * @param User the user to check
+	 *
+	 * @return boolean
+	 */
+	protected function isAdmin( $user ) {
+		return $this->adminUser == $user->getName();
+	}
+
+	/**
+	 * Check whether a user is kicked
+	 *
+	 * @since 0.2.2
+	 *
+	 * @param User the user to check
+	 *
+	 * @return boolean
+	 */
+	protected function isKicked( $user ) {
+		$dbr = wfGetDB( DB_SLAVE );
+		$contrib = $dbr->selectField(
+			'ethereditor_contribs',
+			'kicked',
+			array(
+				'pad_id' => $this->id,
+				'username' => $user->getName()
+			)
+		);
+		return $contrib != 0;
 	}
 
 	/**
@@ -291,6 +377,34 @@ class EtherEditorPad {
 			);
 		}
 		return true;
+	}
+
+	/**
+	 * Removes a user from the list of contributors
+	 *
+	 * @since 0.2.2
+	 *
+	 * @param string the username to remove
+	 * @param string the authorId returned by Etherpad
+	 *
+	 * @return boolean success indicator
+	 */
+	protected function removeFromContribs( $username ) {
+		$dbw = wfGetDB( DB_MASTER );
+
+		$d1 = $dbw->update(
+			'ethereditor_contribs',
+			array(
+				'kicked' => 1
+			),
+			array(
+				'pad_id' => $this->id,
+				'username' => $username
+			),
+			__METHOD__
+		);
+
+		return $d1;
 	}
 
 	/**
@@ -401,6 +515,7 @@ class EtherEditorPad {
 				'ep_pad_id' => $this->epid,
 				'group_id' => $this->groupId,
 				'page_title' => $this->pageTitle,
+				'admin_user' => $this->adminUser,
 				'public_pad' => $this->publicPad,
 			),
 			__METHOD__,
@@ -430,6 +545,7 @@ class EtherEditorPad {
 				'ep_pad_id' => $this->epid,
 				'group_id' => $this->groupId,
 				'page_title' => $this->pageTitle,
+				'admin_user' => $this->adminUser,
 				'public_pad' => $this->publicPad,
 			),
 			array( 'pad_id' => $this->id ),
@@ -477,6 +593,7 @@ class EtherEditorPad {
 			array(
 				'pad_id',
 				'ep_pad_id',
+				'admin_user',
 				'group_id'
 			),
 			array(

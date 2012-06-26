@@ -17,6 +17,7 @@ $messages['en'] = array(
 	'ethereditor-collaborate-button' => 'Collaborate',
     'ethereditor-fork-button' => 'Fork this pad',
     'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
+    'ethereditor-kick-button' => 'Kick User',
 );
 
 /** Message documentation (Message documentation)
@@ -28,6 +29,7 @@ $messages['qqq'] = array(
 	'ethereditor-collaborate-button' => 'A button at the top of the page (near read/edit) that invites the user to collaborate with others.',
     'ethereditor-fork-button' => 'A button above the textarea that allows the user to create a separate pad.',
     'ethereditor-contrib-button' => 'A button that will populate the edit summary with the list of contributors saved in the database.',
+    'ethereditor-kick-button' => 'A button that will kick a user from the current Etherpad instance.',
 );
 
 /** German (Deutsch)

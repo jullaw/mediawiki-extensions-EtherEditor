@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS /*$wgDBprefix*/ethereditor_pads (
   ep_pad_id                VARCHAR(255)        NOT NULL,
   group_id                 VARCHAR(18)         NOT NULL,
   page_title               VARCHAR(255)        NOT NULL,
+  admin_user               VARCHAR(255)        NOT NULL,
   public_pad               TINYINT             NOT NULL default '1'
 ) /*$wgDBTableOptions*/;
 

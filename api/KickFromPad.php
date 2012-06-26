@@ -1,42 +1,29 @@
 <?php
 /**
- * API module to fork Etherpads
+ * API module to kick users from Etherpad instances
  *
- * @file ForkEtherPad.php
+ * @file EtherPadAuth.php
  * @ingroup API
  *
  * @license GNU GPL v2+
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
 
-class ForkEtherPad extends ApiBase {
+class KickFromPad extends ApiBase {
 	public function __construct ( $main, $action ) {
 		parent::__construct( $main, $action );
 	}
 
 	public function execute() {
-		global $wgUser, $wgEtherpadConfig;
+		global $wgUser;
 		$params = $this->extractRequestParams();
-		$data = array();
 		$result = $this->getResult();
-		$padId = $params['padId'];
-		$epPad = EtherEditorPad::newFromOldPadId( $padId, $wgUser );
-		$sessionId = $epPad->authenticateUser( $wgUser );
+		$epPad = EtherEditorPad::newFromId( $params['padId'] );
 
 		$result->addValue(
-			array( 'ForkEtherPad' ),
-			'padId',
-			$epPad->getEpId()
-		);
-		$result->addValue(
-			array( 'ForkEtherPad' ),
-			'dbId',
-			$epPad->getId()
-		);
-		$result->addValue(
-			array( 'ForkEtherPad' ),
-			'sessionId',
-			$sessionId
+			array( 'KickFromPad' ),
+			'success',
+			$epPad->kickUser( $wgUser, User::newFromName( $params['user'] ) )
 		);
 		return;
 	}
@@ -48,28 +35,34 @@ class ForkEtherPad extends ApiBase {
 				ApiBase::PARAM_REQUIRED => true,
 				ApiBase::PARAM_ISMULTI => false
 			),
+			'user' => array(
+				ApiBase::PARAM_TYPE => 'string',
+				ApiBase::PARAM_REQUIRED => true,
+				ApiBase::PARAM_ISMULTI => false
+			),
 		);
 	}
 
 	public function getParamDescription() {
 		return array(
-			'padId' => 'The name of the pad to fork (from the database).',
+			'padId' => 'The ID (from the database) of the pad we need to kick from.',
+			'user' => 'A valid username to kick.',
 		);
 	}
 
 	public function getDescription() {
 		return array(
-			'API module for exporting pads created with EtherEditor.',
+			'API module for kicking users from pads created with EtherEditor.',
 		);
 	}
 
 	protected function getExamples() {
 		return array(
-			'api.php?action=ApiEtherEditor&padId=7',
+			'api.php?action=KickFromPad&padId=7&user=Trollolol657',
 		);
 	}
 
 	public function getVersion() {
-		return __CLASS__ . ': 0.2.1';
+		return __CLASS__ . ': 0.2.2';
 	}
 }

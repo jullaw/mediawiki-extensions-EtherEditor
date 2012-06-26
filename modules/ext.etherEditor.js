@@ -119,6 +119,7 @@
 		initializeControls: function () {
 			var _this = this;
 			var $ctrls = $( '<div></div>' );
+			$ctrls.attr( 'id', 'ethereditor-ctrls' );
 
 			var $forkbtn = $( '<button></button>' );
 			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
@@ -131,6 +132,7 @@
 						_this.padId = data.ForkEtherPad.padId;
 						_this.dbId = data.ForkEtherPad.dbId;
 						_this.sessionId = data.ForkEtherPad.sessionId;
+						_this.isAdmin = true;
 						_this.initializePad();
 						return 0;
 					},
@@ -161,6 +163,40 @@
 			_this.$textarea.before( $ctrls );
 		},
 		/**
+		 * Adds a field and button for kicking users from the pad
+		 * Only available if you're an admin (and the backend checks it)
+		 */
+		addKickField: function () {
+			var _this = this;
+			var $ctrls = $( '#ethereditor-ctrls' );
+			var $kickbtn = $( '#ethereditor-kickbtn', $ctrls );
+			if ( $kickbtn.length == 0 ) {
+				_this.$kickfield = $( '<input type="text" id="ethereditor-kickfield" />' );
+				$kickbtn = $( '<button></button>' );
+				$kickbtn.attr( 'id', 'ethereditor-kickbtn' );
+				$kickbtn.html( mw.msg( 'ethereditor-kick-button' ) );
+				$kickbtn.click( function () {
+					var uname = _this.$kickfield.val();
+					$.ajax( {
+						url: mw.util.wikiScript( 'api' ),
+						method: 'GET',
+						data: {
+							format: 'json', action: 'KickFromPad',
+							padId: _this.dbId, user: uname
+						},
+						success: function( data ) {
+							_this.$kickfield.val( '' );
+							return 0;
+						},
+						dataType: 'json'
+					} );
+					return false;
+				} );
+				$ctrls.append( _this.$kickfield );
+				$ctrls.append( $kickbtn );
+			}
+		},
+		/**
 		 * Adds a list of other pads to the page, so you can have multiple.
 		*/
 		initializePadList: function () {
@@ -173,11 +209,14 @@
 					var $option = $( '<option></option>' );
 					$option.html( pad.ep_pad_id );
 					$option.val( pad.pad_id );
+					$option.data( 'admin', pad.admin_user );
 					$select.append( $option );
 				}
 				$select.change( function () {
-					_this.padId = $( 'option:selected', $( this ) ).html();
-					_this.dbId = $( 'option:selected', $( this ) ).val();
+					var $selopt = $( 'option:selected', $( this ) );
+					_this.padId = $selopt.html();
+					_this.dbId = $selopt.val();
+					_this.isAdmin = mw.user.name() == $selopt.data( 'admin' );
 					_this.authenticateUser( function () {
 						_this.initializePad();
 					} );
@@ -206,6 +245,12 @@
 				border: 1,
 				borderStyle: 'solid grey'
 			} );
+			if ( this.isAdmin ) {
+				this.addKickField();
+			} else if ( this.$kickfield && this.$kickfield.length ) {
+				$( '#ethereditor-kickbtn' ).remove();
+				this.$kickfield.remove();
+			}
 		}
 	};
 

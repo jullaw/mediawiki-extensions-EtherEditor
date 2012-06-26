@@ -151,6 +151,14 @@ class EtherEditorHooks {
 		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'group_id',
 			dirname( __FILE__ ) . '/sql/AddGroupId.patch.sql', true ) );
 
+		// Add the admin field
+		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'admin_user',
+			dirname( __FILE__ ) . '/sql/AddAdminField.patch.sql', true ) );
+
+		// Add the kicked field
+		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_contribs', 'kicked',
+			dirname( __FILE__ ) . '/sql/AddKickedField.patch.sql', true ) );
+
 		return true;
 	}
 
