@@ -96,6 +96,22 @@ class EtherEditorPad {
 	}
 
 	/**
+	 * Returns an EtherpadLiteClient from the current $wgEtherPadConfig values
+	 *
+	 * @since 0.2.3
+	 *
+	 * @return EtherpadLiteClient
+	 */
+	public static function getEpClient() {
+		$apiBackend = $wgEtherpadConfig['apiBackend'];
+		$apiPort = $wgEtherpadConfig['apiPort'];
+		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
+		$apiKey = $wgEtherpadConfig['apiKey'];
+		return new EtherpadLiteClient( $apiKey, $apiUrl );
+	}
+
+	/**
 	 * Returns the public pad with specified title,
 	 * or a new pad with the specified text if there is no such pad.
 	 *
@@ -205,16 +221,9 @@ class EtherEditorPad {
 	 * @return EtherEditorPad or false
 	 */
 	protected static function newRemotePad( $conditions, $text='' ) {
-		global $wgEtherpadConfig;
-
-		$apiBackend = $wgEtherpadConfig['apiBackend'];
-		$apiPort = $wgEtherpadConfig['apiPort'];
-		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-		$apiKey = $wgEtherpadConfig['apiKey'];
 		$padId = $conditions['page_title'] . $conditions['extra_title'];
 
-		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		$epClient = self::getEpClient();
 		$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
 		try {
 			$epClient->createGroupPad( $groupId, $padId, $text );
@@ -246,15 +255,7 @@ class EtherEditorPad {
 	 */
 	public function authenticateUser( $user ) {
 		if ( !$this->isKicked( $user ) ) {
-			global $wgEtherpadConfig;
-
-			$apiBackend = $wgEtherpadConfig['apiBackend'];
-			$apiPort = $wgEtherpadConfig['apiPort'];
-			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-			$apiKey = $wgEtherpadConfig['apiKey'];
-
-			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+			$epClient = self::getEpClient();
 			$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
 
 			$this->addToContribs( $user->getName(), $authorId );
@@ -281,15 +282,7 @@ class EtherEditorPad {
 			if ( !$kickuser || $this->isKicked( $kickuser ) ) {
 				return true;
 			}
-			global $wgEtherpadConfig;
-
-			$apiBackend = $wgEtherpadConfig['apiBackend'];
-			$apiPort = $wgEtherpadConfig['apiPort'];
-			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-			$apiKey = $wgEtherpadConfig['apiKey'];
-			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
-
+			$epClient = self::getEpClient();
 			$authorId = $epClient->createAuthorIfNotExistsFor( $kickuser->getId(), $kickuser->getName() )->authorID;
 			$sessions = (array) $epClient->listSessionsOfAuthor( $authorId );
 			foreach ( $sessions as $sid => $sess ) {
@@ -473,12 +466,7 @@ class EtherEditorPad {
 		global $wgEtherpadConfig;
 		$padId = $this->epid;
 		$groupId = $this->groupId;
-		$apiBackend = $wgEtherpadConfig['apiBackend'];
-		$apiPort = $wgEtherpadConfig['apiPort'];
-		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-		$apiKey = $wgEtherpadConfig['apiKey'];
-		$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		$epClient = self::getEpClient();
 		return $epClient->getText( $padId )->text;
 	}
 

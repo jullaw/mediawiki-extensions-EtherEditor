@@ -60,13 +60,8 @@ class EtherEditorHooks {
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		global $wgOut;
 		if ( self::isUsingEther( $wgOut, $user ) ) {
-			global $wgUser, $wgEtherpadConfig;
-			$apiBackend = $wgEtherpadConfig['apiBackend'];
-			$apiPort = $wgEtherpadConfig['apiPort'];
-			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-			$apiKey = $wgEtherpadConfig['apiKey'];
-			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+			global $wgUser;
+			$epClient = EtherEditorPad::getEpClient();
 
 			$title = $article->getTitle();
 
@@ -106,12 +101,7 @@ class EtherEditorHooks {
 
 		if ( self::isUsingEther( $output, $wgUser ) ) {
 			$apiHost = $wgEtherpadConfig['apiHost'];
-			$apiBackend = $wgEtherpadConfig['apiBackend'];
-			$apiPort = $wgEtherpadConfig['apiPort'];
-			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-			$apiKey = $wgEtherpadConfig['apiKey'];
-			$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+			$epClient = EtherEditorPad::getEpClient();
 
 			$title = $editPage->getTitle();
 			$text = $editPage->getContent();
