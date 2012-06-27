@@ -13,7 +13,8 @@ class EtherEditorHooks {
 	 * @since 0.1.0
 	 *
 	 * @param OutputPage $output
-	 * @returns boolean
+	 * @param User $user
+	 * @return boolean
 	 */
 	protected static function isUsingEther( $output, $user ) {
 		return ( $user->isLoggedIn()
@@ -27,7 +28,7 @@ class EtherEditorHooks {
 	 * @since 0.2.3
 	 *
 	 * @param Title $title
-	 * @returns boolean
+	 * @return boolean
 	 */
 	protected static function areOthersUsingEther( $title ) {
 		$epPad = EtherEditorPad::newFromNameAndText( $title->getPrefixedURL(), '' );
@@ -55,6 +56,7 @@ class EtherEditorHooks {
 	 * @param integer $baseRevId need this to find the padId
 	 * @param boolean $redirect
 	 *
+	 * @return bool true
 	 */
 	public static function saveComplete( &$article, &$user, $text, $summary, $minoredit,
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
@@ -93,15 +95,16 @@ class EtherEditorHooks {
 	 *
 	 * @since 0.0.1
 	 *
-	 * @param $editPage page being edited
-	 * @param $output output for the edit page
+	 * @param EditPage $editPage page being edited
+	 * @param OutputPage $output output for the edit page
+	 *
+	 * @return bool true
 	 */
 	public static function editPageShowEditFormInitial( $editPage, $output ) {
-		global $wgOut, $wgEtherpadConfig, $wgUser;
+		global $wgEtherpadConfig, $wgUser;
 
 		if ( self::isUsingEther( $output, $wgUser ) ) {
 			$apiHost = $wgEtherpadConfig['apiHost'];
-			$epClient = EtherEditorPad::getEpClient();
 
 			$title = $editPage->getTitle();
 			$text = $editPage->getContent();
@@ -114,12 +117,12 @@ class EtherEditorHooks {
 				'wgEtherEditorDbId' => $epPad->getId(),
 				'wgEtherEditorOtherPads' => $epPad->getOtherPads(),
 				'wgEtherEditorApiHost' => $apiHost,
-				'wgEtherEditorApiPort' => $apiPort,
-				'wgEtherEditorApiBaseUrl' => $apiBaseUrl,
+				'wgEtherEditorApiPort' => $apiPort, // FIXME: $apiPort is undefined
+				'wgEtherEditorApiBaseUrl' => $apiBaseUrl, // FIXME: $apiBaseUrl is undefined
 				'wgEtherEditorPadUrl' => $wgEtherpadConfig['pUrl'],
 				'wgEtherEditorPadName' => $epPad->getEpId(),
 				'wgEtherEditorSessionId' => $sessionId ) );
-			$wgOut->addModules( 'ext.etherEditor' );
+			$output->addModules( 'ext.etherEditor' );
 		} else if ( $wgUser->getBoolOption( 'ethereditor_enableether' )
 			|| $output->getRequest()->getCheck( 'enableether' ) ) {
 			$editPage->userNotLoggedInPage();
@@ -128,7 +131,7 @@ class EtherEditorHooks {
 			$output->addJsConfigVars( array(
 				'wgEtherEditorOthersUsing' => true
 			) );
-			$wgOut->addModules( 'ext.etherEditorWarn' );
+			$output->addModules( 'ext.etherEditorWarn' );
 		}
 
 		return true;
@@ -141,12 +144,14 @@ class EtherEditorHooks {
 	 *
 	 * @param $user User current user
 	 * @param $preferences array list of default user preference controls
+	 *
+	 * @return bool true
 	 */
 	public static function getPreferences( $user, array &$preferences ) {
 		$preferences['ethereditor_enableether'] = array(
-		    'type' => 'check',
-		    'label-message' => 'ethereditor-prefs-enable-ether',
-		    'section' => 'editing/advancedediting'
+			'type' => 'check',
+			'label-message' => 'ethereditor-prefs-enable-ether',
+			'section' => 'editing/advancedediting'
 		);
 		return true;
 	}
@@ -157,7 +162,7 @@ class EtherEditorHooks {
 	 *
 	 * @param DatabaseUpdater $updater
 	 *
-	 * @return true
+	 * @return bool true
 	 */
 	public static function onSchemaUpdate( $updater = null ) {
 		$updater->addExtensionTable( 'ethereditor_pads', dirname( __FILE__ ) . '/sql/EtherEditor.sql' );
@@ -182,13 +187,12 @@ class EtherEditorHooks {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param $sktemplate
-	 * @param $links the list of links
+	 * @param $skin Skin
+	 * @param $links array the list of links
 	 *
-	 * @return true
+	 * @return bool true
 	 */
 	public static function onSkinTemplateNavigation (&$skin, &$links) {
-		global $wgUser;
 		$title = $skin->getTitle();
 		$links['views']['collaborate'] = array(
 			'class' => false,

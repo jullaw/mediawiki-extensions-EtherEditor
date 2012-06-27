@@ -15,10 +15,10 @@ $messages['en'] = array(
 	'ethereditor-desc' => 'Allows users to edit via Etherpad, a web application for collaborative editing',
 	'ethereditor-prefs-enable-ether' => 'Enable collaborative editor (very experimental)',
 	'ethereditor-collaborate-button' => 'Collaborate',
-    'ethereditor-fork-button' => 'Fork this pad',
-    'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
-    'ethereditor-kick-button' => 'Kick User',
-    'ethereditor-warn-others' => 'Warning: Some other users are currently editing this page
+	'ethereditor-fork-button' => 'Fork this pad',
+	'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
+	'ethereditor-kick-button' => 'Kick User',
+	'ethereditor-warn-others' => 'Warning: Some other users are currently editing this page
 in a collaborative session using the EtherEditor extension. While you\'re welcome to keep editing
 here, their changes may conflict with yours. Please consider clicking the "Collaborate"
 button in the top right of your screen to join them, and avoid merge conflicts.',

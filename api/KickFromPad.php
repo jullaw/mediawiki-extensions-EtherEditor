@@ -25,7 +25,6 @@ class KickFromPad extends ApiBase {
 			'success',
 			$epPad->kickUser( $wgUser, User::newFromName( $params['user'] ) )
 		);
-		return;
 	}
 
 	public function getAllowedParams() {

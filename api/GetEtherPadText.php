@@ -16,7 +16,6 @@ class GetEtherPadText extends ApiBase {
 
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$data = array();
 		$result = $this->getResult();
 		$epPad = EtherEditorPad::newFromId( $params['padId'] );
 
@@ -25,7 +24,6 @@ class GetEtherPadText extends ApiBase {
 			'text',
 			$epPad->getText()
 		);
-		return;
 	}
 
 	public function getAllowedParams() {

@@ -17,7 +17,6 @@ class EtherPadAuth extends ApiBase {
 	public function execute() {
 		global $wgUser;
 		$params = $this->extractRequestParams();
-		$data = array();
 		$result = $this->getResult();
 		$epPad = EtherEditorPad::newFromId( $params['padId'] );
 
@@ -26,7 +25,6 @@ class EtherPadAuth extends ApiBase {
 			'sessionId',
 			$epPad->authenticateUser( $wgUser )
 		);
-		return;
 	}
 
 	public function getAllowedParams() {

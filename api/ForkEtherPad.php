@@ -15,9 +15,8 @@ class ForkEtherPad extends ApiBase {
 	}
 
 	public function execute() {
-		global $wgUser, $wgEtherpadConfig;
+		global $wgUser;
 		$params = $this->extractRequestParams();
-		$data = array();
 		$result = $this->getResult();
 		$padId = $params['padId'];
 		$epPad = EtherEditorPad::newFromOldPadId( $padId, $wgUser );
@@ -38,7 +37,6 @@ class ForkEtherPad extends ApiBase {
 			'sessionId',
 			$sessionId
 		);
-		return;
 	}
 
 	public function getAllowedParams() {

@@ -83,6 +83,7 @@ class EtherEditorPad {
 	 * @param integer $epid
 	 * @param string  $groupId
 	 * @param string  $pageTitle
+	 * @param $adminUser
 	 * @param boolean $publicPad
 	 */
 	public function __construct( $id, $epid, $groupId, $pageTitle, $adminUser, $publicPad ) {
@@ -103,6 +104,7 @@ class EtherEditorPad {
 	 * @return EtherpadLiteClient
 	 */
 	public static function getEpClient() {
+		global $wgEtherpadConfig;
 		$apiBackend = $wgEtherpadConfig['apiBackend'];
 		$apiPort = $wgEtherpadConfig['apiPort'];
 		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
@@ -249,9 +251,9 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param User the user to authenticate
+	 * @param User $user the user to authenticate
 	 *
-	 * @return sessionId or false
+	 * @return int|bool sessionId or false
 	 */
 	public function authenticateUser( $user ) {
 		if ( !$this->isKicked( $user ) ) {
@@ -271,10 +273,10 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param User the user doing the kicking
-	 * @param User the user to kick
+	 * @param User $user the user doing the kicking
+	 * @param User $kickuser the user to kick
 	 *
-	 * @return sessionId or false
+	 * @return int|bool sessionId or false
 	 */
 	public function kickUser( $user, $kickuser ) {
 		$isAdmin = $this->isAdmin( $user );
@@ -301,7 +303,7 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param User the user to check
+	 * @param User $user the user to check
 	 *
 	 * @return boolean
 	 */
@@ -314,7 +316,7 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param User the user to check
+	 * @param User $user the user to check
 	 *
 	 * @return boolean
 	 */
@@ -336,8 +338,8 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.1
 	 *
-	 * @param string the username to add
-	 * @param string the authorId returned by Etherpad
+	 * @param string $username the username to add
+	 * @param string $authorId the authorId returned by Etherpad
 	 *
 	 * @return boolean success indicator
 	 */
@@ -377,8 +379,7 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param string the username to remove
-	 * @param string the authorId returned by Etherpad
+	 * @param string $username the username to remove
 	 *
 	 * @return boolean success indicator
 	 */
@@ -463,9 +464,7 @@ class EtherEditorPad {
 	 * @return string the text of the pad
 	 */
 	public function getText() {
-		global $wgEtherpadConfig;
 		$padId = $this->epid;
-		$groupId = $this->groupId;
 		$epClient = self::getEpClient();
 		return $epClient->getText( $padId )->text;
 	}
