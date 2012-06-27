@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS /*$wgDBprefix*/ethereditor_pads (
   group_id                 VARCHAR(18)         NOT NULL,
   page_title               VARCHAR(255)        NOT NULL,
   admin_user               VARCHAR(255)        NOT NULL,
+  base_revision            INTEGER             NOT NULL default '0',
   public_pad               TINYINT             NOT NULL default '1'
 ) /*$wgDBTableOptions*/;
 
@@ -19,5 +20,6 @@ CREATE TABLE IF NOT EXISTS /*$wgDBprefix*/ethereditor_contribs (
   pad_id                   INTEGER             NOT NULL,
   username                 VARCHAR(255)        NOT NULL,
   ep_user_id               VARCHAR(18)         NOT NULL,
+  kicked                   TINYINT             NOT NULL default '0',
   has_contributed          TINYINT             NOT NULL default '0'
 ) /*$wgDBTableOptions*/;

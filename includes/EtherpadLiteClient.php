@@ -251,6 +251,13 @@ class EtherpadLiteClient {
     ));
   }
 
+  // returns the last revision's timestamp (UNIX format)
+  public function getLastEdited($padID){
+    return $this->get("getLastEdited", array(
+      "padID" => $padID
+    ));
+  }
+
   // deletes a pad 
   public function deletePad($padID){
     return $this->post("deletePad", array(
@@ -297,5 +304,11 @@ class EtherpadLiteClient {
       "padID" => $padID
     ));
   }
-}
 
+  // returns number of users currently in pad
+  public function padUsersCount($padID){
+    return $this->get("padUsersCount", array(
+      "padID" => $padID
+    ));
+  }
+}

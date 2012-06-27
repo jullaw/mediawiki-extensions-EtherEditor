@@ -101,24 +101,46 @@ class EtherEditorHooks {
 	 * @return bool true
 	 */
 	public static function editPageShowEditFormInitial( $editPage, $output ) {
-		global $wgEtherpadConfig, $wgUser;
+		global $wgEtherpadConfig, $wgUser, $wgLocalTZoffset;
 
 		if ( self::isUsingEther( $output, $wgUser ) ) {
+			$apiPort = $wgEtherpadConfig['apiPort'];
 			$apiHost = $wgEtherpadConfig['apiHost'];
 
 			$title = $editPage->getTitle();
 			$text = $editPage->getContent();
 			$padId = $title->getPrefixedURL();
+			if ( $text || $title->exists() ) {
+				$baseRev = $editPage->getBaseRevision();
+				if ( $baseRev ) {
+					$baseRevId = $baseRev->getId();
+				}
+			} else {
+				if ( $text == false )  {
+					$text = '';
+				}
+				$baseRevId = 0;
+			}
 
-			$epPad = EtherEditorPad::newFromNameAndText( $padId, $text );
+			$epPad = EtherEditorPad::newFromNameAndText( $padId, $text, $baseRevId );
+			if ( $epPad->getBaseRevision() < $baseRevId ) {
+				$epClient = EtherEditorPad::getEpClient();
+				if ( $epClient->padUsersCount( $epPad->getEpId() )->padUsersCount == 0 ) {
+					$epClient->setText( $epPad->getEpId(), $text );
+				} else {
+					// TODO: Handle this properly. How? We don't know.
+					// This is where we should fork off the old pad, hopefully without
+					// Etherpad Lite.
+					// disconnecting users. That may not be possible with the current
+				}
+			}
 			$sessionId = $epPad->authenticateUser( $wgUser );
 
 			$output->addJsConfigVars( array(
 				'wgEtherEditorDbId' => $epPad->getId(),
 				'wgEtherEditorOtherPads' => $epPad->getOtherPads(),
 				'wgEtherEditorApiHost' => $apiHost,
-				'wgEtherEditorApiPort' => $apiPort, // FIXME: $apiPort is undefined
-				'wgEtherEditorApiBaseUrl' => $apiBaseUrl, // FIXME: $apiBaseUrl is undefined
+				'wgEtherEditorApiPort' => $apiPort,
 				'wgEtherEditorPadUrl' => $wgEtherpadConfig['pUrl'],
 				'wgEtherEditorPadName' => $epPad->getEpId(),
 				'wgEtherEditorSessionId' => $sessionId ) );
@@ -178,6 +200,10 @@ class EtherEditorHooks {
 		// Add the kicked field
 		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_contribs', 'kicked',
 			dirname( __FILE__ ) . '/sql/AddKickedField.patch.sql', true ) );
+
+		// Add the is_old field
+		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pad', 'base_revision',
+			dirname( __FILE__ ) . '/sql/AddBaseRevision.patch.sql', true ) );
 
 		return true;
 	}
