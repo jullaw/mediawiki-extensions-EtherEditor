@@ -255,6 +255,8 @@
 	};
 
 	$.fn.remoteEditor = function() {
+		$( '#ca-collaborate' ).removeClass( 'collapsible' ).addClass( 'selected' );
+		$( '#ca-edit' ).removeClass( 'selected' );
 		var $elements = this;
 		$.each( $elements, function( i, textarea ) {
 			var editor = new remoteEditor( textarea );

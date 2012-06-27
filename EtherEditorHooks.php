@@ -22,6 +22,22 @@ class EtherEditorHooks {
 	}
 
 	/**
+	 * Check whether there are other editing sessions happening on this page
+	 *
+	 * @since 0.2.3
+	 *
+	 * @param Title $title
+	 * @returns boolean
+	 */
+	protected static function areOthersUsingEther( $title ) {
+		$epPad = EtherEditorPad::newFromNameAndText( $title->getPrefixedURL(), '' );
+		if ( $epPad->getOtherPads() ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * ArticleSaveComplete hook
 	 *
 	 * @since 0.0.1
@@ -114,6 +130,15 @@ class EtherEditorHooks {
 				'wgEtherEditorPadName' => $epPad->getEpId(),
 				'wgEtherEditorSessionId' => $sessionId ) );
 			$wgOut->addModules( 'ext.etherEditor' );
+		} else if ( $wgUser->getBoolOption( 'ethereditor_enableether' )
+			|| $output->getRequest()->getCheck( 'enableether' ) ) {
+			$editPage->userNotLoggedInPage();
+			return false;
+		} else if ( self::areOthersUsingEther( $editPage->getTitle() ) ) {
+			$output->addJsConfigVars( array(
+				'wgEtherEditorOthersUsing' => true
+			) );
+			$wgOut->addModules( 'ext.etherEditorWarn' );
 		}
 
 		return true;
@@ -174,14 +199,12 @@ class EtherEditorHooks {
 	 */
 	public static function onSkinTemplateNavigation (&$skin, &$links) {
 		global $wgUser;
-		if ( $wgUser->isLoggedIn() ) {
-			$title = $skin->getTitle();
-			$links['views']['collaborate'] = array(
-				'class' => false,
-				'text' => wfMessage( 'ethereditor-collaborate-button')->text(),
-				'href' => $title->getLocalUrl( 'action=edit&enableether=true' )
-			);
-		}
+		$title = $skin->getTitle();
+		$links['views']['collaborate'] = array(
+			'class' => false,
+			'text' => wfMessage( 'ethereditor-collaborate-button')->text(),
+			'href' => $title->getLocalUrl( 'action=edit&enableether=true' )
+		);
 		return true;
 	}
 }

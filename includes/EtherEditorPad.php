@@ -597,6 +597,7 @@ class EtherEditorPad {
 				'group_id'
 			),
 			array(
+				'pad_id <> ' . $this->id,
 				'page_title' => $this->pageTitle,
 				'public_pad' => '1'
 			),

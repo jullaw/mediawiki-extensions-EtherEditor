@@ -18,6 +18,10 @@ $messages['en'] = array(
     'ethereditor-fork-button' => 'Fork this pad',
     'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
     'ethereditor-kick-button' => 'Kick User',
+    'ethereditor-warn-others' => 'Warning: Some other users are currently editing this page
+in a collaborative session using the EtherEditor extension. While you\'re welcome to keep editing
+here, their changes may conflict with yours. Please consider clicking the "Collaborate"
+button in the top right of your screen to join them, and avoid merge conflicts.',
 );
 
 /** Message documentation (Message documentation)
@@ -30,6 +34,7 @@ $messages['qqq'] = array(
     'ethereditor-fork-button' => 'A button above the textarea that allows the user to create a separate pad.',
     'ethereditor-contrib-button' => 'A button that will populate the edit summary with the list of contributors saved in the database.',
     'ethereditor-kick-button' => 'A button that will kick a user from the current Etherpad instance.',
+    'ethereditor-warn-others' => 'A message to let the user know that other people are editing the page with EtherEditor.',
 );
 
 /** German (Deutsch)

@@ -56,6 +56,15 @@ $wgResourceModules += array(
 			'jquery.etherpad',
 			'jquery.cookie',
 		)
+	),
+
+	'ext.etherEditorWarn' => $etherEditorTpl + array(
+		'scripts' => array(
+			'ext.etherEditorWarn.js',
+		),
+		'messages' => array(
+			'ethereditor-warn-others',
+		)
 	)
 );
 
