@@ -12,16 +12,15 @@ $messages = array();
  * @author Mark Holmquist
  */
 $messages['en'] = array(
-	'ethereditor-desc' => 'Allows users to edit via Etherpad, a web application for collaborative editing',
-	'ethereditor-prefs-enable-ether' => 'Enable collaborative editor (very experimental)',
+	'ethereditor-desc' => 'Allows users to edit via Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Enable collaborative editor (experimental)',
 	'ethereditor-collaborate-button' => 'Collaborate',
-	'ethereditor-fork-button' => 'Fork this pad',
+	'ethereditor-fork-button' => 'Copy this pad',
 	'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
-	'ethereditor-kick-button' => 'Kick User',
-	'ethereditor-warn-others' => 'Warning: Some other users are currently editing this page
-in a collaborative session using the EtherEditor extension. While you\'re welcome to keep editing
-here, their changes may conflict with yours. Please consider clicking the "Collaborate"
-button in the top right of your screen to join them, and avoid merge conflicts.',
+	'ethereditor-kick-button' => 'Kick user',
+	'ethereditor-warn-others' => 'Warning: Some other users are currently editing this page in a collaborative session using the EtherEditor extension.
+While you are welcome to keep editing here, their changes may conflict with yours.
+Please consider clicking the "{{int:ethereditor-collaborate-button}}" button in the top right of the page screen to join them, and avoid merge conflicts.',
 );
 
 /** Message documentation (Message documentation)
