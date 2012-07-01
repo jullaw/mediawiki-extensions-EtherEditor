@@ -138,11 +138,23 @@ $messages['it'] = array(
 	'ethereditor-kick-button' => 'Allontana utente',
 );
 
+/** Colognian (Ripoarisch)
+ * @author Purodha
+ */
+$messages['ksh'] = array(
+	'ethereditor-warn-others' => 'Opjepaß: ene Knubbel ander Metmaacher es em Momang heh di Sigg met däm Zohsazprojramm <i lang="en">EtherEditor</i> aam ändere.
+Do kanns jähn heh wigger maache, ävver et es dermt ze räschne, dat dänne ier Änderpnge un de Dinge nit zersamme paße.
+Bes esu jood_um dängk do drövver noh, of De nit bei dänne metmaache well, ön nit dernoh de Änderonge zersamme bränge ze möße.
+Kleck op dä Knopp {{int:ethereditor-collaborate-button}}, öm och met däm Zohsazprojramm ze ändere.',
+);
+
 /** Luxembourgish (Lëtzebuergesch)
  * @author Robby
  */
 $messages['lb'] = array(
 	'ethereditor-prefs-enable-ether' => 'De kollaborativen Editeur aktivéieren (experimentell)',
+	'ethereditor-collaborate-button' => 'Matmaachen',
+	'ethereditor-kick-button' => 'Benotzer erausgeheien',
 );
 
 /** Macedonian (македонски)
