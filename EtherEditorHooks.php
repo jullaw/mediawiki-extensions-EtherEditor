@@ -62,25 +62,16 @@ class EtherEditorHooks {
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		global $wgOut;
 		if ( self::isUsingEther( $wgOut, $user ) ) {
-			global $wgUser;
+			$dbId = $output->getRequest()->getInt( 'dbId' );
 			$epClient = EtherEditorPad::getEpClient();
-
-			$title = $article->getTitle();
-
-			$padId = $title->getPrefixedURL();
-			$epPad = EtherEditorPad::newFromNameAndText( $padId, $text );
+			$epPad = EtherEditorPad::newFromId( $dbId );
 
 			$groupId = $epPad->getGroupId();
-			$groupPadId = $groupId . '$' . $padId;
 			$sessions = $epClient->listSessionsOfGroup( $groupId );
-			$hasSession = false;
-			$userId = $wgUser->getId();
-			$authorId = $epClient->createAuthorIfNotExistsFor( $userId, $wgUser->getName() )->authorID;
+			$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
 			foreach ( (array) $sessions as $sess => $sinfo ) {
 				if ( $sinfo->authorID == $authorId ) {
 					$epClient->deleteSession( $sess );
-				} else {
-					$hasSession = true;
 				}
 			}
 		}

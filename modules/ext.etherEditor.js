@@ -245,6 +245,7 @@
 				border: 1,
 				borderStyle: 'solid grey'
 			} );
+			this.$textarea.after( $( '<input type="hidden" name="dbId" value="' + this.dbId + '" />' ) );
 			if ( this.isAdmin ) {
 				this.addKickField();
 			} else if ( this.$kickfield && this.$kickfield.length ) {
