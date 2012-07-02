@@ -193,7 +193,7 @@ class EtherEditorHooks {
 			dirname( __FILE__ ) . '/sql/AddKickedField.patch.sql', true ) );
 
 		// Add the is_old field
-		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pad', 'base_revision',
+		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'base_revision',
 			dirname( __FILE__ ) . '/sql/AddBaseRevision.patch.sql', true ) );
 
 		return true;
