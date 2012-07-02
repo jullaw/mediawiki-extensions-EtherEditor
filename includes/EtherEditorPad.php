@@ -219,10 +219,7 @@ class EtherEditorPad {
 				'public_pad'
 			),
 			$conditions,
-			__METHOD__,
-			array(
-				'SORT BY' => 'base_revision DESC'
-			)
+			__METHOD__
 		);
 		if ( !$pad ) {
 			$conditions['extra_title'] = '';

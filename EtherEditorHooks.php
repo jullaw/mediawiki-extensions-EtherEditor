@@ -62,7 +62,7 @@ class EtherEditorHooks {
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		global $wgOut;
 		if ( self::isUsingEther( $wgOut, $user ) ) {
-			$dbId = $output->getRequest()->getInt( 'dbId' );
+			$dbId = $wgOut->getRequest()->getInt( 'dbId' );
 			$epClient = EtherEditorPad::getEpClient();
 			$epPad = EtherEditorPad::newFromId( $dbId );
 
@@ -73,6 +73,9 @@ class EtherEditorHooks {
 				if ( $sinfo->authorID == $authorId ) {
 					$epClient->deleteSession( $sess );
 				}
+			}
+			if ( $epClient->padUsersCount( $epPad->getEpId() ) == 0 ) {
+				$epPad->deleteFromDB();
 			}
 		}
 		return true;
