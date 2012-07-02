@@ -119,10 +119,8 @@ class EtherEditorHooks {
 				if ( $epClient->padUsersCount( $epPad->getEpId() )->padUsersCount == 0 ) {
 					$epClient->setText( $epPad->getEpId(), $text );
 				} else {
-					// TODO: Handle this properly. How? We don't know.
-					// This is where we should fork off the old pad, hopefully without
-					// Etherpad Lite.
-					// disconnecting users. That may not be possible with the current
+					// force creation of a new remote pad with a more different name
+					$epPad = EtherEditorPad::newFromNameAndText( $padId, $text, $baseRevId, true );
 				}
 			}
 			$sessionId = $epPad->authenticateUser( $wgUser );

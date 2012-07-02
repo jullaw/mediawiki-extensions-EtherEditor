@@ -204,6 +204,7 @@
 			var pads = mw.config.get( 'wgEtherEditorOtherPads' );
 			if ( pads && pads.length ) {
 				var $select = $( '<select></select>' );
+				pads.unshift( { pad_id: _this.dbId, ep_pad_id: _this.padId, admin_user: ( this.isAdmin ? mw.user.name() : '' ) } );
 				for ( var px in pads ) {
 					var pad = pads[px];
 					var $option = $( '<option></option>' );

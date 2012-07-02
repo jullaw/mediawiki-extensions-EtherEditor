@@ -146,11 +146,11 @@ class EtherEditorPad {
 	 *
 	 * @return EtherEditorPad
 	 */
-	public static function newFromNameAndText( $pageTitle, $text='', $baseRevision=0 ) {
+	public static function newFromNameAndText( $pageTitle, $text='', $baseRevision=0, $forceNewRemote=false ) {
 		return self::newFromDB( array(
 			'page_title' => $pageTitle,
 			'public_pad' => 1
-		), $text, $baseRevision );
+		), $text, $baseRevision, $forceNewRemote );
 	}
 
 	/**
@@ -201,9 +201,12 @@ class EtherEditorPad {
 	 *
 	 * @return EtherEditorPad or false
 	 */
-	protected static function newFromDB( array $conditions, $text='', $baseRevision=0 ) {
+	protected static function newFromDB( array $conditions, $text='', $baseRevision=0, $forceNewRemote=false ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
+		if ( $forceNewRemote ) {
+			$conditions[] = 'base_revision >= ' . $baseRevision;
+		}
 		$pad = $dbr->selectRow(
 			'ethereditor_pads',
 			array(
@@ -221,11 +224,10 @@ class EtherEditorPad {
 				'SORT BY' => 'base_revision DESC'
 			)
 		);
-
 		if ( !$pad ) {
 			$conditions['extra_title'] = '';
 			$conditions['base_revision'] = $baseRevision;
-			if ( isset( $conditions['pad_id'] ) && $conditions['pad_id'] == -1 ) {
+			if ( $forceNewRemote || ( isset( $conditions['pad_id'] ) && $conditions['pad_id'] == -1 ) ) {
 				unset( $conditions['pad_id'] );
 				$conditions['extra_title'] = time();
 			}
