@@ -138,8 +138,7 @@ class EtherEditorHooks {
 			$output->addModules( 'ext.etherEditor' );
 		} else if ( $wgUser->getBoolOption( 'ethereditor_enableether' )
 			|| $output->getRequest()->getCheck( 'enableether' ) ) {
-			$editPage->userNotLoggedInPage();
-			return false;
+			throw new UserNotLoggedIn( 'ethereditor-cannot-nologin' );
 		} else if ( self::areOthersUsingEther( $editPage->getTitle() ) ) {
 			$output->addJsConfigVars( array(
 				'wgEtherEditorOthersUsing' => true
