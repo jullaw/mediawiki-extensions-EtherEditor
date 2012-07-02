@@ -18,6 +18,7 @@ $messages['en'] = array(
 	'ethereditor-fork-button' => 'Copy this pad',
 	'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
 	'ethereditor-kick-button' => 'Kick user',
+	'ethereditor-delete-button' => 'Delete this pad',
     'ethereditor-cannot-nologin' => 'In order to use the EtherEditor, you must log in.',
 	'ethereditor-warn-others' => 'Warning: Some other users are currently editing this page in a collaborative session using the EtherEditor extension.
 While you are welcome to keep editing here, their changes may conflict with yours.
@@ -35,6 +36,7 @@ $messages['qqq'] = array(
 	'ethereditor-fork-button' => 'A button above the textarea that allows the user to create a separate pad.',
 	'ethereditor-contrib-button' => 'A button that will populate the edit summary with the list of contributors saved in the database.',
 	'ethereditor-kick-button' => 'A button that will kick a user from the current Etherpad instance.',
+	'ethereditor-kick-button' => 'A button that will delete the current Etherpad pad.',
     'ethereditor-cannot-nologin' => 'Lets the user know that they can only collaborate if they are logged in, shown on a login error page.',
 	'ethereditor-warn-others' => 'A message to let the user know that other people are editing the page with EtherEditor. "Collaborate" should be identical to {{msg-mw|Ethereditor-collaborate-button}}.',
 );

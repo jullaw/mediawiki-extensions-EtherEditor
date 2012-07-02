@@ -57,8 +57,8 @@
 
 		this.$textarea.after( $( '<input type="hidden" name="enableether" value="true" />' ) );
 
-		this.initializePad();
 		this.initializeControls();
+		this.initializePad();
 		this.initializePadList();
 
 		$( '#wikiEditor-ui-toolbar' ).add( '#toolbar' ).hide();
@@ -120,6 +120,7 @@
 			var _this = this;
 			var $ctrls = $( '<div></div>' );
 			$ctrls.attr( 'id', 'ethereditor-ctrls' );
+			_this.$textarea.before( $ctrls );
 
 			var $forkbtn = $( '<button></button>' );
 			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
@@ -159,8 +160,25 @@
 				return false;
 			} );
 			$ctrls.append( $contribbtn );
-
-			_this.$textarea.before( $ctrls );
+			_this.initializeAdminControls();
+		},
+		/**
+		 * Adds the delete pad button and the kick field.
+		 */
+		initializeAdminControls: function () {
+			var _this = this;
+			var $actls = $( '<div></div>' );
+			$actls.attr( 'id', 'ethereditor-admin-ctrls' );
+			var $delbtn = $( '<button></button>' );
+			$delbtn.attr( 'id', 'ethereditor-delete-button' );
+			$delbtn.html( mw.msg( 'ethereditor-delete-button' ) );
+			$delbtn.click( function () {
+				_this.deletePad();
+				return false;
+			} );
+			$actls.append( $delbtn );
+			_this.$textarea.before( $actls );
+			_this.addKickField();
 		},
 		/**
 		 * Adds a field and button for kicking users from the pad
@@ -168,8 +186,8 @@
 		 */
 		addKickField: function () {
 			var _this = this;
-			var $ctrls = $( '#ethereditor-ctrls' );
-			var $kickbtn = $( '#ethereditor-kickbtn', $ctrls );
+			var $actrls = $( '#ethereditor-admin-ctrls' );
+			var $kickbtn = $( '#ethereditor-kickbtn', $actrls );
 			if ( $kickbtn.length == 0 ) {
 				_this.$kickfield = $( '<input type="text" id="ethereditor-kickfield" />' );
 				$kickbtn = $( '<button></button>' );
@@ -192,8 +210,8 @@
 					} );
 					return false;
 				} );
-				$ctrls.append( _this.$kickfield );
-				$ctrls.append( $kickbtn );
+				$actrls.append( _this.$kickfield );
+				$actrls.append( $kickbtn );
 			}
 		},
 		/**
@@ -203,7 +221,7 @@
 			var _this = this;
 			var pads = mw.config.get( 'wgEtherEditorOtherPads' );
 			if ( pads && pads.length ) {
-				var $select = $( '<select></select>' );
+				_this.$select = $( '<select></select>' );
 				pads.unshift( { pad_id: _this.dbId, ep_pad_id: _this.padId, admin_user: ( this.isAdmin ? mw.user.name() : '' ) } );
 				for ( var px in pads ) {
 					var pad = pads[px];
@@ -211,9 +229,9 @@
 					$option.html( pad.ep_pad_id );
 					$option.val( pad.pad_id );
 					$option.data( 'admin', pad.admin_user );
-					$select.append( $option );
+					_this.$select.append( $option );
 				}
-				$select.change( function () {
+				_this.$select.change( function () {
 					var $selopt = $( 'option:selected', $( this ) );
 					_this.padId = $selopt.html();
 					_this.dbId = $selopt.val();
@@ -222,7 +240,7 @@
 						_this.initializePad();
 					} );
 				} );
-				_this.$textarea.before( $select );
+				_this.$textarea.before( _this.$select );
 			}
 		},
 		/**
@@ -248,11 +266,38 @@
 			} );
 			this.$textarea.after( $( '<input type="hidden" name="dbId" value="' + this.dbId + '" />' ) );
 			if ( this.isAdmin ) {
-				this.addKickField();
+				$( '#ethereditor-admin-ctrls' ).show();
+				this.$kickfield.show();
 			} else if ( this.$kickfield && this.$kickfield.length ) {
-				$( '#ethereditor-kickbtn' ).remove();
-				this.$kickfield.remove();
+				$( '#ethereditor-admin-ctrls' ).hide();
+				this.$kickfield.hide();
 			}
+		},
+		/**
+		 * Deletes the pad's contents. (requires admin, of course)
+		 */
+		deletePad: function () {
+			var _this = this;
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: {
+					format: 'json', action: 'DeleteEtherPad',
+					padId: _this.dbId
+				},
+				success: function( data ) {
+					$( 'option[value=' + _this.dbId + ']', _this.$select ).remove();
+					var $newOpt = $( 'option', _this.$select ).first();
+					_this.dbId = $newOpt.val();
+					_this.padId = $newOpt.html();
+					_this.isAdmin = mw.user.name() == $newOpt.data( 'admin' );
+					_this.authenticateUser( function () {
+						_this.initializePad();
+					} );
+					return 0;
+				},
+				dataType: 'json'
+			} );
 		}
 	};
 

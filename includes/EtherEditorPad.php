@@ -338,7 +338,7 @@ class EtherEditorPad {
 	 *
 	 * @return boolean
 	 */
-	protected function isAdmin( $user ) {
+	public function isAdmin( $user ) {
 		return $this->adminUser == $user->getName();
 	}
 
