@@ -67,12 +67,28 @@ class EtherEditorPad {
 	protected $adminUser;
 
 	/**
+	 * The revision we started with on this pad.
+	 *
+	 * @since 0.2.3
+	 * @var boolean
+	 */
+	protected $baseRevision;
+
+	/**
 	 * Whether the pad is public or not.
 	 *
 	 * @since 0.1.0
 	 * @var boolean
 	 */
 	protected $publicPad;
+
+	/**
+	 * Static EP client.
+	 *
+	 * @since 0.2.3
+	 * @var EtherpadLiteClient
+	 */
+	protected static $epClient;
 
 	/**
 	 * Create a new pad.
@@ -83,15 +99,17 @@ class EtherEditorPad {
 	 * @param integer $epid
 	 * @param string  $groupId
 	 * @param string  $pageTitle
-	 * @param $adminUser
+	 * @param string  $adminUser
+	 * @param boolean $baseRevision
 	 * @param boolean $publicPad
 	 */
-	public function __construct( $id, $epid, $groupId, $pageTitle, $adminUser, $publicPad ) {
+	public function __construct( $id, $epid, $groupId, $pageTitle, $adminUser, $baseRevision, $publicPad ) {
 		$this->id = $id;
 		$this->epid = $epid;
 		$this->groupId = $groupId;
 		$this->pageTitle = $pageTitle;
 		$this->adminUser = $adminUser;
+		$this->baseRevision = $baseRevision;
 		$this->publicPad = $publicPad;
 		$this->writeToDB();
 	}
@@ -104,13 +122,16 @@ class EtherEditorPad {
 	 * @return EtherpadLiteClient
 	 */
 	public static function getEpClient() {
-		global $wgEtherpadConfig;
-		$apiBackend = $wgEtherpadConfig['apiBackend'];
-		$apiPort = $wgEtherpadConfig['apiPort'];
-		$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
-		$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
-		$apiKey = $wgEtherpadConfig['apiKey'];
-		return new EtherpadLiteClient( $apiKey, $apiUrl );
+		if ( !self::$epClient ) {
+			global $wgEtherpadConfig;
+			$apiBackend = $wgEtherpadConfig['apiBackend'];
+			$apiPort = $wgEtherpadConfig['apiPort'];
+			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
+			$apiKey = $wgEtherpadConfig['apiKey'];
+			self::$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
+		}
+		return self::$epClient;
 	}
 
 	/**
@@ -121,14 +142,15 @@ class EtherEditorPad {
 	 *
 	 * @param string $pageTitle
 	 * @param string $text
+	 * @param string $baseRevision
 	 *
 	 * @return EtherEditorPad
 	 */
-	public static function newFromNameAndText( $pageTitle, $text ) {
+	public static function newFromNameAndText( $pageTitle, $text='', $baseRevision=0 ) {
 		return self::newFromDB( array(
 			'page_title' => $pageTitle,
 			'public_pad' => 1
-		), $text );
+		), $text, $baseRevision );
 	}
 
 	/**
@@ -141,14 +163,15 @@ class EtherEditorPad {
 	 *
 	 * @return EtherEditorPad
 	 */
-	public static function newFromOldPadId( $padId, $user ) {
+	public static function newFromOldPadId( $padId, $username='' ) {
 		$oldPad = self::newFromId( $padId );
 		return self::newFromDB( array(
 			'pad_id' => -1,
 			'page_title' => $oldPad->getPageTitle(),
-			'admin_user' => $user->getName(),
+			'admin_user' => $username,
+			'base_revision' => $oldPad->getBaseRevision(),
 			'public_pad' => 1
-		), $oldPad->getText() );
+		), $oldPad->getText(), $oldPad->getBaseRevision() );
 	}
 
 	/**
@@ -174,10 +197,11 @@ class EtherEditorPad {
 	 *
 	 * @param array $conditions the stuff to put into the database
 	 * @param string $text the text to put into the pad right away
+	 * @param integer $currentRevision the current revision of the page
 	 *
 	 * @return EtherEditorPad or false
 	 */
-	protected static function newFromDB( array $conditions, $text='' ) {
+	protected static function newFromDB( array $conditions, $text='', $baseRevision=0 ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		$pad = $dbr->selectRow(
@@ -188,13 +212,19 @@ class EtherEditorPad {
 				'group_id',
 				'page_title',
 				'admin_user',
+				'base_revision',
 				'public_pad'
 			),
-			$conditions
+			$conditions,
+			__METHOD__,
+			array(
+				'SORT BY' => 'base_revision DESC'
+			)
 		);
 
 		if ( !$pad ) {
 			$conditions['extra_title'] = '';
+			$conditions['base_revision'] = $baseRevision;
 			if ( isset( $conditions['pad_id'] ) && $conditions['pad_id'] == -1 ) {
 				unset( $conditions['pad_id'] );
 				$conditions['extra_title'] = time();
@@ -208,6 +238,7 @@ class EtherEditorPad {
 			$pad->group_id,
 			$pad->page_title,
 			$pad->admin_user,
+			$pad->base_revision,
 			$pad->public_pad
 		);
 	}
@@ -241,6 +272,7 @@ class EtherEditorPad {
 			$groupId,
 			$conditions['page_title'],
 			$conditions['admin_user'],
+			$conditions['base_revision'],
 			$conditions['public_pad']
 		);
 	}
@@ -435,6 +467,17 @@ class EtherEditorPad {
 	}
 
 	/**
+	 * Returns the base revision for the pad.
+	 *
+	 * @since 0.2.3
+	 *
+	 * @return boolean
+	 */
+	public function getBaseRevision() {
+		return $this->baseRevision;
+	}
+
+	/**
 	 * Returns if the pad is public.
 	 *
 	 * @since 0.1.0
@@ -464,9 +507,13 @@ class EtherEditorPad {
 	 * @return string the text of the pad
 	 */
 	public function getText() {
-		$padId = $this->epid;
 		$epClient = self::getEpClient();
-		return $epClient->getText( $padId )->text;
+		try {
+			return $epClient->getText( $this->epid )->text;
+		} catch ( Exception $e ) {
+			// the pad was somehow lost, not a problem, return empty
+			return '';
+		}
 	}
 
 	/**
@@ -503,6 +550,7 @@ class EtherEditorPad {
 				'group_id' => $this->groupId,
 				'page_title' => $this->pageTitle,
 				'admin_user' => $this->adminUser,
+				'base_revision' => $this->baseRevision,
 				'public_pad' => $this->publicPad,
 			),
 			__METHOD__,
@@ -533,6 +581,7 @@ class EtherEditorPad {
 				'group_id' => $this->groupId,
 				'page_title' => $this->pageTitle,
 				'admin_user' => $this->adminUser,
+				'base_revision' => $this->baseRevision,
 				'public_pad' => $this->publicPad,
 			),
 			array( 'pad_id' => $this->id ),
@@ -550,6 +599,13 @@ class EtherEditorPad {
 	 * @return boolean Success indicator
 	 */
 	public function deleteFromDB() {
+		$epClient = self::getEpClient();
+		try {
+			$epClient->deletePad( $this->epid );
+		} catch ( Exception $e ) {
+			// this just means the pad already got deleted. No problem.
+		}
+
 		if ( is_null( $this->id ) ) {
 			return true;
 		}
@@ -570,9 +626,11 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.0
 	 *
+	 * @param integer the minimum base revision to have (usually the current one, default 0)
+	 *
 	 * @return array Array of pad IDs
 	 */
-	public function getOtherPads() {
+	public function getOtherPads( $minRevision=0 ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		return resToArray( $dbr->select(
@@ -585,6 +643,7 @@ class EtherEditorPad {
 			),
 			array(
 				'pad_id <> ' . $this->id,
+				'base_revision >= ' . $minRevision,
 				'page_title' => $this->pageTitle,
 				'public_pad' => '1'
 			),

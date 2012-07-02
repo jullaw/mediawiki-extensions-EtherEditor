@@ -19,7 +19,7 @@ class ForkEtherPad extends ApiBase {
 		$params = $this->extractRequestParams();
 		$result = $this->getResult();
 		$padId = $params['padId'];
-		$epPad = EtherEditorPad::newFromOldPadId( $padId, $wgUser );
+		$epPad = EtherEditorPad::newFromOldPadId( $padId, $wgUser->getName() );
 		$sessionId = $epPad->authenticateUser( $wgUser );
 
 		$result->addValue(
