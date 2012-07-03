@@ -43,6 +43,8 @@ foreach ( array(
 $wgSpecialPages['EtherEditor'] = 'SpecialEtherEditor';
 $wgSpecialPageGroups['EtherEditor'] = 'pagetools';
 
+$wgHooks['UnitTestsList'][] = 'EtherEditorHooks::registerUnitTests';
+
 $etherEditorTpl = array(
 	'localBasePath' => $dir . '/modules',
 	'remoteExtPath' => 'EtherEditor/modules',

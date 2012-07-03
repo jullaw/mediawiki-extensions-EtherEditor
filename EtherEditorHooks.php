@@ -195,5 +195,21 @@ class EtherEditorHooks {
 
 		return true;
 	}
-}
 
+	/**
+	 * Register unit tests.
+	 *
+	 * @since 0.2.5
+	 */
+	public static function registerUnitTests( &$files ) {
+		$testDir = dirname( __FILE__ ) . '/tests/phpunit/';
+		$files[] = $testDir . 'EtherEditorTest.php';
+		$files[] = $testDir . 'api/GetEtherPadTextTest.php';
+		$files[] = $testDir . 'api/EtherPadAuthTest.php';
+		$files[] = $testDir . 'api/ForkEtherPadTest.php';
+		$files[] = $testDir . 'api/KickFromPadTest.php';
+		$files[] = $testDir . 'api/GetContribsTest.php';
+		$files[] = $testDir . 'api/DeleteEtherPadTest.php';
+		return true;
+	}
+}

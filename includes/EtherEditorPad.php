@@ -124,9 +124,18 @@ class EtherEditorPad {
 	public static function getEpClient() {
 		if ( !self::$epClient ) {
 			global $wgEtherpadConfig;
-			$apiBackend = $wgEtherpadConfig['apiBackend'];
-			$apiPort = $wgEtherpadConfig['apiPort'];
-			$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			$apiBackend = 'localhost';
+			if ( isset( $wgEtherpadConfig['apiBackend'] ) ) {
+				$apiBackend = $wgEtherpadConfig['apiBackend'];
+			}
+			$apiPort = '9001';
+			if ( isset( $wgEtherpadConfig['apiPort'] ) ) {
+				$apiPort = $wgEtherpadConfig['apiPort'];
+			}
+			$apiBaseUrl = '/api';
+			if ( isset( $wgEtherpadConfig['apiUrl'] ) ) {
+				$apiBaseUrl = $wgEtherpadConfig['apiUrl'];
+			}
 			$apiUrl = 'http://' . $apiBackend . ':' . $apiPort . $apiBaseUrl;
 			$apiKey = $wgEtherpadConfig['apiKey'];
 			self::$epClient = new EtherpadLiteClient( $apiKey, $apiUrl );
@@ -307,16 +316,24 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.0
 	 *
-	 * @param User $user the user to authenticate
+	 * @param User|string $user the user to authenticate, or their username
+	 * @param int $uid the ID of the user to authenticate, not used if $user is of type User.
 	 *
 	 * @return int|bool sessionId or false
 	 */
-	public function authenticateUser( $user ) {
-		if ( !$this->isKicked( $user ) ) {
+	public function authenticateUser( $user, $uid=0 ) {
+		$username = '';
+		if ( is_string( $user ) ) {
+			$username = $user;
+		} else {
+			$username = $user->getName();
+			$uid = $user->getId();
+		}
+		if ( !$this->isKicked( $username ) ) {
 			$epClient = self::getEpClient();
-			$authorId = $epClient->createAuthorIfNotExistsFor( $user->getId(), $user->getName() )->authorID;
+			$authorId = $epClient->createAuthorIfNotExistsFor( $uid, $username )->authorID;
 
-			$this->addToContribs( $user->getName(), $authorId );
+			$this->addToContribs( $username, $authorId );
 
 			return $epClient->createSession( $this->groupId, $authorId, time() + 3600 )->sessionID;
 		}
@@ -372,18 +389,18 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param User $user the user to check
+	 * @param string $username the user to check
 	 *
 	 * @return boolean
 	 */
-	protected function isKicked( $user ) {
+	protected function isKicked( $username ) {
 		$dbr = wfGetDB( DB_SLAVE );
 		$contrib = $dbr->selectField(
 			'ethereditor_contribs',
 			'kicked',
 			array(
 				'pad_id' => $this->id,
-				'username' => $user->getName()
+				'username' => $username
 			)
 		);
 		return $contrib != 0;
