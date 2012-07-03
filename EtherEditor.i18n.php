@@ -28,6 +28,7 @@ Please consider clicking the "{{int:ethereditor-collaborate-button}}" button in 
 /** Message documentation (Message documentation)
  * @author Kghbln
  * @author Mark Holmquist
+ * @author Raymond
  */
 $messages['qqq'] = array(
 	'ethereditor-desc' => '{{desc}}',
@@ -36,8 +37,8 @@ $messages['qqq'] = array(
 	'ethereditor-fork-button' => 'A button above the textarea that allows the user to create a separate pad.',
 	'ethereditor-contrib-button' => 'A button that will populate the edit summary with the list of contributors saved in the database.',
 	'ethereditor-kick-button' => 'A button that will kick a user from the current Etherpad instance.',
-	'ethereditor-kick-button' => 'A button that will delete the current Etherpad pad.',
-    'ethereditor-cannot-nologin' => 'Lets the user know that they can only collaborate if they are logged in, shown on a login error page.',
+	'ethereditor-delete-button' => 'A button that will delete the current Etherpad pad.',
+	'ethereditor-cannot-nologin' => 'Lets the user know that they can only collaborate if they are logged in, shown on a login error page.',
 	'ethereditor-warn-others' => 'A message to let the user know that other people are editing the page with EtherEditor. "Collaborate" should be identical to {{msg-mw|Ethereditor-collaborate-button}}.',
 );
 
@@ -51,12 +52,17 @@ $messages['de'] = array(
 	'ethereditor-fork-button' => 'Weiteres Textfeld erstellen',
 	'ethereditor-contrib-button' => 'Liste der Bearbeiter der Bearbeitungszusammenfassung hinzufügen',
 	'ethereditor-kick-button' => 'Benutzer ausschließen',
+	'ethereditor-delete-button' => 'Dieses EtherPad löschen',
+	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, musst du dich anmelden.',
 	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Du kannst diese Seite gerne weiter bearbeiten, allerdings könnten deine Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlege, ob du dich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchtest, indem du die Schaltfläche „{{int:ethereditor-collaborate-button}}“ anklickst. Du findest sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise kannst Du Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬) */
+/** German (formal address) (‪Deutsch (Sie-Form)‬)
+ * @author Kghbln
+ */
 $messages['de-formal'] = array(
-	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Sie können diese Seite gerne weiter bearbeiten, allerdings könnten Ihre Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlegen Sie sich, ob Sie sich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchten, indem Sie die Schaltfläche „Mitmachen“ anklicken. Sie finden sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise können Sie Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
+	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie sich anmelden.',
+	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Sie können diese Seite gerne weiter bearbeiten, allerdings könnten Ihre Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlegen Sie sich, ob Sie sich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchten, indem Sie die Schaltfläche {{int:ethereditor-collaborate-button}} anklicken. Sie finden sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise können Sie Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
 );
 
 /** Lower Sorbian (dolnoserbski)
@@ -82,9 +88,22 @@ $messages['es'] = array(
 	'ethereditor-fork-button' => 'Abrir una ventana separada',
 	'ethereditor-contrib-button' => 'Añadir una lista de los colaboradores al resumen de edición',
 	'ethereditor-kick-button' => 'Echar a un usuario',
+	'ethereditor-cannot-nologin' => 'Para poder utilizar el sistema EtherEditor, debes iniciar sesión.',
 	'ethereditor-warn-others' => 'Advertencia: Algunos otros usuarios están actualmente editando esta página en una sesión colaborativa mediante la extensión EtherEditor.
 Si bien te invitamos a seguir editando aquí, sus cambios pueden entrar en conflicto con los tuyos.
 Por favor considera hacer clic en el botón "{{int:ethereditor-collaborate-button}}" de la parte superior derecha de la pantalla para unirte a ellos, y evitar conflictos de combinación.',
+);
+
+/** French (français)
+ * @author MarkTraceur
+ */
+$messages['fr'] = array(
+	'ethereditor-desc' => 'Permet aux utilisateurs de modifier avec Etherpad',
+	'ethereditor-prefs-enable-ether' => "Activer l'éditeur collaboratif (expérimental)",
+	'ethereditor-collaborate-button' => 'Collaborez',
+	'ethereditor-fork-button' => 'Copiez ce bloc-note',
+	'ethereditor-contrib-button' => "Ajouter la liste des contributeurs au résumé d'édition",
+	'ethereditor-kick-button' => 'Bloquez utilisateur',
 );
 
 /** Galician (galego)
@@ -97,6 +116,8 @@ $messages['gl'] = array(
 	'ethereditor-fork-button' => 'Abrir unha ventá separada',
 	'ethereditor-contrib-button' => 'Engadir unha lista dos colaboradores ao resumo de edición',
 	'ethereditor-kick-button' => 'Botar ao usuario',
+	'ethereditor-delete-button' => 'Pechar esta ventá separada',
+	'ethereditor-cannot-nologin' => 'Cómpre acceder ao sistema para utilizar o EtherEditor.',
 	'ethereditor-warn-others' => 'Atención: Nestes intres hai outros usuarios editando esta páxina nunha sesión colaborativa mediante a extensión EtherEditor.
 Pode continuar facendo as súas modificacións, pero debe ter en conta que os cambios dos demais editores poden entrar en conflito cos seus.
 Considere a opción de premer no botón "{{int:ethereditor-collaborate-button}}" na parte superior dereita da páxina para unirse a eles e evitar eses conflitos.',
@@ -112,6 +133,8 @@ $messages['hsb'] = array(
 	'ethereditor-fork-button' => 'Dalše tekstowe polo wutworić',
 	'ethereditor-contrib-button' => 'Lisćinu sobuskutkowacych wobdźěłowanskeho zjeća přidać',
 	'ethereditor-kick-button' => 'Wužiwarja won ćisnyć',
+	'ethereditor-delete-button' => 'Tute polo zhašeć',
+	'ethereditor-cannot-nologin' => 'Zo by EtherEditor wužiwał, dyrbiš přizjewjeny być.',
 	'ethereditor-warn-others' => 'Warnowanje: Někotři druzy wužiwarjo wobdźěłuja tuchwilu tutu stronu w zhromadnym posedźenju z pomocu rozšěrjenja EtherEditor. Móžeš bjeze wšeho tu dale dźěłać, móža jich změny z twojimi w konflikće być.  Rozwaž, hač nochceš z nimi zhromadnje dźěłać a klikń potom na tłóčatko "{{int:ethereditor-collaborate-button}}" horjeka na stronje, zo by wobdźěłowanske konflikty wobešoł.',
 );
 
@@ -171,6 +194,8 @@ $messages['mk'] = array(
 	'ethereditor-fork-button' => 'Направи друга текстуална кутија',
 	'ethereditor-contrib-button' => 'Додај список на учесници во описот на уредувањето',
 	'ethereditor-kick-button' => 'Клоцни го корисникот',
+	'ethereditor-delete-button' => 'Избриши го овој EtherPad',
+	'ethereditor-cannot-nologin' => 'За да го користите EtherEditor, мора прво да се најавите.',
 	'ethereditor-warn-others' => 'Предупредување: Моментално страницата ја уредуваат некои други корисници во соработна сесија користејќи го додатокот EtherEditor.
 Иако сте добредојдени да продолжите да уредувате тука, промените што тие ќе ги направат може да се косат со вашите. 
 Ви препорачуваме да стиснете на копчето „{{int:ethereditor-collaborate-button}}“ во десниот горен агол на екранот за да им се придружите, и така да избегнете спротиставености во уредувањата.',
@@ -186,6 +211,7 @@ $messages['nl'] = array(
 	'ethereditor-fork-button' => 'Kopie van deze pad maken',
 	'ethereditor-contrib-button' => 'Lijst met auteurs toevoegen aan bewerkingssamenvatting',
 	'ethereditor-kick-button' => 'Gebruiker verwijderen',
+	'ethereditor-cannot-nologin' => 'U moet aanmelden om EtherEditor te kunnen gebruiken.',
 	'ethereditor-warn-others' => 'Waarschuwing: andere gebruikers zijn op dit moment samen bezig met het bewerken van deze pagina met behulp van de uitbreiding EtherEditor.
 Als u hier blijft bewerken, kunnen uw wijzigingen conflicteren met die van hun.
 U kunt op de knop "{{int:ethereditor-collaborate-button}}" klikken rechts bovenaan uw scherm om bewerkingsconflicten te voorkomen.',
