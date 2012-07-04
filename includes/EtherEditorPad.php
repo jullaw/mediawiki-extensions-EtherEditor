@@ -617,6 +617,16 @@ class EtherEditorPad {
 			__METHOD__
 		);
 
+		$dbw = wfGetDB( DB_MASTER );
+
+		$d1 &= $dbw->delete(
+			'ethereditor_contribs',
+			array(
+				'pad_id' => $this->id
+			),
+			__METHOD__
+		);
+
 		return $d1;
 	}
 
