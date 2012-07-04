@@ -104,11 +104,14 @@
 			var contribs = _this.contribs;
 			var $smry = $( '#wpSummary' );
 			var contribstr = '';
-			for ( var cx in contribs ) {
+			var cx = 0;
+			while ( 1 ) {
 				var contrib = contribs[cx];
 				contribstr += contrib.username;
-				if ( cx + 1 < contribs.length ) {
+				if ( ++cx < contribs.length ) {
 					contribstr += ', ';
+				} else {
+					break;
 				}
 			}
 			$smry.val( $smry.val() + ' Contributors in EtherEditor: ' + contribstr );
