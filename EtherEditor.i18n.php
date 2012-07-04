@@ -88,6 +88,7 @@ $messages['es'] = array(
 	'ethereditor-fork-button' => 'Abrir una ventana separada',
 	'ethereditor-contrib-button' => 'Añadir una lista de los colaboradores al resumen de edición',
 	'ethereditor-kick-button' => 'Echar a un usuario',
+	'ethereditor-delete-button' => 'Eliminar esta ventana',
 	'ethereditor-cannot-nologin' => 'Para poder utilizar el sistema EtherEditor, debes iniciar sesión.',
 	'ethereditor-warn-others' => 'Advertencia: Algunos otros usuarios están actualmente editando esta página en una sesión colaborativa mediante la extensión EtherEditor.
 Si bien te invitamos a seguir editando aquí, sus cambios pueden entrar en conflicto con los tuyos.
@@ -148,6 +149,8 @@ $messages['ia'] = array(
 	'ethereditor-fork-button' => 'Copiar iste "pad"',
 	'ethereditor-contrib-button' => 'Adder lista de contributores al summario de modification',
 	'ethereditor-kick-button' => 'Ejectar usator',
+	'ethereditor-delete-button' => 'Deler iste pad',
+	'ethereditor-cannot-nologin' => 'Pro usar le EtherEditor, tu debe aperir session.',
 	'ethereditor-warn-others' => 'Attention: In iste momento, altere usatores modifica iste pagina in un session collaborative usante le extension EtherEditor.
 Tu pote continuar le modification hic, ma lor cambiamentos pote confliger con le tues.
 Per favor considera cliccar sur le button "{{int:ethereditor-collaborate-button}}" in le parte superior dextre del pagina pro collaborar con illes e evitar conflictos de combination.',
@@ -202,6 +205,7 @@ $messages['mk'] = array(
 );
 
 /** Dutch (Nederlands)
+ * @author Saruman
  * @author Siebrand
  */
 $messages['nl'] = array(
@@ -211,6 +215,7 @@ $messages['nl'] = array(
 	'ethereditor-fork-button' => 'Kopie van deze pad maken',
 	'ethereditor-contrib-button' => 'Lijst met auteurs toevoegen aan bewerkingssamenvatting',
 	'ethereditor-kick-button' => 'Gebruiker verwijderen',
+	'ethereditor-delete-button' => 'Deze EtherPad verwijderen',
 	'ethereditor-cannot-nologin' => 'U moet aanmelden om EtherEditor te kunnen gebruiken.',
 	'ethereditor-warn-others' => 'Waarschuwing: andere gebruikers zijn op dit moment samen bezig met het bewerken van deze pagina met behulp van de uitbreiding EtherEditor.
 Als u hier blijft bewerken, kunnen uw wijzigingen conflicteren met die van hun.
