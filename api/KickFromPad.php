@@ -19,14 +19,16 @@ class KickFromPad extends ApiBase {
 		$params = $this->extractRequestParams();
 		$result = $this->getResult();
 		$epPad = EtherEditorPad::newFromId( $params['padId'] );
+		$kickuser = User::newFromName( $params['user'] );
 
 		$result->addValue(
 			array( 'KickFromPad' ),
 			'success',
-			$epPad->kickUser( $wgUser, User::newFromName( $params['user'] ) )
+			$epPad->kickUser( $wgUser->getName(), $kickuser->getName(), $kickuser->getId() )
 		);
 	}
 
+	// @codeCoverageIgnoreStart
 	public function getAllowedParams() {
 		return array(
 			'padId' => array(
@@ -64,4 +66,5 @@ class KickFromPad extends ApiBase {
 	public function getVersion() {
 		return __CLASS__ . ': 0.2.2';
 	}
+	// @codeCoverageIgnoreEnd
 }

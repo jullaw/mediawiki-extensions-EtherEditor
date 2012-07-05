@@ -27,6 +27,7 @@ class EtherPadAuth extends ApiBase {
 		);
 	}
 
+	// @codeCoverageIgnoreStart
 	public function getAllowedParams() {
 		return array(
 			'padId' => array(
@@ -58,5 +59,6 @@ class EtherPadAuth extends ApiBase {
 	public function getVersion() {
 		return __CLASS__ . ': 0.2.0';
 	}
+	// @codeCoverageIgnoreEnd
 }
 

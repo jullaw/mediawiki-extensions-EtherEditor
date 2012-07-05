@@ -346,19 +346,20 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param User $user the user doing the kicking
-	 * @param User $kickuser the user to kick
+	 * @param string $username the user doing the kicking
+	 * @param string $kickusername the username to kick
+	 * @param int $kickuserid the user id to kick
 	 *
 	 * @return int|bool sessionId or false
 	 */
-	public function kickUser( $user, $kickuser ) {
-		$isAdmin = $this->isAdmin( $user );
+	public function kickUser( $username, $kickusername, $kickuserid ) {
+		$isAdmin = $this->isAdmin( $username );
 		if ( $isAdmin ) {
-			if ( !$kickuser || $this->isKicked( $kickuser ) ) {
+			if ( $this->isKicked( $kickusername ) ) {
 				return true;
 			}
 			$epClient = self::getEpClient();
-			$authorId = $epClient->createAuthorIfNotExistsFor( $kickuser->getId(), $kickuser->getName() )->authorID;
+			$authorId = $epClient->createAuthorIfNotExistsFor( $kickuserid, $kickusername )->authorID;
 			$sessions = (array) $epClient->listSessionsOfAuthor( $authorId );
 			foreach ( $sessions as $sid => $sess ) {
 				if ( $sess->groupID == $this->groupId ) {
@@ -366,7 +367,7 @@ class EtherEditorPad {
 				}
 			}
 
-			$this->removeFromContribs( $kickuser->getName() );
+			$this->removeFromContribs( $kickusername );
 		}
 		return $isAdmin; // The user not being admin is the only possible error
 	}
@@ -376,12 +377,12 @@ class EtherEditorPad {
 	 *
 	 * @since 0.2.2
 	 *
-	 * @param User $user the user to check
+	 * @param string $username the user to check
 	 *
 	 * @return boolean
 	 */
-	public function isAdmin( $user ) {
-		return $this->adminUser == $user->getName();
+	public function isAdmin( $username ) {
+		return $this->adminUser == $username;
 	}
 
 	/**
@@ -645,10 +646,6 @@ class EtherEditorPad {
 			$epClient->deletePad( $this->epid );
 		} catch ( Exception $e ) {
 			// this just means the pad already got deleted. No problem.
-		}
-
-		if ( is_null( $this->id ) ) {
-			return true;
 		}
 
 		$dbw = wfGetDB( DB_MASTER );

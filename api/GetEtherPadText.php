@@ -26,6 +26,7 @@ class GetEtherPadText extends ApiBase {
 		);
 	}
 
+	// @codeCoverageIgnoreStart
 	public function getAllowedParams() {
 		return array(
 			'padId' => array(
@@ -57,5 +58,6 @@ class GetEtherPadText extends ApiBase {
 	public function getVersion() {
 		return __CLASS__ . ': 0.2.1';
 	}
+	// @codeCoverageIgnoreEnd
 }
 

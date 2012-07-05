@@ -1,4 +1,5 @@
 <?php
+// @codeCoverageIgnoreStart
 class EtherpadLiteClient {
 
   const API_VERSION             = 1;
@@ -312,3 +313,4 @@ class EtherpadLiteClient {
     ));
   }
 }
+// @codeCoverageIgnoreEnd

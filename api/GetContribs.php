@@ -26,6 +26,7 @@ class GetContribs extends ApiBase {
 		);
 	}
 
+	// @codeCoverageIgnoreStart
 	public function getAllowedParams() {
 		return array(
 			'padId' => array(
@@ -57,5 +58,6 @@ class GetContribs extends ApiBase {
 	public function getVersion() {
 		return __CLASS__ . ': 0.3.0';
 	}
+	// @codeCoverageIgnoreEnd
 }
 

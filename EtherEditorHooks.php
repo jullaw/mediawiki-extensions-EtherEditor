@@ -210,6 +210,8 @@ class EtherEditorHooks {
 		$files[] = $testDir . 'api/KickFromPadTest.php';
 		$files[] = $testDir . 'api/GetContribsTest.php';
 		$files[] = $testDir . 'api/DeleteEtherPadTest.php';
+		$files[] = $testDir . 'includes/EtherEditorPadTest.php';
 		return true;
 	}
+
 }
