@@ -226,8 +226,29 @@ class EtherEditorPad {
 			$conditions['base_revision'] = $baseRevision;
 			if ( $forceNewRemote || ( isset( $conditions['pad_id'] ) && $conditions['pad_id'] == -1 ) ) {
 				unset( $conditions['pad_id'] );
-				$conditions['extra_title'] = time();
+				$extra = 0;
+				$others = self::getOtherPads( 0, $conditions['page_title'] );
+				$success = false;
+				// Here's how this works:
+				// 1. Grab all the existing forks.
+				// 2. Try a set of "extra title" information, making sure none of the existing pads have that title.
+				// 3. If we find an existing one, that *should be* unique. Remove it, so the dataset is smaller for the next run-through.
+				while ( !$success ) {
+					$success = true; // test condition
+					$extra += 1;
+					$tryname = $conditions['page_title'] . '_copy' . strval( $extra );
+					$found = false;
+					foreach ( $others as $i => $other ) {
+						$thisname = substr( $other->ep_pad_id, 19 );
+						if ( $thisname == $tryname ) {
+							unset( $others[$i] );
+							$success = true;
+							break;
+						}
+					}
+				}
 			}
+			$conditions['extra_title'] = '_copy' . strval( $extra );
 			return self::newRemotePad( $conditions, $text );
 		}
 
@@ -639,7 +660,7 @@ class EtherEditorPad {
 	 *
 	 * @return array Array of pad IDs
 	 */
-	public function getOtherPads( $minRevision=0 ) {
+	public function getOtherPads( $minRevision=0, $pageTitle='' ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		return resToArray( $dbr->select(
@@ -651,9 +672,9 @@ class EtherEditorPad {
 				'group_id'
 			),
 			array(
-				'pad_id <> ' . $this->id,
+				'pad_id <> ' . ( $this ? $this->id : -1 ),
 				'base_revision >= ' . $minRevision,
-				'page_title' => $this->pageTitle,
+				'page_title' => $pageTitle == '' ? $this->pageTitle : $pageTitle,
 				'public_pad' => '1'
 			),
 			__METHOD__

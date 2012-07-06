@@ -229,14 +229,15 @@
 				for ( var px in pads ) {
 					var pad = pads[px];
 					var $option = $( '<option></option>' );
-					$option.html( pad.ep_pad_id );
+					$option.html( pad.ep_pad_id.substr( 19 ) );
 					$option.val( pad.pad_id );
 					$option.data( 'admin', pad.admin_user );
+					$option.data( 'ep_pad_id', pad.ep_pad_id );
 					_this.$select.append( $option );
 				}
 				_this.$select.change( function () {
 					var $selopt = $( 'option:selected', $( this ) );
-					_this.padId = $selopt.html();
+					_this.padId = $selopt.data( 'ep_pad_id' );
 					_this.dbId = $selopt.val();
 					_this.isAdmin = mw.user.name() == $selopt.data( 'admin' );
 					_this.authenticateUser( function () {
