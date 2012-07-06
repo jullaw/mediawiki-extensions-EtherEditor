@@ -96,6 +96,7 @@ Por favor considera hacer clic en el botón "{{int:ethereditor-collaborate-butto
 );
 
 /** French (français)
+ * @author Gomoko
  * @author MarkTraceur
  */
 $messages['fr'] = array(
@@ -105,6 +106,11 @@ $messages['fr'] = array(
 	'ethereditor-fork-button' => 'Copiez ce bloc-note',
 	'ethereditor-contrib-button' => "Ajouter la liste des contributeurs au résumé d'édition",
 	'ethereditor-kick-button' => 'Bloquez utilisateur',
+	'ethereditor-delete-button' => 'Supprimer ce bloc',
+	'ethereditor-cannot-nologin' => 'Pour pouvoir utiliser EtherEditor, vous devez être connecté.',
+	'ethereditor-warn-others' => "Attention: D'autres utilisateurs sont en train de modifier cette page dans une session collaborative en utilisant l'extension EtherEditor.
+Bien que vous puissiez sans problème continuer à la modifier ici, leurs modifications pourraient entrer en conflit avec les vôtres.
+Veuillez envisager de cliquer sur le bouton \"{{int:ethereditor-collaborate-button}}\" en haut à droite de l'écran de la page pour les rejoindre, et éviter les conflits de fusion.",
 );
 
 /** Galician (galego)
@@ -226,8 +232,15 @@ U kunt op de knop "{{int:ethereditor-collaborate-button}}" klikken rechts bovena
  * @author AnakngAraw
  */
 $messages['tl'] = array(
-	'ethereditor-desc' => 'Nagpapahintulot sa mga tagagamit na makapamatnugot sa pamamagitan ng Etherpad, isang aplikasyong pangweb para sa pamamatnugot na may pagtutulungan',
+	'ethereditor-desc' => 'Nagpapahintulot sa mga tagagamit na makapamatnugot sa pamamagitan ng Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Paganahin ang pampagtutulungang patungot (napaka pang-eksperimento)',
 	'ethereditor-collaborate-button' => 'Makipagtulungan',
+	'ethereditor-fork-button' => 'Kopyahin ang saping ito',
+	'ethereditor-contrib-button' => 'Idagdag ang listahan ng mga nag-aambag sa buod ng pamamatnugot',
+	'ethereditor-kick-button' => 'Sipain ang tagagamit',
+	'ethereditor-delete-button' => 'Burahin ang saping ito',
+	'ethereditor-cannot-nologin' => 'Upang magamit ang EtherEditor, dapat na nakalagda ka.',
+	'ethereditor-warn-others' => 'Babala: Ilan sa mga tagagamit ay kasalukuyang namamatnugot ng pahinang ito sa isang paglalaan ng panahon ng pagtutulungan na ginagamit ang pandugtong ng EtherEditor. Habang mabuti ang pagtanggap na makapagpapatuloy kang mamatnugot dito, ang mga binago nila ay maaaring sumalungat sa mga binago mo.
+Paki isaalang-alang ang paglagitik sa pindutang "{{int:ethereditor-collaborate-button}}" na nasa pang-itaas na kanan ng tanawan ng pahina upang sumali sa kanila, at maiwasan ang mga pagsasalungatan sa pagsasanib.',
 );
 
