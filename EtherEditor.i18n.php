@@ -178,6 +178,7 @@ $messages['it'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
+	'ethereditor-desc' => 'Määd_et Sigge Ändere för ene Pöngel Metmaacher ob eijmohl övver en <i lang="en">etherpad</ui> müjjelesch.',
 	'ethereditor-warn-others' => 'Opjepaß: ene Knubbel ander Metmaacher es em Momang heh di Sigg met däm Zohsazprojramm <i lang="en">EtherEditor</i> aam ändere.
 Do kanns jähn heh wigger maache, ävver et es dermt ze räschne, dat dänne ier Änderpnge un de Dinge nit zersamme paße.
 Bes esu jood_um dängk do drövver noh, of De nit bei dänne metmaache well, ön nit dernoh de Änderonge zersamme bränge ze möße.
