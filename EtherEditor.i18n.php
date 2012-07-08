@@ -75,6 +75,8 @@ $messages['dsb'] = array(
 	'ethereditor-fork-button' => 'Dalšne tekstowe pólo napóraś',
 	'ethereditor-contrib-button' => 'Lisćinu sobustatkujucych wobźěłowanja zespominanja pśidaś',
 	'ethereditor-kick-button' => 'Wužywarja wen chyśiś',
+	'ethereditor-delete-button' => 'Toś to pólo lašowaś',
+	'ethereditor-cannot-nologin' => 'Aby EtherEditor wužywał, musyš pśizjawjony byś.',
 	'ethereditor-warn-others' => 'Warnowanje: Někotare druge wužywarje wobźěłuju tuchylu toś ten bok w zgromadnem posejźenju z pomocu rozšyrjenja EtherEditor. Móžoš bźeze wšogo how dalej źěłaś, ale mógu jich změny z twójimi w konflikśe byś.  Rozwaž, lěć njocoš z nimi zgromadnje źěłaś a klikni pótom na tłocašk "{{int:ethereditor-collaborate-button}}" górjejce na boku, aby se wobźěłowańske konflikty wobinuł.',
 );
 
@@ -178,9 +180,16 @@ $messages['it'] = array(
  * @author Purodha
  */
 $messages['ksh'] = array(
-	'ethereditor-desc' => 'Määd_et Sigge Ändere för ene Pöngel Metmaacher ob eijmohl övver en <i lang="en">etherpad</ui> müjjelesch.',
+	'ethereditor-desc' => 'Määd_et Sigge Ändere för ene Pöngel Metmaacher ob eijmohl övver en <i lang="en">etherpad</i> müjjelesch.',
+	'ethereditor-prefs-enable-ether' => 'Et Ändere övver en <i lang="en">etherpad</i> enschallde. (För zem Ußprobeere)',
+	'ethereditor-collaborate-button' => 'Em  <i lang="en">etherpad</i> Ändere',
+	'ethereditor-fork-button' => 'En extra en <i lang="en">etherpad</i> opmaache',
+	'ethereditor-contrib-button' => 'Donn de Metschriever-Leß onger {{int:summary}} enfraare!!FIÙZZY!!',
+	'ethereditor-kick-button' => 'Ene Metmaacher ußschleeße',
+	'ethereditor-delete-button' => 'Donn heh dat <i lang="en">etherpad</i> fottschmiiße',
+	'ethereditor-cannot-nologin' => 'Öm övver en <i lang="en">etherpad</i> jät ze ändere, moß De enjelogg sin.',
 	'ethereditor-warn-others' => 'Opjepaß: ene Knubbel ander Metmaacher es em Momang heh di Sigg met däm Zohsazprojramm <i lang="en">EtherEditor</i> aam ändere.
-Do kanns jähn heh wigger maache, ävver et es dermt ze räschne, dat dänne ier Änderpnge un de Dinge nit zersamme paße.
+Do kanns jähn heh wigger maache, ävver et es dermet ze räschne, dat dänne ier Änderonge un de Dinge nit zersamme paße.
 Bes esu jood_um dängk do drövver noh, of De nit bei dänne metmaache well, ön nit dernoh de Änderonge zersamme bränge ze möße.
 Kleck op dä Knopp {{int:ethereditor-collaborate-button}}, öm och met däm Zohsazprojramm ze ändere.',
 );
