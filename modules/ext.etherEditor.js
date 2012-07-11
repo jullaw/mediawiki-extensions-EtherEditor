@@ -21,7 +21,7 @@
 		}
 
 		var _this = this;
-		this.$textarea = $( textarea );
+		_this.$textarea = $( textarea );
 		_this.userName = mw.config.get( 'wgUserName' );
 		_this.hostname = _this.getHostName();
 		_this.baseUrl = mw.config.get( 'wgEtherEditorPadUrl' );
@@ -55,11 +55,12 @@
 			}
 		} );
 
-		this.$textarea.after( $( '<input type="hidden" name="enableether" value="true" />' ) );
+		_this.$textarea.after( $( '<input type="hidden" name="enableether" value="true" />' ) );
 
-		this.initializeControls();
-		this.initializePad();
-		this.initializePadList();
+		_this.initializeControls();
+		_this.initializePad();
+		_this.initializePadList();
+		_this.initializeContribs();
 
 		$( '#wikiEditor-ui-toolbar' ).add( '#toolbar' ).hide();
 	};
@@ -114,7 +115,9 @@
 					break;
 				}
 			}
-			$smry.val( '%% Contributors in EtherEditor: ' + contribstr + ' %% ' + $smry.val() );
+			var oldsmry = $smry.val();
+			oldsmry = oldsmry.replace(/%% .* %%/, '');
+			$smry.val( '%% Contributors in EtherEditor: ' + contribstr + ' %% ' + oldsmry );
 		},
 		/**
 		 * Adds some controls to the form specific to the extension.
@@ -125,23 +128,6 @@
 			$ctrls.attr( 'id', 'ethereditor-ctrls' );
 			_this.$textarea.before( $ctrls );
 
-			var $contribbtn = $( '<button></button>' );
-			$contribbtn.html( mw.msg( 'ethereditor-contrib-button' ) );
-			$contribbtn.click( function () {
-				$.ajax( {
-					url: mw.util.wikiScript( 'api' ),
-					method: 'GET',
-					data: { format: 'json', action: 'GetContribs', padId: _this.dbId },
-					success: function( data ) {
-						_this.contribs = data.GetContribs.contribs;
-						_this.populateSummary();
-						return 0;
-					},
-					dataType: 'json'
-				} );
-				return false;
-			} );
-			$( '#wpDiff' ).after( $contribbtn );
 			_this.initializeAdminControls();
 		},
 		/**
@@ -161,6 +147,30 @@
 			$actls.append( $delbtn );
 			_this.$textarea.before( $actls );
 			_this.addKickField();
+		},
+		/**
+		 * Initializes an automatic process of constantly checking for, and
+		 * adding, new contributors.
+		 */
+		initializeContribs: function (oldthis) {
+			var _this = this;
+			var oldDbId = _this.dbId;
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: { format: 'json', action: 'GetContribs', padId: _this.dbId },
+				success: function( data ) {
+					if ( oldDbId == _this.dbId ) {
+						_this.contribs = data.GetContribs.contribs;
+						_this.populateSummary();
+						setTimeout( function () { _this.initializeContribs() }, 5000 );
+					} else {
+						_this.initializeContribs();
+					}
+					return 0;
+				},
+				dataType: 'json'
+			} );
 		},
 		/**
 		 * Adds a field and button for kicking users from the pad
