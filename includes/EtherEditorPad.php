@@ -242,7 +242,7 @@ class EtherEditorPad {
 						$thisname = substr( $other->ep_pad_id, 19 );
 						if ( $thisname == $tryname ) {
 							unset( $others[$i] );
-							$success = true;
+							$success = false;
 							break;
 						}
 					}

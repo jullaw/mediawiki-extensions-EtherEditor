@@ -114,7 +114,7 @@
 					break;
 				}
 			}
-			$smry.val( $smry.val() + ' Contributors in EtherEditor: ' + contribstr );
+			$smry.val( '%% Contributors in EtherEditor: ' + contribstr + ' %% ' + $smry.val() );
 		},
 		/**
 		 * Adds some controls to the form specific to the extension.
@@ -124,27 +124,6 @@
 			var $ctrls = $( '<div></div>' );
 			$ctrls.attr( 'id', 'ethereditor-ctrls' );
 			_this.$textarea.before( $ctrls );
-
-			var $forkbtn = $( '<button></button>' );
-			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
-			$forkbtn.click( function () {
-				$.ajax( {
-					url: mw.util.wikiScript( 'api' ),
-					method: 'GET',
-					data: { format: 'json', action: 'ForkEtherPad', padId: _this.dbId },
-					success: function( data ) {
-						_this.padId = data.ForkEtherPad.padId;
-						_this.dbId = data.ForkEtherPad.dbId;
-						_this.sessionId = data.ForkEtherPad.sessionId;
-						_this.isAdmin = true;
-						_this.initializePad();
-						return 0;
-					},
-					dataType: 'json'
-				} );
-				return false;
-			} );
-			$ctrls.append( $forkbtn );
 
 			var $contribbtn = $( '<button></button>' );
 			$contribbtn.html( mw.msg( 'ethereditor-contrib-button' ) );
@@ -162,7 +141,7 @@
 				} );
 				return false;
 			} );
-			$ctrls.append( $contribbtn );
+			$( '#wpDiff' ).after( $contribbtn );
 			_this.initializeAdminControls();
 		},
 		/**
@@ -222,9 +201,10 @@
 		*/
 		initializePadList: function () {
 			var _this = this;
+			var $padlistdiv = $( '<div></div>' );
 			var pads = mw.config.get( 'wgEtherEditorOtherPads' );
 			if ( pads && pads.length ) {
-				_this.$select = $( '<select></select>' );
+				_this.$select = $( '<select></select>' ).attr( 'id', 'ethereditor-select-pad' );
 				pads.unshift( { pad_id: _this.dbId, ep_pad_id: _this.padId, admin_user: ( this.isAdmin ? mw.user.name() : '' ) } );
 				for ( var px in pads ) {
 					var pad = pads[px];
@@ -244,8 +224,31 @@
 						_this.initializePad();
 					} );
 				} );
-				_this.$textarea.before( _this.$select );
+				$padlistdiv.append( _this.$select );
 			}
+
+			var $forkbtn = $( '<button></button>' );
+			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
+			$forkbtn.click( function () {
+				$.ajax( {
+					url: mw.util.wikiScript( 'api' ),
+					method: 'GET',
+					data: { format: 'json', action: 'ForkEtherPad', padId: _this.dbId },
+					success: function( data ) {
+						_this.padId = data.ForkEtherPad.padId;
+						_this.dbId = data.ForkEtherPad.dbId;
+						_this.sessionId = data.ForkEtherPad.sessionId;
+						_this.isAdmin = true;
+						_this.initializePad();
+						return 0;
+					},
+					dataType: 'json'
+				} );
+				return false;
+			} );
+			$padlistdiv.append( $forkbtn );
+
+			_this.$textarea.before( $padlistdiv );
 		},
 		/**
 		 * Initializes the pad.
