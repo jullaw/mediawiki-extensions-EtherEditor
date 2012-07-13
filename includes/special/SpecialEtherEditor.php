@@ -23,8 +23,8 @@ class SpecialEtherEditor extends SpecialPage {
 	 * @param User $user
 	 * @return boolean
 	 */
-	protected static function isUserLogged( $user ) {
-		return ( $user->isLoggedIn() );
+	protected function isUserLogged() {
+		return $this->getUser()->isLoggedIn();
 	}
 
 	/**
@@ -32,24 +32,20 @@ class SpecialEtherEditor extends SpecialPage {
 	 * @param $subPage, e.g. the "foo" in Special:EtherEditor/foo. In this case, it's the title of the page to manage.
 	 */
 	public function execute( $subPage ) {
-		global $wgUser;
-
 		$this->setHeaders();
 		$this->outputHeader();
 
-		if ( !$this->isUserLogged( $wgUser ) ) {
+		if ( !$this->isUserLogged() ) {
 			throw new UserNotLoggedIn( 'ethereditor-cannot-nologin' );
 		}
 
 		$req = $this->getRequest();
 
 		$out = $this->getOutput();
-		$out->setPageTitle( wfMessage( 'ethereditor-manager-title' ) );
+		$out->setPageTitle( $this->msg( 'ethereditor-manager-title' ) );
 
 		// fallback for non-JS
-		$out->addHTML( '<noscript>' );
-		$out->addHTML( '<p class="errorbox">' . htmlspecialchars( wfMessage( 'ethereditor-js-off' ) ) . '</p>' );
-		$out->addHTML( '</noscript>' );
+		$out->wrapWikiMsg( '<noscript><p class="errorbox">$1</p></noscript>', 'ethereditor-js-off' );
 
 		// global javascript variables
 		$this->addJsVars( $subPage );
@@ -115,10 +111,10 @@ class SpecialEtherEditor extends SpecialPage {
 		.	'			<h2 class="ethereditor-page-title"></h2>'
 		.	'			<table>'
 		.	'				<tr>'
-		.	'					<th>' . wfMessage( 'ethereditor-pad-title' )->text() . '</th>'
-		.	'					<th>' . wfMessage( 'ethereditor-base-revision' )->text() . '</th>'
-		.	'					<th>' . wfMessage( 'ethereditor-users-connected' )->text() . '</th>'
-		.	'					<th>' . wfMessage( 'ethereditor-admin-controls' )->text() . '</th>'
+		.	'					<th>' . $this->msg( 'ethereditor-pad-title' )->text() . '</th>'
+		.	'					<th>' . $this->msg( 'ethereditor-base-revision' )->text() . '</th>'
+		.	'					<th>' . $this->msg( 'ethereditor-users-connected' )->text() . '</th>'
+		.	'					<th>' . $this->msg( 'ethereditor-admin-controls' )->text() . '</th>'
 		.	'				</tr>'
 		.	'				<tr class="ethereditor-pad">'
 		.	'					<td class="pad-name"></td>'

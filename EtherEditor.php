@@ -52,7 +52,7 @@ $wgResourceModules += array(
 		'scripts' => 'jquery.etherpad.js',
 	),
 
-    'ext.etherEditor' => $etherEditorTpl + array(
+	'ext.etherEditor' => $etherEditorTpl + array(
 		'scripts' => array(
 			'ext.etherEditor.js',
 		),
@@ -70,7 +70,7 @@ $wgResourceModules += array(
 		)
 	),
 
-    'ext.etherManager' => $etherEditorTpl + array(
+	'ext.etherManager' => $etherEditorTpl + array(
 		'scripts' => array(
 			'ext.etherManager.js',
 		),
