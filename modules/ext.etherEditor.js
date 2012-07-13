@@ -117,7 +117,7 @@
 			}
 			var oldsmry = $smry.val();
 			oldsmry = oldsmry.replace(/%% .* %%/, '');
-			$smry.val( '%% Contributors in EtherEditor: ' + contribstr + ' %% ' + oldsmry );
+			$smry.val( '%% Contributors in EtherEditor: ' + contribstr + ' %%' + oldsmry );
 		},
 		/**
 		 * Adds some controls to the form specific to the extension.

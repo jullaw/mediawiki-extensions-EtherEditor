@@ -7,7 +7,7 @@
  *
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  * @license GPL v2 or later
- * @version 0.2.1
+ * @version 0.3.0
  */
 
 
@@ -23,15 +23,23 @@ $wgExtensionCredits['other'][] = array(
 );
 $dir = dirname( __FILE__ );
 
-$wgAutoloadClasses['EtherEditorHooks'] = $dir . '/EtherEditorHooks.php';
-$wgAutoloadClasses['EtherEditorPad'] = $dir . '/includes/EtherEditorPad.php';
-$wgAutoloadClasses['EtherpadLiteClient'] = $dir . '/includes/EtherpadLiteClient.php';
-$wgAutoloadClasses['GetEtherPadText'] = $dir . '/api/GetEtherPadText.php';
-$wgAutoloadClasses['ForkEtherPad'] = $dir . '/api/ForkEtherPad.php';
-$wgAutoloadClasses['DeleteEtherPad'] = $dir . '/api/DeleteEtherPad.php';
-$wgAutoloadClasses['EtherPadAuth'] = $dir . '/api/EtherPadAuth.php';
-$wgAutoloadClasses['GetContribs'] = $dir . '/api/GetContribs.php';
-$wgAutoloadClasses['KickFromPad'] = $dir . '/api/KickFromPad.php';
+foreach ( array(
+		'EtherEditorHooks' => '/EtherEditorHooks',
+		'EtherEditorPad' => '/includes/EtherEditorPad',
+		'EtherpadLiteClient' => '/includes/EtherpadLiteClient',
+		'GetEtherPadText' => '/api/GetEtherPadText',
+		'ForkEtherPad' => '/api/ForkEtherPad',
+		'DeleteEtherPad' => '/api/DeleteEtherPad',
+		'EtherPadAuth' => '/api/EtherPadAuth',
+		'GetContribs' => '/api/GetContribs',
+		'KickFromPad' => '/api/KickFromPad',
+		'SpecialEtherEditor' => '/includes/special/SpecialEtherEditor',
+	) as $module => $path ) {
+	$wgAutoloadClasses[$module] = $dir . $path . '.php';
+}
+
+$wgSpecialPages['EtherEditor'] = 'SpecialEtherEditor';
+$wgSpecialPageGroups['EtherEditor'] = 'pagetools';
 
 $etherEditorTpl = array(
 	'localBasePath' => $dir . '/modules',
@@ -55,7 +63,22 @@ $wgResourceModules += array(
 			'ethereditor-delete-button',
 		),
 		'dependencies' => array(
+			'mediawiki.user',
 			'jquery.etherpad',
+			'jquery.cookie',
+		)
+	),
+
+    'ext.etherManager' => $etherEditorTpl + array(
+		'scripts' => array(
+			'ext.etherManager.js',
+		),
+		'messages' => array(
+			'ethereditor-fork-button',
+			'ethereditor-delete-button'
+		),
+		'dependencies' => array(
+			'mediawiki.user',
 			'jquery.cookie',
 		)
 	),

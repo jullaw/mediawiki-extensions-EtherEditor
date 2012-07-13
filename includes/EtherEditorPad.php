@@ -704,4 +704,56 @@ class EtherEditorPad {
 			__METHOD__
 		) );
 	}
+
+	/**
+	 * Get all pads by the page title, or just all pads if no title
+	 *
+	 * @since 0.3.0
+	 *
+	 * @return array Array of pads
+	 */
+	 public function getAllByPageTitle( $pageTitle ) {
+		$dbr = wfGetDB( DB_SLAVE );
+
+		$epClient = self::getEpClient();
+
+		$conditions = array(
+			'public_pad' => '1'
+		);
+
+		if ( $pageTitle != null ) {
+			$conditions['page_title'] = $pageTitle;
+		}
+
+		$pads = resToArray( $dbr->select(
+			'ethereditor_pads',
+			array(
+				'pad_id',
+				'page_title',
+				'base_revision',
+				'ep_pad_id',
+				'admin_user',
+				'group_id'
+			),
+			$conditions,
+			__METHOD__
+		) );
+
+		$pages = array();
+
+		foreach ( $pads as $pad ) {
+			$pad->users_connected = $epClient->padUsersCount( $pad->ep_pad_id )->padUsersCount;
+			if ( !isset( $pages[$pad->page_title] ) ) {
+				$title = Title::newFromText( $pad->page_title );
+				$pages[$pad->page_title] = $title->getLatestRevID();
+			}
+			if ( $pad->base_revision == $pages[$pad->page_title] ) {
+				$pad->base_revision = wfMessage( 'ethereditor-current' )->text();
+			} else {
+				$pad->base_revision = wfMessage( 'ethereditor-outdated' )->text();
+			}
+		}
+
+		return $pads;
+	 }
 }
