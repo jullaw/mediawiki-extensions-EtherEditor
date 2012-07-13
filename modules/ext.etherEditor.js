@@ -110,14 +110,20 @@
 				var contrib = contribs[cx];
 				contribstr += contrib.username;
 				if ( ++cx < contribs.length ) {
-					contribstr += ', ';
+					contribstr += ',';
 				} else {
 					break;
 				}
 			}
 			var oldsmry = $smry.val();
-			oldsmry = oldsmry.replace(/%% .* %%/, '');
-			$smry.val( '%% Contributors in EtherEditor: ' + contribstr + ' %%' + oldsmry );
+			var newsmry = mw.msg( 'ethereditor-summary-message', contribstr );
+			var sumregex = new RegExp( mw.msg( 'ethereditor-summary-message' ).replace( '$1.', '[^\\.]*(,[^\\.]*)*\\.' ), '' );
+			if ( oldsmry.match( sumregex ) !== null ) {
+				oldsmry = oldsmry.replace( sumregex, newsmry );
+			} else {
+				oldsmry += newsmry;
+			}
+			$smry.val( oldsmry );
 		},
 		/**
 		 * Adds some controls to the form specific to the extension.
