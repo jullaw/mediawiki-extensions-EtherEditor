@@ -46,10 +46,15 @@
 		 */
 		getHostName: function () {
 			var hostname = mw.config.get( 'wgEtherEditorApiHost' );
-			if ( hostname ) {
-				hostname += ':' + ( mw.config.get( 'wgEtherEditorApiPort' ) || '9001' );
-			} else {
-				hostname = 'localhost:9001';
+			if ( !hostname ) {
+				hostname = 'localhost';
+			}
+			var port = mw.config.get( 'wgEtherEditorApiPort' );
+			if ( !port ) {
+				port = '9001';
+			}
+			if ( port != '80' ) {
+				hostname = hostname + ':' + port;
 			}
 			return hostname;
 		},
