@@ -250,6 +250,8 @@ class EtherEditorPad {
 			}
 			if ( $extra != 0 ) {
 				$conditions['extra_title'] = 'copy_' . strval( $extra );
+			} else {
+				$conditions['extra_title'] = 'original';
 			}
 			return self::newRemotePad( $conditions, $text );
 		}
@@ -279,7 +281,7 @@ class EtherEditorPad {
 		$padId = $conditions['extra_title'];
 
 		$epClient = self::getEpClient();
-		$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;
+		$groupId = $epClient->createGroupIfNotExistsFor( $conditions['page_title'] )->groupID;
 		try {
 			$epClient->createGroupPad( $groupId, $padId, $text );
 		} catch ( Exception $e ) {

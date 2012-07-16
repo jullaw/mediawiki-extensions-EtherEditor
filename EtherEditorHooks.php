@@ -12,14 +12,11 @@ class EtherEditorHooks {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param OutputPage $output
 	 * @param User $user
 	 * @return boolean
 	 */
-	protected static function isUsingEther( $output, $user ) {
-		return ( $user->isLoggedIn()
-			&& ( $user->getBoolOption( 'ethereditor_enableether' )
-			|| $output->getRequest()->getCheck( 'enableether' ) ) );
+	protected static function isUsingEther( $user ) {
+		return $user->isLoggedIn();
 	}
 
 	/**
@@ -61,8 +58,8 @@ class EtherEditorHooks {
 	public static function saveComplete( &$article, &$user, $text, $summary, $minoredit,
 		$watchthis, $sectionanchor, &$flags, $revision, &$status, $baseRevId ) {
 		global $wgOut;
-		if ( self::isUsingEther( $wgOut, $user ) ) {
-			$dbId = $wgOut->getRequest()->getInt( 'dbId' );
+		$dbId = $wgOut->getRequest()->getInt( 'dbId', -1 );
+		if ( $dbId != -1 ) {
 			$epClient = EtherEditorPad::getEpClient();
 			$epPad = EtherEditorPad::newFromId( $dbId );
 
@@ -97,7 +94,7 @@ class EtherEditorHooks {
 	public static function editPageShowEditFormInitial( $editPage, $output ) {
 		global $wgEtherpadConfig, $wgUser, $wgLocalTZoffset;
 
-		if ( self::isUsingEther( $output, $wgUser ) ) {
+		if ( self::isUsingEther( $wgUser ) ) {
 			$apiPort = $wgEtherpadConfig['apiPort'];
 			$apiHost = $wgEtherpadConfig['apiHost'];
 
@@ -196,26 +193,6 @@ class EtherEditorHooks {
 		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'base_revision',
 			dirname( __FILE__ ) . '/sql/AddBaseRevision.patch.sql', true ) );
 
-		return true;
-	}
-
-	/**
-	 * Hook to add a link to the top bar.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @param $skin Skin
-	 * @param $links array the list of links
-	 *
-	 * @return bool true
-	 */
-	public static function onSkinTemplateNavigation (&$skin, &$links) {
-		$title = $skin->getTitle();
-		$links['views']['collaborate'] = array(
-			'class' => false,
-			'text' => wfMessage( 'ethereditor-collaborate-button')->text(),
-			'href' => $title->getLocalUrl( 'action=edit&enableether=true' )
-		);
 		return true;
 	}
 }

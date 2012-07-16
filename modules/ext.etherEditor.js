@@ -22,47 +22,22 @@
 
 		var _this = this;
 		_this.$textarea = $( textarea );
+		_this.$ctrls = null;
+		_this.$toolbar = null;
 		_this.userName = mw.config.get( 'wgUserName' );
 		_this.hostname = _this.getHostName();
 		_this.baseUrl = mw.config.get( 'wgEtherEditorPadUrl' );
 		_this.padId = mw.config.get( 'wgEtherEditorPadName' );
+		_this.padUrl = 'http://' + _this.hostname;
 		_this.dbId = mw.config.get( 'wgEtherEditorDbId' );
 		_this.sessionId = mw.config.get( 'wgEtherEditorSessionId' );
+		_this.iframe = null;
+		_this.iframetimeout = null;
+		_this.iframeready = false;
 		if ( !_this.padId || !_this.sessionId ) {
 			return false; // there was an error, clearly, so let's quit
 		}
-
-		this.hasSubmitted = false;
-
-		$( 'input[type="submit"]' ).click( function ( e ) {
-			if ( ! _this.hasSubmitted ) {
-				e.preventDefault();
-				e.stopPropagation();
-				_this.hasSubmitted = true;
-				var __this = this;
-				$.ajax( {
-					url: mw.util.wikiScript( 'api' ),
-					method: 'GET',
-					data: { format: 'json', action: 'GetEtherPadText', padId: _this.dbId },
-					success: function( data ) {
-						_this.$textarea.html( data.GetEtherPadText.text );
-						$( __this ).click();
-						return 0;
-					},
-					dataType: 'json'
-				} );
-				return 0;
-			}
-		} );
-
-		_this.$textarea.after( $( '<input type="hidden" name="enableether" value="true" />' ) );
-
 		_this.initializeControls();
-		_this.initializePad();
-		_this.initializePadList();
-		_this.initializeContribs();
-
-		$( '#wikiEditor-ui-toolbar' ).add( '#toolbar' ).hide();
 	};
 
 	remoteEditor.prototype = {
@@ -77,6 +52,70 @@
 				hostname = 'localhost:9001';
 			}
 			return hostname;
+		},
+		/**
+		 * Send a message to the iframe below.
+		 */
+		sendMessage: function ( msg ) {
+			var _this = this;
+			if ( _this.iframeready ) {
+				_this.iframe.contentWindow.postMessage( msg, _this.padUrl );
+			}
+		},
+		/**
+		 * Signal to the iframe that we're ready, and wait for its response
+		 */
+		signalReady: function () {
+			var _this = this;
+			if ( _this.iframetimeout === null ) {
+				window.addEventListener( 'message', function ( event ) {
+					if ( event.data !== 'ethereditor-init' || event.origin != _this.padUrl ) {
+						return;
+					}
+					_this.iframeready = true;
+					_this.initializeFormattingControls();
+					if ( _this.iframetimeout !== null ) {
+						clearTimeout( _this.iframetimeout );
+					}
+				}, false );
+			}
+			_this.iframe.contentWindow.postMessage( 'ethereditor-init', _this.padUrl );
+			_this.iframetimeout = setTimeout( function () {
+				_this.signalReady()
+			}, 200 );
+		},
+		/**
+		 * Enables the collaborative editor, and starts up a bunch of processes
+		 */
+		enableEther: function () {
+			var _this = this;
+			_this.hasSubmitted = false;
+
+			$( 'input[type="submit"]' ).click( function ( e ) {
+				if ( ! _this.hasSubmitted ) {
+					e.preventDefault();
+					e.stopPropagation();
+					_this.hasSubmitted = true;
+					var __this = this;
+					$.ajax( {
+						url: mw.util.wikiScript( 'api' ),
+						method: 'GET',
+						data: { format: 'json', action: 'GetEtherPadText', padId: _this.dbId },
+						success: function( data ) {
+							_this.$textarea.html( data.GetEtherPadText.text );
+							$( __this ).click();
+							return 0;
+						},
+						dataType: 'json'
+					} );
+					return 0;
+				}
+			} );
+
+			_this.initializePad();
+			_this.initializePadList();
+			_this.initializeAdminControls();
+			_this.initializeContribs();
 		},
 		/**
 		 * Authenticate the current user to the current pad.
@@ -130,18 +169,106 @@
 		*/
 		initializeControls: function () {
 			var _this = this;
-			var $ctrls = $( '<div></div>' );
-			$ctrls.attr( 'id', 'ethereditor-ctrls' );
-			_this.$textarea.before( $ctrls );
+			_this.$ctrls = $( '<div></div>' );
+			_this.$ctrls.attr( 'id', 'ethereditor-ctrls' );
+			_this.$ctrls.css( 'float', 'right' );
+			var $toolbar = $( '#wikiEditor-ui-toolbar' );
+			if ( $toolbar.length == 0 ) {
+				$toolbar = $( '#toolbar' );
+				$toolbar.append( _this.$ctrls );
+			} else {
+				$( '.tabs', $toolbar ).after( _this.$ctrls );
+			}
 
-			_this.initializeAdminControls();
+			_this.initializeCollabControls();
+		},
+		/**
+		 * Add events to each formatting button, see that they work properly.
+		 */
+		initializeFormattingControls: function () {
+			var _this = this;
+
+			var $bolds = $( 'a[rel=bold], #mw-editbutton-bold' );
+			$bolds.click( function () {
+				_this.sendMessage( 'ethereditor-bold' );
+			} );
+
+			var $italics = $( 'a[rel=italic], #mw-editbutton-italic' );
+			$italics.click( function () {
+				_this.sendMessage( 'ethereditor-italic' );
+			} );
+
+			var $ilinks = $( 'a[rel=ilink], #mw-editbutton-link' );
+			$ilinks.click( function () {
+				_this.sendMessage( 'ethereditor-ilink' );
+			} );
+
+			var $files = $( 'a[rel=file]' );
+			$files.click( function () {
+				_this.sendMessage( 'ethereditor-file' );
+			} );
+
+			var $elinks = $( 'a[rel=xlink], #mw-editbutton-extlink' );
+			$elinks.click( function () {
+				_this.sendMessage( 'ethereditor-elink' );
+			} );
+
+			var $nowikis = $( 'a[rel=nowiki], #mw-editbutton-nowiki' );
+			$nowikis.click( function () {
+				_this.sendMessage( 'ethereditor-nowiki' );
+			} );
+
+			var $signatures = $( 'a[rel=signature], #mw-editbutton-signature' );
+			$signatures.click( function () {
+				_this.sendMessage( 'ethereditor-signature' );
+			} );
+
+			var $uls = $( 'a[rel=ulist]' );
+			$uls.click( function () {
+				_this.sendMessage( 'ethereditor-ul' );
+			} );
+
+			var $ols = $( 'a[rel=olist]' );
+			$ols.click( function () {
+				_this.sendMessage( 'ethereditor-ol' );
+			} );
+
+			var $tables = $( 'a[rel=table]' );
+			$tables.click( function () {
+				_this.sendMessage( 'ethereditor-table' );
+			} );
+
+			var $inds = $( 'a[rel=indent]' );
+			$inds.click( function () {
+				_this.sendMessage( 'ethereditor-indent' );
+			} );
+
+			for ( var i = 2; i < 6; i++ ) {
+				var $headings = $( 'a[rel=heading-' + i + ']' );
+				$headings.click( ( 
+					function( thisi ) {
+						return function () {
+							_this.sendMessage( { heading: thisi } );
+						}
+					})( i ) );
+			}
+
+			var $hrs = $( '#mw-editbutton-hr' );
+			$hrs.click( function () {
+				_this.sendMessage( 'ethereditor-hr' );
+			} );
+
+			var $headlines = $( '#mw-editbutton-headline' );
+			$headlines.click( function () {
+				_this.sendMessage( { heading: 2 } );
+			} );
 		},
 		/**
 		 * Adds the delete pad button and the kick field.
 		 */
 		initializeAdminControls: function () {
 			var _this = this;
-			var $actls = $( '<div></div>' );
+			var $actls = $( '<span></span>' );
 			$actls.attr( 'id', 'ethereditor-admin-ctrls' );
 			var $delbtn = $( '<button></button>' );
 			$delbtn.attr( 'id', 'ethereditor-delete-button' );
@@ -151,8 +278,29 @@
 				return false;
 			} );
 			$actls.append( $delbtn );
-			_this.$textarea.before( $actls );
+			_this.$ctrls.prepend( $actls );
 			_this.addKickField();
+		},
+		/**
+		 * Initialize the various collaboration controls. This includes the pad
+		 * list and the "collaborate" switch.
+		 */
+		initializeCollabControls: function () {
+			var _this = this;
+			var $turnOnCollab = $( '<input type="checkbox" />' );
+			$turnOnCollab.click( function () {
+				var $this = $( this );
+				if ( $this.is( ':checked' ) ) {
+					_this.enableEther();
+				} else {
+					_this.disableEther();
+				}
+			} );
+
+			var $collabLabel = $( '<label></label>' );
+			$collabLabel.html( mw.msg( 'ethereditor-collaborate-button' ) );
+			$collabLabel.append( $turnOnCollab );
+			_this.$ctrls.append( $collabLabel );
 		},
 		/**
 		 * Initializes an automatic process of constantly checking for, and
@@ -217,7 +365,6 @@
 		*/
 		initializePadList: function () {
 			var _this = this;
-			var $padlistdiv = $( '<div></div>' );
 			var pads = mw.config.get( 'wgEtherEditorOtherPads' );
 			if ( pads && pads.length ) {
 				_this.$select = $( '<select></select>' ).attr( 'id', 'ethereditor-select-pad' );
@@ -240,9 +387,8 @@
 						_this.initializePad();
 					} );
 				} );
-				$padlistdiv.append( _this.$select );
+				_this.$ctrls.prepend( _this.$select );
 			}
-
 			var $forkbtn = $( '<button></button>' );
 			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
 			$forkbtn.click( function () {
@@ -262,39 +408,53 @@
 				} );
 				return false;
 			} );
-			$padlistdiv.append( $forkbtn );
-
-			_this.$textarea.before( $padlistdiv );
+			_this.$ctrls.prepend( $forkbtn );
 		},
 		/**
 		 * Initializes the pad.
 		*/
 		initializePad: function () {
-			$.cookie( 'sessionID', this.sessionId, { domain: mw.config.get( 'wgEtherEditorApiHost' ), path: '/' } );
-			this.$textarea.pad( {
-				padId: this.padId,
-				baseUrl: this.baseUrl,
+			var _this = this;
+			$.cookie( 'sessionID', _this.sessionId, { domain: mw.config.get( 'wgEtherEditorApiHost' ), path: '/' } );
+			_this.$textarea.pad( {
+				padId: _this.padId,
+				baseUrl: _this.baseUrl,
 				hideQRCode: true,
-				host: 'http://' + this.hostname,
-				showControls: true,
+				host: 'http://' + _this.hostname,
+				showControls: false,
 				showLineNumbers: false,
 				showChat: true,
 				noColors: false,
 				useMonospaceFont: true,
-				userName: this.userName,
-				height: this.$textarea.height(),
-				width: this.$textarea.width(),
+				userName: _this.userName,
+				height: _this.$textarea.height(),
+				width: _this.$textarea.width(),
 				border: 1,
 				borderStyle: 'solid grey'
 			} );
-			this.$textarea.after( $( '<input type="hidden" name="dbId" value="' + this.dbId + '" />' ) );
-			if ( this.isAdmin ) {
+			_this.iframe = _this.$textarea.next( 'iframe' ).get(0);
+			_this.signalReady();
+			$( 'input[name=dbId]' ).remove();
+			_this.$textarea.after( $( '<input type="hidden" name="dbId" value="' + _this.dbId + '" />' ) );
+			if ( _this.isAdmin ) {
 				$( '#ethereditor-admin-ctrls' ).show();
-				this.$kickfield.show();
-			} else if ( this.$kickfield && this.$kickfield.length ) {
+				_this.$kickfield.show();
+			} else if ( _this.$kickfield && _this.$kickfield.length ) {
 				$( '#ethereditor-admin-ctrls' ).hide();
-				this.$kickfield.hide();
+				_this.$kickfield.hide();
 			}
+		},
+		/**
+		 * 
+		 */
+		disableEther: function () {
+			var _this = this;
+			_this.$textarea.show();
+			var epframeid = 'epframe' + _this.$textarea.attr( 'id' );
+			$( epframeid )
+				.add( '#ethereditor-admin-ctrls' )
+				.remove();
+			
 		},
 		/**
 		 * Deletes the pad's contents. (requires admin, of course)
@@ -325,8 +485,6 @@
 	};
 
 	$.fn.remoteEditor = function() {
-		$( '#ca-collaborate' ).removeClass( 'collapsible' ).addClass( 'selected' );
-		$( '#ca-edit' ).removeClass( 'selected' );
 		var $elements = this;
 		$.each( $elements, function( i, textarea ) {
 			var editor = new remoteEditor( textarea );

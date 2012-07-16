@@ -17,7 +17,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'EtherEditor',
 	'author' => array( 'Mark Holmquist' ),
-	'version' => '0.2.1',
+	'version' => '0.3.0',
 	'url' => 'https://www.mediawiki.org/wiki/Extension:EtherEditor',
 	'descriptionmsg' => 'ethereditor-desc',
 );
@@ -64,6 +64,7 @@ $wgResourceModules += array(
 			'ethereditor-kick-button',
 			'ethereditor-delete-button',
 			'ethereditor-summary-message',
+			'ethereditor-collaborate-button',
 		),
 		'dependencies' => array(
 			'mediawiki.user',
@@ -99,12 +100,11 @@ $wgResourceModules += array(
 	)
 );
 
-$wgExtensionMessagesFiles['WikiEditor'] = $dir . '/EtherEditor.i18n.php';
+$wgExtensionMessagesFiles['EtherEditor'] = $dir . '/EtherEditor.i18n.php';
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'EtherEditorHooks::onSchemaUpdate';
 $wgHooks['EditPage::showEditForm:initial'][] = 'EtherEditorHooks::editPageShowEditFormInitial';
 $wgHooks['ArticleSaveComplete'][] = 'EtherEditorHooks::saveComplete';
 $wgHooks['GetPreferences'][] = 'EtherEditorHooks::getPreferences';
-$wgHooks['SkinTemplateNavigation'][] = 'EtherEditorHooks::onSkinTemplateNavigation';
 
 $wgAPIModules['GetEtherPadText'] = 'GetEtherPadText';
 $wgAPIModules['ForkEtherPad'] = 'ForkEtherPad';
