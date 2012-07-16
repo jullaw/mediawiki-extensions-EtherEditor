@@ -33,6 +33,8 @@ foreach ( array(
 		'EtherPadAuth' => '/api/EtherPadAuth',
 		'GetContribs' => '/api/GetContribs',
 		'KickFromPad' => '/api/KickFromPad',
+		'GetOtherEtherpads' => '/api/GetOtherEtherpads',
+		'CreateNewPadFromPage' => '/api/CreateNewPadFromPage',
 		'SpecialEtherEditor' => '/includes/special/SpecialEtherEditor',
 	) as $module => $path ) {
 	$wgAutoloadClasses[$module] = $dir . $path . '.php';
@@ -74,6 +76,9 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.etherManager.js',
 		),
+		'styles' => array(
+			'ext.etherManager.css',
+		),
 		'messages' => array(
 			'ethereditor-fork-button',
 			'ethereditor-delete-button'
@@ -107,3 +112,5 @@ $wgAPIModules['DeleteEtherPad'] = 'DeleteEtherPad';
 $wgAPIModules['EtherPadAuth'] = 'EtherPadAuth';
 $wgAPIModules['GetContribs'] = 'GetContribs';
 $wgAPIModules['KickFromPad'] = 'KickFromPad';
+$wgAPIModules['GetOtherEtherpads'] = 'GetOtherEtherpads';
+$wgAPIModules['CreateNewPadFromPage'] = 'CreateNewPadFromPage';

@@ -17,6 +17,7 @@
 		_this.$mainDiv = $( mainDiv );
 		_this.padTpl = $( '.ethereditor-pad' ).detach();
 		_this.pageTpl = $( '.ethereditor-page' ).detach();
+		_this.pageList = $( '#ethereditor-page-list' );
 		_this.pads = mw.config.get( 'EtherEditorPads' );
 		_this.initializeList();
 	}
@@ -28,20 +29,33 @@
 				var pad = _this.pads[px];
 				var $pr = $( '[data-page-title="' + pad.page_title + '"]' );
 				if ( $pr.length == 0 ) {
-					$pr = _this.pageTpl.clone();
-					$pr.attr( 'data-page-title', pad.page_title );
-					$( '.ethereditor-page-title', $pr ).html( pad.page_title );
-					$( '#ethereditor-page-list' ).append( $pr );
+					$pr = _this.addPage( pad.page_title );
 				}
 				var $prt = $( 'table', $pr );
 				_this.addPad( pad, $prt );
 			}
 		},
+		addPage: function ( pagename ) {
+			var _this = this;
+			var $pr = _this.pageTpl.clone();
+			$pr.attr( 'data-page-title', pagename );
+			$( '.ethereditor-page-title', $pr ).html( pagename );
+			$( '.ethereditor-create-pad', $pr ).click( function () {
+				_this.createPad( pagename );
+			} );
+			_this.pageList.append( $pr );
+			return $pr;
+		},
 		addPad: function ( pad, $prt ) {
 			var _this = this;
 			var $tc = _this.padTpl.clone();
 			$tc.attr( 'data-pad-id', pad.pad_id );
-			$( '.pad-name', $tc ).html( pad.ep_pad_id.substr( 19 ) );
+			var $joinPadLink = $( '<a></a>' );
+			$joinPadLink.html( pad.ep_pad_id.substr( 19 ) );
+			var joinPadUrl = mw.util.wikiGetlink( pad.page_title );
+			joinPadUrl += '?action=edit&enableether=true&padId=' + pad.pad_id;
+			$joinPadLink.attr( 'href', joinPadUrl );
+			$( '.pad-name', $tc ).html( $joinPadLink );
 			$( '.pad-baserev', $tc ).html( pad.base_revision );
 			$( '.pad-users', $tc ).html( pad.users_connected );
 
@@ -50,23 +64,10 @@
 			var $forkbtn = $( '<button></button>' );
 			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
 			$forkbtn.click( function () {
-				var padid = $( this ).closest( 'tr' ).attr( 'data-pad-id' );
-				var pagetitle = $( this ).closest( '.ethereditor-page' ).attr( 'data-page-title' );
-				$.ajax( {
-					url: mw.util.wikiScript( 'api' ),
-					method: 'GET',
-					data: { format: 'json', action: 'ForkEtherPad', padId: padid },
-					success: function( data ) {
-						var fep = data.ForkEtherPad;
-						var newpad = {
-							ep_pad_id: fep.padId,
-							pad_id: fep.dbId,
-							admin_user: mw.user.name()
-						};
-						_this.addPad( newpad, $( '[data-page-title="' + pagetitle + '"] table' ) );
-					},
-					dataType: 'json'
-				} );
+				var $this = $( this );
+				var padid = $this.closest( 'tr' ).attr( 'data-pad-id' );
+				var pagetitle = $this.closest( '.ethereditor-page' ).attr( 'data-page-title' );
+				_this.forkPad( padid, pagetitle );
 				return false;
 			} );
 			$padCtrls.append( $forkbtn );
@@ -99,6 +100,42 @@
 				success: function( data ) {
 					$( '[data-pad-id=' + dbId + ']' ).remove();
 					return 0;
+				},
+				dataType: 'json'
+			} );
+		},
+		forkPad: function ( padid, pagetitle ) {
+			var _this = this;
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: { format: 'json', action: 'ForkEtherPad', padId: padid },
+				success: function( data ) {
+					var fep = data.ForkEtherPad;
+					var newpad = {
+						ep_pad_id: fep.padId,
+						pad_id: fep.dbId,
+						admin_user: mw.user.name()
+					};
+					_this.addPad( newpad, $( '[data-page-title="' + pagetitle + '"] table' ) );
+				},
+				dataType: 'json'
+			} );
+		},
+		createPad: function ( pagetitle ) {
+			var _this = this;
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: { format: 'json', action: 'CreateNewPadFromPage', pageTitle: pagetitle },
+				success: function( data ) {
+					var fep = data.CreateNewPadFromPage;
+					var newpad = {
+						ep_pad_id: fep.padId,
+						pad_id: fep.dbId,
+						admin_user: mw.user.name()
+					};
+					_this.addPad( newpad, $( '[data-page-title="' + pagetitle + '"] table' ) );
 				},
 				dataType: 'json'
 			} );

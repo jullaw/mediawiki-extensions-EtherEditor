@@ -236,7 +236,7 @@ class EtherEditorPad {
 				while ( !$success ) {
 					$success = true; // test condition
 					$extra += 1;
-					$tryname = $conditions['page_title'] . '_copy' . strval( $extra );
+					$tryname = 'copy_' . strval( $extra );
 					$found = false;
 					foreach ( $others as $i => $other ) {
 						$thisname = substr( $other->ep_pad_id, 19 );
@@ -248,7 +248,9 @@ class EtherEditorPad {
 					}
 				}
 			}
-			$conditions['extra_title'] = '_copy' . strval( $extra );
+			if ( $extra != 0 ) {
+				$conditions['extra_title'] = 'copy_' . strval( $extra );
+			}
 			return self::newRemotePad( $conditions, $text );
 		}
 
@@ -274,7 +276,7 @@ class EtherEditorPad {
 	 * @return EtherEditorPad or false
 	 */
 	protected static function newRemotePad( $conditions, $text='' ) {
-		$padId = $conditions['page_title'] . $conditions['extra_title'];
+		$padId = $conditions['extra_title'];
 
 		$epClient = self::getEpClient();
 		$groupId = $epClient->createGroupIfNotExistsFor( $padId )->groupID;

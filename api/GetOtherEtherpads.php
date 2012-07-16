@@ -1,15 +1,15 @@
 <?php
 /**
- * API module to export data from Etherpad instances
+ * API module to list etherpad instances of a page
  *
- * @file GetContribs.php
+ * @file GetOtherEtherpads.php
  * @ingroup API
  *
  * @license GNU GPL v2+
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
 
-class GetContribs extends ApiBase {
+class GetOtherEtherpads extends ApiBase {
 	public function __construct ( $main, $action ) {
 		parent::__construct( $main, $action );
 	}
@@ -20,9 +20,9 @@ class GetContribs extends ApiBase {
 		$epPad = EtherEditorPad::newFromId( $params['padId'] );
 
 		$result->addValue(
-			array( 'GetContribs' ),
-			'contribs',
-			$epPad->getContribs()
+			array( 'GetOtherEtherpads' ),
+			'pads',
+			$epPad->getOtherPads()
 		);
 	}
 
@@ -44,13 +44,13 @@ class GetContribs extends ApiBase {
 
 	public function getDescription() {
 		return array(
-			'API module for listing contributors to pads created with EtherEditor.',
+			'API module to list etherpad instances of a page.',
 		);
 	}
 
 	protected function getExamples() {
 		return array(
-			'api.php?action=GetContribs&padId=7',
+			'api.php?action=GetOtherEtherpads&padId=7',
 		);
 	}
 
@@ -58,4 +58,3 @@ class GetContribs extends ApiBase {
 		return __CLASS__ . ': 0.3.0';
 	}
 }
-

@@ -20,6 +20,7 @@ $messages['en'] = array(
 	'ethereditor-kick-button' => 'Kick user',
 	'ethereditor-delete-button' => 'Delete this pad',
 	'ethereditor-cannot-nologin' => 'In order to use the EtherEditor, you must log in.',
+	'ethereditor-js-off' => 'In order to use the EtherEditor, you must enable JavaScript.',
 	'ethereditor-manager-title' => 'EtherEditor Management',
 	'ethereditor-pad-title' => 'Pad title',
 	'ethereditor-base-revision' => 'Base revision',

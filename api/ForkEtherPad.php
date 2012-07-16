@@ -68,6 +68,6 @@ class ForkEtherPad extends ApiBase {
 	}
 
 	public function getVersion() {
-		return __CLASS__ . ': 0.2.1';
+		return __CLASS__ . ': 0.3.0';
 	}
 }

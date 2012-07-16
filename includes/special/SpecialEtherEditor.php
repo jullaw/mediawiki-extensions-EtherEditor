@@ -45,7 +45,11 @@ class SpecialEtherEditor extends SpecialPage {
 		$out->setPageTitle( $this->msg( 'ethereditor-manager-title' ) );
 
 		// fallback for non-JS
-		$out->wrapWikiMsg( '<noscript><p class="errorbox">$1</p></noscript>', 'ethereditor-js-off' );
+		$out->addHTML(
+				'<noscript>'
+			.	'	<p class="errorbox">' . $this->msg( 'ethereditor-js-off' )->text() . '</p>'
+			.	'</noscript>'
+		);
 
 		// global javascript variables
 		$this->addJsVars( $subPage );
@@ -108,8 +112,11 @@ class SpecialEtherEditor extends SpecialPage {
 			'<div id="ethereditor">'
 		.	'	<div id="ethereditor-page-list">'
 		.	'		<div class="ethereditor-page">'
-		.	'			<h2 class="ethereditor-page-title"></h2>'
-		.	'			<table>'
+		.	'			<div class="ethereditor-page-header">'
+		.	'				<h2 class="ethereditor-page-title"></h2>'
+		.	'				<button class="ethereditor-create-pad">Create pad for this page</button>'
+		.	'			</div>'
+		.	'			<table class="ethereditor-page-table">'
 		.	'				<tr>'
 		.	'					<th>' . $this->msg( 'ethereditor-pad-title' )->text() . '</th>'
 		.	'					<th>' . $this->msg( 'ethereditor-base-revision' )->text() . '</th>'
