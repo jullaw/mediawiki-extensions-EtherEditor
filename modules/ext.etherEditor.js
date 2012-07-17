@@ -22,7 +22,6 @@
 
 		var _this = this;
 		_this.$textarea = $( textarea );
-		_this.btnsLoaded = false;
 		_this.$ctrls = null;
 		_this.$toolbar = null;
 		_this.userName = mw.config.get( 'wgUserName' );
@@ -192,10 +191,6 @@
 		 * Add events to each formatting button, see that they work properly.
 		 */
 		initializeFormattingControls: function () {
-			if ( _this.btnsLoaded ) {
-				return;
-			}
-			_this.btnsLoaded = true;
 			var _this = this;
 
 			var $bolds = $( 'a[rel=bold], #mw-editbutton-bold' );
