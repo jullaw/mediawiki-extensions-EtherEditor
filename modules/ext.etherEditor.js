@@ -75,7 +75,7 @@
 			var _this = this;
 			if ( _this.iframetimeout === null ) {
 				window.addEventListener( 'message', function ( event ) {
-					if ( event.data !== 'ethereditor-init' || event.origin != _this.padUrl ) {
+					if ( event.data !== 'ethereditor-init' || event.origin != _this.padUrl || _this.iframeready ) {
 						return;
 					}
 					_this.iframeready = true;
