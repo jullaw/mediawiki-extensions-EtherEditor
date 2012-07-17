@@ -1,0 +1,47 @@
+#ethereditor-userlist-contain {
+    position: relative;
+}
+
+#ethereditor-usercount {
+    background-color: #eeeeee;
+    padding: 4px;
+    cursor: pointer;
+}
+
+#ethereditor-userlist {
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    width: 300px;
+    background-color: #eeeeee;
+    border: 1px solid #cccccc;
+    padding-bottom: 5px;
+}
+
+.isnotadmin .userctrls {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+#ethereditor-userlist div {
+    padding-top: 5px;
+    clear: both;
+}
+
+.ethereditor-usercolor, .ethereditor-username {
+    float: left;
+}
+
+.ethereditor-username {
+    width: 150px;
+    overflow: hidden;
+}
+
+.ethereditor-usercolor {
+    height: 20px;
+    width: 20px;
+    margin: 0px 5px;
+}
