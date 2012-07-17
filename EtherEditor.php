@@ -58,6 +58,9 @@ $wgResourceModules += array(
 		'scripts' => array(
 			'ext.etherEditor.js',
 		),
+		'styles' => array(
+			'ext.etherEditor.css',
+		),
 		'messages' => array(
 			'ethereditor-fork-button',
 			'ethereditor-contrib-button',

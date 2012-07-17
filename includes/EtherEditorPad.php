@@ -281,7 +281,7 @@ class EtherEditorPad {
 		$padId = $conditions['extra_title'];
 
 		$epClient = self::getEpClient();
-		$groupId = $epClient->createGroupIfNotExistsFor( $conditions['page_title'] )->groupID;
+		$groupId = $epClient->createGroupIfNotExistsFor( $conditions['page_title'] . $padId )->groupID;
 		try {
 			$epClient->createGroupPad( $groupId, $padId, $text );
 		} catch ( Exception $e ) {
