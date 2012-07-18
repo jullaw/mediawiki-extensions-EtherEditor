@@ -91,7 +91,7 @@
 			if ( _this.iframe !== null && !_this.iframeready ) {
 				_this.iframe.contentWindow.postMessage( 'ethereditor-init', _this.padUrl );
 				_this.iframetimeout = setTimeout( function () {
-					_this.signalReady()
+					_this.signalReady();
 				}, 200 );
 			}
 		},
@@ -225,6 +225,9 @@
 				var msg = event.data;
 				if ( msg && msg.type && msg.type == 'userinfo' ) {
 					for ( var ux in msg.users ) {
+						if ( msg.users[ux].name == '' ) {
+							msg.users[ux].name = mw.user.name();
+						}
 						_this.userJoinOrUpdate( msg.users[ux] );
 					}
 					_this.$usercount.html( $( '.ethereditor-username' ).length );
