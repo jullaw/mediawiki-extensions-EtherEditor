@@ -77,19 +77,18 @@
 			var _this = this;
 			if ( _this.iframetimeout === null ) {
 				window.addEventListener( 'message', function ( event ) {
-					if ( event.data !== 'ethereditor-init' || event.origin != _this.padUrl || _this.iframeready ) {
-						return true;
+					if ( event.data == 'ethereditor-init' && event.origin == _this.padUrl && !_this.iframeready ) {
+						_this.iframeready = true;
+						_this.initializeUserList();
+						_this.initializeFormattingControls();
+						if ( _this.iframetimeout !== null ) {
+							clearTimeout( _this.iframetimeout );
+						}
+						_this.sendMessage( 'updateusers' );
 					}
-					_this.iframeready = true;
-					_this.initializeUserList();
-					_this.initializeFormattingControls();
-					if ( _this.iframetimeout !== null ) {
-						clearTimeout( _this.iframetimeout );
-					}
-					_this.sendMessage( 'updateusers' );
 				}, false );
 			}
-			if ( _this.iframe !== null ) {
+			if ( _this.iframe !== null && !_this.iframeready ) {
 				_this.iframe.contentWindow.postMessage( 'ethereditor-init', _this.padUrl );
 				_this.iframetimeout = setTimeout( function () {
 					_this.signalReady()
