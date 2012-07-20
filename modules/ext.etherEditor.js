@@ -21,12 +21,14 @@
 		}
 
 		var _this = this;
+		_this.uri = new mw.Uri( window.location.href );
 		_this.pads = mw.config.get( 'wgEtherEditorOtherPads' );
 		_this.$textarea = $( textarea );
 		_this.$ctrls = null;
 		_this.$pctrls = null;
 		_this.$userlist = null;
 		_this.$toolbar = null;
+		_this.$sharelink = null;
 		_this.users = {};
 		_this.userName = mw.config.get( 'wgUserName' );
 		_this.hostname = _this.getHostName();
@@ -41,7 +43,27 @@
 		if ( !_this.padId || !_this.sessionId ) {
 			return false; // there was an error, clearly, so let's quit
 		}
-		_this.initializeControls();
+		_this.initializeControls( function () {
+			if ( _this.uri.query.collaborate ) {
+				if ( _this.uri.query.padId ) {
+					var thepad = false;
+					for ( var px in _this.pads ) {
+						if ( _this.pads[px].pad_id == _this.uri.query.padId ) {
+							thepad = _this.pads[px];
+							break;
+						}
+					}
+					if ( thepad ) {
+						_this.dbId = thepad.pad_id;
+						_this.padId = thepad.ep_pad_id;
+					}
+				}
+				_this.authenticateUser( function () {
+					$( '#ethereditor-collab-switch' ).attr( 'checked', 'checked' );
+					_this.enableEther();
+				} );
+			}
+		} );
 	};
 
 	remoteEditor.prototype = {
@@ -181,19 +203,31 @@
 		/**
 		 * Adds some controls to the form specific to the extension.
 		*/
-		initializeControls: function () {
+		initializeControls: function ( cb ) {
 			var _this = this;
+			cb = cb || function () {};
 			_this.$ctrls = $( '<div></div>' );
 			_this.$ctrls.attr( 'id', 'ethereditor-ctrls' );
 			_this.$ctrls.css( 'float', 'right' );
 			var $toolbar = $( '#wikiEditor-ui-toolbar' );
-			if ( $toolbar.length == 0 ) {
-				$toolbar = $( '#toolbar' );
+			// When mw.config.get can't find a config variable, it returns null.
+			// We use that fact to check whether WikiEditor needs to be loaded before we can continue.
+			if ( !mw.config.exists( 'wgWikiEditorToolbarClickTracking' ) ) {
 				$toolbar.append( _this.$ctrls );
+			} else if ( $toolbar.length == 0 ) {
+				// If we are using WikiEditor, and the toolbar hasn't loaded,
+				// we wait until it is before we can load our controls.
+				// This shouldn't take more than a few seconds, but there's no
+				// better way to do it, at least not right now.
+				setTimeout( function () {
+					_this.initializeControls( cb );
+				}, 400 );
+				return;
 			} else {
 				$( '.tabs', $toolbar ).after( _this.$ctrls );
 			}
 			_this.initializeCollabControls();
+			cb();
 		},
 		/**
 		 * Add the hook for updating users.
@@ -314,6 +348,11 @@
 				_this.sendMessage( 'ethereditor-elink' );
 			} );
 
+			var $refs = $( 'a[rel=reference]' );
+			$refs.click( function () {
+				_this.sendMessage( 'ethereditor-ref' );
+			} );
+
 			var $nowikis = $( 'a[rel=nowiki], #mw-editbutton-nowiki' );
 			$nowikis.click( function () {
 				_this.sendMessage( 'ethereditor-nowiki' );
@@ -342,6 +381,42 @@
 			var $inds = $( 'a[rel=indent]' );
 			$inds.click( function () {
 				_this.sendMessage( 'ethereditor-indent' );
+			} );
+
+			var $brs = $( 'a[rel=newline]' );
+			$brs.click( function () {
+				_this.sendMessage( 'ethereditor-br' );
+			} );
+
+			var $bigs = $( 'a[rel=big]' );
+			$bigs.click( function () {
+				_this.sendMessage( 'ethereditor-big' );
+			} );
+
+			var $smalls = $( 'a[rel=small]' );
+			$smalls.click( function () {
+				_this.sendMessage( 'ethereditor-small' );
+			} );
+
+			var $supers = $( 'a[rel=superscript]' );
+			$supers.click( function () {
+				_this.sendMessage( 'ethereditor-super' );
+			} );
+
+			var $subs = $( 'a[rel=subscript]' );
+			$subs.click( function () {
+				_this.sendMessage( 'ethereditor-sub' );
+			} );
+
+			var $redirs = $( 'a[rel=redirect]' );
+			$redirs.click( function () {
+				_this.sendMessage( 'ethereditor-redir' );
+			} );
+
+			var $specs = $( '.section-characters .page span' );
+			$specs.click( function () {
+				var $this = $( this );
+				_this.sendMessage( { type: 'specialchar', char: $this.attr( 'rel' ) } );
 			} );
 
 			for ( var i = 2; i < 6; i++ ) {
@@ -388,7 +463,7 @@
 		 */
 		initializeCollabControls: function () {
 			var _this = this;
-			var $turnOnCollab = $( '<input type="checkbox" />' );
+			var $turnOnCollab = $( '<input id="ethereditor-collab-switch" type="checkbox" />' );
 			$turnOnCollab.click( function () {
 				var $this = $( this );
 				if ( $this.is( ':checked' ) ) {
@@ -402,6 +477,19 @@
 			$collabLabel.html( mw.msg( 'ethereditor-collaborate-button' ) );
 			$collabLabel.append( $turnOnCollab );
 			_this.$ctrls.append( $collabLabel );
+
+			_this.$sharelink = $( '<input type="text" />' );
+			_this.$ctrls.append( _this.$sharelink );
+
+			var eventHandle = function () {
+				this.selectionStart = 0;
+				this.selectionEnd = $( this ).val().length;
+				return false;
+			};
+
+			_this.$sharelink.focus( eventHandle );
+			_this.$sharelink.click( eventHandle );
+			_this.$sharelink.on( 'keyup', eventHandle );
 		},
 		/**
 		 * Initializes an automatic process of constantly checking for, and
@@ -555,6 +643,10 @@
 				}
 			};
 			if ( updateRemote ) {
+			var pads = _this.pads;
+			var $forkbtn = $( '<button></button>' );
+			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
+			$forkbtn.click( function () {
 				$.ajax( {
 					url: mw.util.wikiScript( 'api' ),
 					method: 'GET',
@@ -613,6 +705,7 @@
 				border: 1,
 				borderStyle: 'solid grey'
 			} );
+			_this.updateShareLink();
 			_this.iframetimeout = null;
 			_this.iframeready = false;
 			_this.iframe = _this.$textarea.next( 'iframe' ).get(0);
@@ -624,7 +717,17 @@
 			_this.signalReady();
 		},
 		/**
-		 * 
+		 * Update the share link to reflect the current pad's information
+		 */
+		updateShareLink: function () {
+			var _this = this;
+			var shareuri = new mw.Uri( window.location.href );
+			shareuri.query.collaborate = true;
+			shareuri.query.padId = _this.dbId;
+			_this.$sharelink.val( shareuri.toString() );
+		},
+		/**
+		 * Disable the collaborative editor
 		 */
 		disableEther: function () {
 			var _this = this;

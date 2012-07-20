@@ -53,7 +53,7 @@
 			var $joinPadLink = $( '<a></a>' );
 			$joinPadLink.html( pad.ep_pad_id.substr( 19 ) );
 			var joinPadUrl = mw.util.wikiGetlink( pad.page_title );
-			joinPadUrl += '?action=edit&enableether=true&padId=' + pad.pad_id;
+			joinPadUrl += '?action=edit&collaborate=true&padId=' + pad.pad_id;
 			$joinPadLink.attr( 'href', joinPadUrl );
 			$( '.pad-name', $tc ).html( $joinPadLink );
 			$( '.pad-baserev', $tc ).html( pad.base_revision );

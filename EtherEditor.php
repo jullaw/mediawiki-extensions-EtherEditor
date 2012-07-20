@@ -83,6 +83,7 @@ $wgResourceModules += array(
 		),
 		'dependencies' => array(
 			'mediawiki.user',
+			'mediawiki.Uri',
 			'jquery.etherpad',
 			'jquery.cookie',
 			'mediawiki.jqueryMsg',
