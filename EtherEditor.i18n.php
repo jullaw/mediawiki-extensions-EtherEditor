@@ -66,11 +66,20 @@ $messages['de'] = array(
 	'ethereditor-desc' => 'Ermöglicht es Benutzern, Seiten mit dem EtherPad-Editor zu bearbeiten',
 	'ethereditor-prefs-enable-ether' => 'EtherPad-Editor aktivieren (experimentell)',
 	'ethereditor-collaborate-button' => 'Mitmachen',
-	'ethereditor-fork-button' => 'Weiteres Textfeld erstellen',
+	'ethereditor-fork-button' => 'EtherPad kopieren',
 	'ethereditor-contrib-button' => 'Liste der Bearbeiter der Bearbeitungszusammenfassung hinzufügen',
 	'ethereditor-kick-button' => 'Benutzer ausschließen',
-	'ethereditor-delete-button' => 'Dieses EtherPad löschen',
+	'ethereditor-delete-button' => 'EtherPad löschen',
 	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, musst du dich anmelden.',
+	'ethereditor-js-off' => 'Um den EtherPad-Editor nutzen zu können, musst du JavaScript aktivieren.',
+	'ethereditor-manager-title' => 'Verwaltung des EtherPad-Editors',
+	'ethereditor-pad-title' => 'Name des EtherPads',
+	'ethereditor-base-revision' => 'Ursprungsversion',
+	'ethereditor-users-connected' => 'Verbundene Benutzer',
+	'ethereditor-admin-controls' => 'Administrationssteuerung',
+	'ethereditor-current' => 'Aktuell',
+	'ethereditor-outdated' => 'Veraltet',
+	'ethereditor-summary-message' => 'Benutzer, die den EtherPad-Editor verwendet haben: $1',
 	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Du kannst diese Seite gerne weiter bearbeiten, allerdings könnten deine Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlege, ob du dich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchtest, indem du die Schaltfläche „{{int:ethereditor-collaborate-button}}“ anklickst. Du findest sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise kannst Du Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
 );
 
@@ -79,6 +88,7 @@ $messages['de'] = array(
  */
 $messages['de-formal'] = array(
 	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie sich anmelden.',
+	'ethereditor-js-off' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie JavaScript aktivieren.',
 	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Sie können diese Seite gerne weiter bearbeiten, allerdings könnten Ihre Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlegen Sie sich, ob Sie sich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchten, indem Sie die Schaltfläche {{int:ethereditor-collaborate-button}} anklicken. Sie finden sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise können Sie Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
 );
 
