@@ -65,7 +65,8 @@ $wgResourceModules += array(
 		),
 		'messages' => array(
 			'ethereditor-fork-button',
-			'ethereditor-contrib-button',
+			'ethereditor-pad-list',
+			'ethereditor-user-list',
 			'ethereditor-kick-button',
 			'ethereditor-delete-button',
 			'ethereditor-summary-message',
@@ -92,15 +93,6 @@ $wgResourceModules += array(
 		'dependencies' => array(
 			'mediawiki.user',
 			'jquery.cookie',
-		)
-	),
-
-	'ext.etherEditorWarn' => $etherEditorTpl + array(
-		'scripts' => array(
-			'ext.etherEditorWarn.js',
-		),
-		'messages' => array(
-			'ethereditor-warn-others',
 		)
 	)
 );

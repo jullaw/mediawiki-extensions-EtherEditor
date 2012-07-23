@@ -21,6 +21,7 @@
 		}
 
 		var _this = this;
+		_this.pads = mw.config.get( 'wgEtherEditorOtherPads' );
 		_this.$textarea = $( textarea );
 		_this.$ctrls = null;
 		_this.$pctrls = null;
@@ -128,7 +129,6 @@
 			_this.$pctrls.attr( 'id', 'ethereditor-pad-ctrls' );
 			_this.$ctrls.append( _this.$pctrls );
 			_this.initializePadList();
-			_this.initializeAdminControls();
 			_this.initializeContribs();
 		},
 		/**
@@ -206,13 +206,23 @@
 				_this.$userlist.addClass( 'hidden' );
 				var $ucontain = $( '<span></span>' );
 				$ucontain.attr( 'id', 'ethereditor-userlist-contain' );
+				var $uimg = $( '<img />' );
+				// TODO add an icon for the user list
+				// I'm adding in the img element with an alt attribute because the number isn't clear at all.
+				$uimg.attr( 'src', 'placeholder' );
+				$uimg.attr( 'alt', mw.msg( 'ethereditor-user-list' ) );
+				$uimg.addClass( 'listicon' );
+				$ucontain.append( $uimg );
 				_this.$userlist.attr( 'id', 'ethereditor-userlist' );
 				$ucontain.append( _this.$userlist );
 				_this.$pctrls.append( $ucontain );
 				_this.$usercount = $( '<span></span>' );
 				_this.$usercount.attr( 'id', 'ethereditor-usercount' );
 				$ucontain.append( _this.$usercount );
-				_this.$usercount.click( function () {
+				_this.$usercount.add( $( '.listicon', $ucontain ) ).click( function () {
+					if ( _this.$userlist.hasClass( 'hidden' ) && _this.$padlist !== null ) {
+						_this.$padlist.addClass( 'hidden' );
+					}
 					_this.$userlist.toggleClass( 'hidden' );
 				} );
 			}
@@ -373,23 +383,6 @@
 			return false;
 		},
 		/**
-		 * Adds the delete pad button and the kick field.
-		 */
-		initializeAdminControls: function () {
-			var _this = this;
-			var $actls = $( '<span></span>' );
-			$actls.attr( 'id', 'ethereditor-admin-ctrls' );
-			var $delbtn = $( '<button></button>' );
-			$delbtn.attr( 'id', 'ethereditor-delete-button' );
-			$delbtn.html( mw.msg( 'ethereditor-delete-button' ) );
-			$delbtn.click( function () {
-				_this.deletePad();
-				return false;
-			} );
-			$actls.append( $delbtn );
-			_this.$pctrls.prepend( $actls );
-		},
-		/**
 		 * Initialize the various collaboration controls. This includes the pad
 		 * list and the "collaborate" switch.
 		 */
@@ -439,50 +432,134 @@
 		*/
 		initializePadList: function () {
 			var _this = this;
-			var pads = mw.config.get( 'wgEtherEditorOtherPads' );
-			var $forkbtn = $( '<button></button>' );
-			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
-			$forkbtn.click( function () {
+			_this.$padlist = $( '#ethereditor-padlist' );
+			if ( _this.$padlist.length == 0 ) {
+				_this.$padlist = $( '<span></span>' );
+				_this.$padlist.addClass( 'hidden' );
+				var $pcontain = $( '<span></span>' );
+				$pcontain.attr( 'id', 'ethereditor-padlist-contain' );
+				var $pimg = $( '<img />' );
+				// TODO add an icon for the pad list
+				// I'm adding in the img element with an alt attribute because the number isn't clear at all.
+				$pimg.attr( 'src', 'placeholder' );
+				$pimg.attr( 'alt', mw.msg( 'ethereditor-pad-list' ) );
+				$pimg.addClass( 'listicon' );
+				$pcontain.append( $pimg );
+				_this.$padlist.attr( 'id', 'ethereditor-padlist' );
+				$pcontain.append( _this.$padlist );
+				_this.$pctrls.append( $pcontain );
+				_this.$padcount = $( '<span></span>' );
+				_this.$padcount.attr( 'id', 'ethereditor-padcount' );
+				_this.$padcount.html( _this.pads.length );
+				$pcontain.append( _this.$padcount );
+				_this.$padcount.add( $( '.listicon', $pcontain ) ).click( function () {
+					if ( _this.$padlist.hasClass( 'hidden' ) && _this.$userlist !== null ) {
+						_this.$userlist.addClass( 'hidden' );
+					}
+					_this.$padlist.toggleClass( 'hidden' );
+				} );
+			}
+			if ( _this.isAdmin ) {
+				_this.$padlist.removeClass( 'notadmin' );
+			} else {
+				_this.$padlist.addClass( 'notadmin' );
+			}
+			_this.updatePadList( false );
+		},
+		/**
+		 * Update the list of pads.
+		 * @param updateRemote Should we fetch the data from the API?
+		 */
+		updatePadList: function ( updateRemote ) {
+			var _this = this;
+			_this.$padlist.empty();
+			var finishUpdate = function () {
+				var isOdd = 1;
+				for ( var px in _this.pads ) {
+					var pad = _this.pads[px];
+					var $pad = $( '<div></div>' );
+					$pad.attr( 'data-padid', pad.pad_id );
+					_this.$padlist.append( $pad );
+					// Alternate even and odd, add class conditionally
+					if ( isOdd ^= 1 ) {
+						$pad.addClass( 'odd' );
+					}
+					var $padname = $( '<span class="ethereditor-padname"></span>' );
+					$padname.html( pad.ep_pad_id.substr( 19 ) );
+					$pad.append( $padname );
+
+					var $padminctrls = $( '<span class="padminctrls"></span>' );
+
+					var $copy = $( '<button></button>' );
+					$copy.html( mw.msg( 'ethereditor-fork-button' ) );
+					$copy.click( ( function ( padId ) {
+						return function () {
+							_this.forkPad( padId );
+							return false;
+						};
+					} )( pad.pad_id ) );
+					$padminctrls.append( $copy );
+
+					if ( pad.admin_user == mw.user.name() ) {
+						var $delete = $( '<button></button>' );
+						$delete.html( mw.msg( 'ethereditor-delete-button' ) );
+						$delete.click( ( function ( padId ) {
+							return function () {
+								_this.deletePad( padId );
+								return false;
+							};
+						} )( pad.pad_id ) );
+						$padminctrls.append( $delete );
+					}
+
+					$pad.append( $padminctrls );
+					$pad.click( ( function ( thispad ) {
+						return function () {
+							_this.dbId = thispad.pad_id;
+							_this.padId = thispad.ep_pad_id;
+							_this.authenticateUser( function () {
+								_this.initializePad();
+							} );
+						};
+					} )( pad ) );
+				}
+			};
+			if ( updateRemote ) {
 				$.ajax( {
 					url: mw.util.wikiScript( 'api' ),
 					method: 'GET',
-					data: { format: 'json', action: 'ForkEtherPad', padId: _this.dbId },
-					success: function( data ) {
-						_this.padId = data.ForkEtherPad.padId;
-						_this.dbId = data.ForkEtherPad.dbId;
-						_this.sessionId = data.ForkEtherPad.sessionId;
-						_this.isAdmin = true;
-						_this.initializePad();
-						return 0;
+					data: { format: 'json', action: 'GetOtherEtherpads', padId: _this.dbId },
+					success: function ( data ) {
+						_this.pads = data.GetOtherEtherpads.pads;
+						finishUpdate();
 					},
 					dataType: 'json'
 				} );
-				return false;
-			} );
-			_this.$pctrls.prepend( $forkbtn );
-			if ( pads && pads.length ) {
-				_this.$select = $( '<select></select>' ).attr( 'id', 'ethereditor-select-pad' );
-				pads.unshift( { pad_id: _this.dbId, ep_pad_id: _this.padId, admin_user: ( this.isAdmin ? mw.user.name() : '' ) } );
-				for ( var px in pads ) {
-					var pad = pads[px];
-					var $option = $( '<option></option>' );
-					$option.html( pad.ep_pad_id.substr( 19 ) );
-					$option.val( pad.pad_id );
-					$option.data( 'admin', pad.admin_user );
-					$option.data( 'ep_pad_id', pad.ep_pad_id );
-					_this.$select.append( $option );
-				}
-				_this.$select.change( function () {
-					var $selopt = $( 'option:selected', $( this ) );
-					_this.padId = $selopt.data( 'ep_pad_id' );
-					_this.dbId = $selopt.val();
-					_this.isAdmin = mw.user.name() == $selopt.data( 'admin' );
-					_this.authenticateUser( function () {
-						_this.initializePad();
-					} );
-				} );
-				_this.$pctrls.prepend( _this.$select );
+			} else {
+				finishUpdate();
 			}
+		},
+		/**
+		 * Fork a pad into another.
+		 */
+		forkPad: function ( padId ) {
+			var _this = this;
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: { format: 'json', action: 'ForkEtherPad', padId: padId },
+				success: function( data ) {
+					_this.padId = data.ForkEtherPad.padId;
+					_this.dbId = data.ForkEtherPad.dbId;
+					_this.sessionId = data.ForkEtherPad.sessionId;
+					_this.isAdmin = true;
+					_this.initializePad();
+					_this.updatePadList( true );
+					return 0;
+				},
+				dataType: 'json'
+			} );
+			return false;
 		},
 		/**
 		 * Initializes the pad.
@@ -533,25 +610,33 @@
 		},
 		/**
 		 * Deletes the pad's contents. (requires admin, of course)
+		 * @param padId optional, the ID of the pad to delete
 		 */
-		deletePad: function () {
+		deletePad: function ( padId ) {
 			var _this = this;
 			$.ajax( {
 				url: mw.util.wikiScript( 'api' ),
 				method: 'GET',
 				data: {
 					format: 'json', action: 'DeleteEtherPad',
-					padId: _this.dbId
+					padId: padId || _this.dbId
 				},
 				success: function( data ) {
 					$( 'option[value=' + _this.dbId + ']', _this.$select ).remove();
-					var $newOpt = $( 'option', _this.$select ).first();
-					_this.dbId = $newOpt.val();
-					_this.padId = $newOpt.html();
-					_this.isAdmin = mw.user.name() == $newOpt.data( 'admin' );
-					_this.authenticateUser( function () {
-						_this.initializePad();
-					} );
+					var px = -1;
+					// The below line will loop until it finds the right pad index.
+					while ( ++px < _this.pads.length && _this.pads[px].pad_id != padId ) { }
+					_this.pads.splice( px, 1 );
+					if ( padId == _this.dbId ) {
+						var newPad = _this.pads[0];
+						_this.dbId = newPad.pad_id;
+						_this.padId = newPad.ep_pad_id;
+						_this.isAdmin = mw.user.name() == newPad.admin_user;
+						_this.authenticateUser( function () {
+							_this.initializePad();
+						} );
+					}
+					_this.updatePadList( true );
 					return 0;
 				},
 				dataType: 'json'
