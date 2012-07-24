@@ -18,26 +18,26 @@ require_once( 'EtherEditorApiTestCase.php' );
 
 class GetContribsTest extends EtherEditorApiTestCase {
 	function testContribsGet() {
-		global $wgUser;
-
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
-		$epPad->authenticateUser( $wgUser->getName(), $wgUser->getId() );
+		$epPad = $this->newOrigPad();
+		$epPad->authenticateUser( $this->userName, $this->userId );
 		$epPad->authenticateUser( 'helper', 50 );
 
-		$data = $this->doApiRequest( array(
-			'action' => 'GetContribs',
-			'padId' => $epPad->getId()
-		) );
-
-		$this->assertArrayHasKey( 'GetContribs', $data[0] );
-		$this->assertArrayHasKey( 'contribs', $data[0]['GetContribs'] );
+		$data = $this->assertApiCallWorks(
+			'GetContribs',
+			array(
+				'padId' => $epPad->getId()
+			),
+			array(
+				'contribs'
+			)
+		);
 
 		$contribs = array();
-		foreach ( $data[0]['GetContribs']['contribs'] as $contrib ) {
+		foreach ( $data['contribs'] as $contrib ) {
 			$contribs[] = $contrib->username;
 		}
 
-		$this->assertContains( $wgUser->getName(), $contribs );
+		$this->assertContains( $this->userName, $contribs );
 		$this->assertContains( 'helper', $contribs );
 		$this->assertNotContains( 'spammer', $contribs );
 

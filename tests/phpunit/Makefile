@@ -5,7 +5,8 @@ MWPATH = ${MW_INSTALL_PATH}
 PU = ${PHP} ${MWPATH}/tests/phpunit/phpunit.php
 PUCOV = ${PU} --coverage-html coverage .
 
-tests: config includes api
+tests:
+	${PU} .
 
 config:
 	${PU} EtherEditorTest.php

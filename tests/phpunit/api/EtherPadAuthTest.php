@@ -19,7 +19,7 @@ require_once( 'EtherEditorApiTestCase.php' );
 class EtherPadAuthTest extends EtherEditorApiTestCase {
 	function setUp() {
 		parent::setUp();
-		$this->epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
+		$this->epPad = $this->newOrigPad();
 	}
 
 	function tearDown() {
@@ -27,39 +27,21 @@ class EtherPadAuthTest extends EtherEditorApiTestCase {
 		$this->epPad = null;
 	}
 
-	function userHasAuth( $epPad, $uid, $username ) {
-		$epClient = EtherEditorPad::getEpClient();
-
-		$initialString = 'The session did not get set';
-		$actualSession = $initialString;
-		$actualAuthor = $epClient->createAuthorIfNotExistsFor( $uid, $username )->authorID;
-		$sessions = $epClient->listSessionsOfGroup( $epPad->getGroupId() );
-		if ( !is_null( $sessions ) ) {
-			foreach ( $sessions as $key => $value ) {
-				if ( $value->authorID == $actualAuthor ) {
-					$actualSession = $key;
-				}
-			}
-		}
-		return $actualSession != $initialString;
-	}
-
 	function testUserDoesNotGetAuthedUsually() {
-		global $wgUser;
-		$this->assertFalse( $this->userHasAuth( $this->epPad, $wgUser->getId(), $wgUser->getName() ) );
+		$this->assertUserNotHasAuth( $this->epPad, $this->userId, $this->userName );
 	}
 
 	function testUserGetsAuthed() {
-		global $wgUser;
+		$data = $this->assertApiCallWorks(
+			'EtherPadAuth',
+			array(
+				'padId' => $this->epPad->getId()
+			),
+			array(
+				'sessionId'
+			)
+		);
 
-		$data = $this->doApiRequest( array(
-			'action' => 'EtherPadAuth',
-			'padId' => $this->epPad->getId()
-		) );
-
-		$this->assertArrayHasKey( 'EtherPadAuth', $data[0] );
-		$this->assertArrayHasKey( 'sessionId', $data[0]['EtherPadAuth'] );
-
-		$this->assertTrue( $this->userHasAuth( $this->epPad, $wgUser->getId(), $wgUser->getName() ) );
+		$this->assertUserHasAuth( $this->epPad, $this->userId, $this->userName );
 	}
 }

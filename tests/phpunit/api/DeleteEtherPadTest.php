@@ -18,40 +18,39 @@ require_once( 'EtherEditorApiTestCase.php' );
 
 class DeleteEtherPadTest extends EtherEditorApiTestCase {
 	function doRequest( $dbId ) {
-		$data = $this->doApiRequest( array(
-			'action' => 'DeleteEtherPad',
-			'padId' => $dbId
-		) );
-		$this->assertArrayHasKey( 'DeleteEtherPad', $data[0] );
-		$this->assertArrayHasKey( 'authed', $data[0]['DeleteEtherPad'] );
-		$this->assertArrayHasKey( 'success', $data[0]['DeleteEtherPad'] );
+		$data = $this->assertApiCallWorks(
+			'DeleteEtherPad',
+			array(
+				'padId' => $dbId
+			),
+			array(
+				'authed',
+				'success'
+			)
+		);
 		return $data;
 	}
 
 	function testDeleteHappensWithIdealConditions() {
-		global $wgUser;
-
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
-		$epFork = EtherEditorPad::newFromOldPadId( $epPad->getId(), $wgUser->getName() );
+		$epPad = $this->newOrigPad();
+		$epFork = $this->newFork( $epPad->getId() );
 
 		$data = $this->doRequest( $epFork->getId() );
 
-		$this->assertTrue( $data[0]['DeleteEtherPad']['authed'] );
-		$this->assertEquals( $data[0]['DeleteEtherPad']['success'], 1 );
+		$this->assertTrue( $data['authed'] );
+		$this->assertEquals( $data['success'], 1 );
 		$epPad->deleteFromDB();
 		$this->assertEquals( $epFork->deleteFromDB(), 1 );
 	}
 
 	function testDeleteFailsWithoutAdmin() {
-		global $wgUser;
-
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
-		$epFork = EtherEditorPad::newFromOldPadId( $epPad->getId(), '' );
+		$epPad = $this->newOrigPad();
+		$epFork = $this->newFork( $epPad->getId(), '' );
 
 		$data = $this->doRequest( $epFork->getId() );
 
-		$this->assertFalse( $data[0]['DeleteEtherPad']['authed'] );
-		$this->assertFalse( $data[0]['DeleteEtherPad']['success'] );
+		$this->assertFalse( $data['authed'] );
+		$this->assertFalse( $data['success'] );
 		$epPad->deleteFromDB();
 		$this->assertEquals( $epFork->deleteFromDB(), 1 );
 	}

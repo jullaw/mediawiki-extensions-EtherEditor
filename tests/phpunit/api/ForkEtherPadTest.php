@@ -18,25 +18,26 @@ require_once( 'EtherEditorApiTestCase.php' );
 
 class ForkEtherPadTest extends EtherEditorApiTestCase {
 	function testForkOccursWithRightText() {
-		global $wgUser;
-
 		$testText = 'If a fork is created with this text, the test will pass!';
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, $testText, 0, false );
+		$epPad = $this->newOrigPad( $testText );
 
-		$data = $this->doApiRequest( array(
-			'action' => 'ForkEtherPad',
-			'padId' => $epPad->getId()
-		) );
+		$data = $this->assertApiCallWorks(
+			'ForkEtherPad',
+			array(
+				'padId' => $epPad->getId()
+			),
+			array(
+				'padId',
+				'dbId',
+				'sessionId'
+			)
+		);
 
-		$this->assertArrayHasKey( 'ForkEtherPad', $data[0] );
-		$this->assertArrayHasKey( 'padId', $data[0]['ForkEtherPad'] );
-		$this->assertArrayHasKey( 'dbId', $data[0]['ForkEtherPad'] );
-		$this->assertArrayHasKey( 'sessionId', $data[0]['ForkEtherPad'] );
-
-		$dbId = $data[0]['ForkEtherPad']['dbId'];
+		$dbId = $data['dbId'];
 		$this->assertPadExists( $dbId );
 		$this->assertPadHasText( $dbId, $testText );
-		$this->assertIsAdmin( $dbId, $wgUser );
+		$this->assertUserHasAuth( $epPad, $this->userId, $this->userName );
+		$this->assertIsAdmin( $dbId, $this->userName );
 
 		$epPad->deleteFromDB();
 	}

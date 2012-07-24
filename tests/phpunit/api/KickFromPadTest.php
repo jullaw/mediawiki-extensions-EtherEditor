@@ -15,43 +15,56 @@
  */
 
 class KickFromPadTest extends EtherEditorApiTestCase {
-	function assertRequestSucceeds( $dbId, $username ) {
-		$data = $this->doApiRequest( array(
-			'action' => 'KickFromPad',
-			'padId' => $dbId,
-			'user' => $username
-		) );
+	function setUp() {
+		parent::setUp();
+		$this->kickuser = 'spammer';
+		$this->kickid = 50;
+		$this->epPad = $this->newOrigPad();
+		$this->epFork = null;
+	}
 
-		$this->assertArrayHasKey( 'KickFromPad', $data[0] );
-		$this->assertArrayHasKey( 'success', $data[0]['KickFromPad'] );
-		return $data[0]['KickFromPad']['success'];
+	function tearDown() {
+		unset( $this->kickuser );
+		unset( $this->kickid );
+		$this->epPad->deleteFromDB();
+		unset( $this->epPad );
+		if ( $this->epFork !== null ) {
+			$this->epFork->deleteFromDB();
+		}
+		unset( $this->epFork );
+		parent::tearDown();
+	}
+
+	protected function makeRequest() {
+		$this->epFork->authenticateUser( $this->kickuser, $this->kickid );
+		$data = $this->assertApiCallWorks(
+			'KickFromPad',
+			array(
+				'padId' => $this->epFork->getId(),
+				'user' => $this->kickuser
+			),
+			array(
+				'success'
+			)
+		);
+		return $data['success'];
+	}
+
+	function assertRequestSucceeds() {
+		$this->assertTrue( $this->makeRequest() );
+	}
+
+	function assertRequestFails() {
+		$this->assertFalse( $this->makeRequest() );
 	}
 
 	function testKickHappensWithIdealConditions() {
-		global $wgUser;
-
-		$kickuser = 'spammer';
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
-		$epFork = EtherEditorPad::newFromOldPadId( $epPad->getId(), $wgUser->getName() );
-		$epFork->authenticateUser( $kickuser, 50 );
-
-		$this->assertTrue( $this->assertRequestSucceeds( $epFork->getId(), $kickuser ) );
-		$epPad->deleteFromDB();
-		$epFork->deleteFromDB();
+		$this->epFork = $this->newFork();
+		$this->assertRequestSucceeds();
 	}
 
 	function testKickFailsWithoutAdmin() {
-		global $wgUser;
-
-		$kickuser = 'spammer';
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
-		$epFork = EtherEditorPad::newFromOldPadId( $epPad->getId(), '' );
-		$epFork->authenticateUser( $kickuser, 50 );
-
-		$data = $this->assertRequestSucceeds( $epFork->getId(), $kickuser );
-
-		$this->assertTrue( is_null( $data[0]['KickFromPad']['success'] ) );
-		$epPad->deleteFromDB();
-		$epFork->deleteFromDB();
+		$this->epFork = $this->newFork( null, '' );
+		$this->assertRequestFails();
 	}
 }

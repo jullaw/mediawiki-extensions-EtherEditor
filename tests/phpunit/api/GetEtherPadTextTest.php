@@ -17,19 +17,21 @@
 class GetEtherPadTextTest extends EtherEditorApiTestCase {
 	function testTextGetsReturned() {
 		$testText = 'If this text gets properly returned from the server, this test will pass!';
-		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, $testText, 0, false );
+		$epPad = $this->newOrigPad( $testText );
 
-		$data = $this->doApiRequest( array(
-			'action' => 'GetEtherPadText',
-			'padId' => $epPad->getId()
-		) );
-
-		$this->assertArrayHasKey( 'GetEtherPadText', $data[0] );
-		$this->assertArrayHasKey( 'text', $data[0]['GetEtherPadText'] );
+		$data = $this->assertApiCallWorks(
+			'GetEtherPadText',
+			array(
+				'padId' => $epPad->getId()
+			),
+			array(
+				'text'
+			)
+		);
 
 		$this->assertEquals(
 			$testText,
-			trim( $data[0]['GetEtherPadText']['text'] )
+			trim( $data['text'] )
 		);
 	}
 }
