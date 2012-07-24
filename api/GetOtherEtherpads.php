@@ -26,6 +26,7 @@ class GetOtherEtherpads extends ApiBase {
 		);
 	}
 
+	// @codeCoverageIgnoreStart
 	public function getAllowedParams() {
 		return array(
 			'padId' => array(
@@ -57,4 +58,5 @@ class GetOtherEtherpads extends ApiBase {
 	public function getVersion() {
 		return __CLASS__ . ': 0.3.0';
 	}
+	// @codeCoverageIgnoreEnd
 }

@@ -29,7 +29,7 @@ class DeleteEtherPadTest extends EtherEditorApiTestCase {
 	}
 
 	function testDeleteHappensWithIdealConditions() {
-		global $wgMetaNamespace, $wgUser;
+		global $wgUser;
 
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
 		$epFork = EtherEditorPad::newFromOldPadId( $epPad->getId(), $wgUser->getName() );
@@ -37,13 +37,13 @@ class DeleteEtherPadTest extends EtherEditorApiTestCase {
 		$data = $this->doRequest( $epFork->getId() );
 
 		$this->assertTrue( $data[0]['DeleteEtherPad']['authed'] );
-		$this->assertTrue( $data[0]['DeleteEtherPad']['success'] );
+		$this->assertEquals( $data[0]['DeleteEtherPad']['success'], 1 );
 		$epPad->deleteFromDB();
-		$this->assertTrue( $epFork->deleteFromDB() );
+		$this->assertEquals( $epFork->deleteFromDB(), 1 );
 	}
 
 	function testDeleteFailsWithoutAdmin() {
-		global $wgMetaNamespace, $wgUser;
+		global $wgUser;
 
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
 		$epFork = EtherEditorPad::newFromOldPadId( $epPad->getId(), '' );
@@ -53,6 +53,6 @@ class DeleteEtherPadTest extends EtherEditorApiTestCase {
 		$this->assertFalse( $data[0]['DeleteEtherPad']['authed'] );
 		$this->assertFalse( $data[0]['DeleteEtherPad']['success'] );
 		$epPad->deleteFromDB();
-		$this->assertTrue( $epFork->deleteFromDB() );
+		$this->assertEquals( $epFork->deleteFromDB(), 1 );
 	}
 }

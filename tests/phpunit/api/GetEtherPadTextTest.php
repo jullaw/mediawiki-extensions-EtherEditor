@@ -16,8 +16,6 @@
 
 class GetEtherPadTextTest extends EtherEditorApiTestCase {
 	function testTextGetsReturned() {
-		global $wgMetaNamespace;
-
 		$testText = 'If this text gets properly returned from the server, this test will pass!';
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, $testText, 0, false );
 

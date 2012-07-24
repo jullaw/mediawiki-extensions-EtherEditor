@@ -233,9 +233,9 @@ class EtherEditorPad {
 		if ( !$pad ) {
 			$conditions['extra_title'] = '';
 			$conditions['base_revision'] = $baseRevision;
+			$extra = 0;
 			if ( $forceNewRemote || ( isset( $conditions['pad_id'] ) && $conditions['pad_id'] == -1 ) ) {
 				unset( $conditions['pad_id'] );
-				$extra = 0;
 				$others = self::getOtherPads( 0, $conditions['page_title'] );
 				$success = false;
 				// Here's how this works:
@@ -445,7 +445,6 @@ class EtherEditorPad {
 				__METHOD__
 			);
 		}
-		return true;
 	}
 
 	/**
@@ -690,7 +689,7 @@ class EtherEditorPad {
 				'group_id'
 			),
 			array(
-				'pad_id <> ' . ( $this ? $this->id : -1 ),
+				'pad_id <> ' . ( isset( $this ) ? $this->id : -1 ),
 				'base_revision >= ' . $minRevision,
 				'page_title' => $pageTitle == '' ? $this->pageTitle : $pageTitle,
 				'public_pad' => '1'
@@ -730,7 +729,7 @@ class EtherEditorPad {
 	 *
 	 * @return array Array of pads
 	 */
-	 public function getAllByPageTitle( $pageTitle ) {
+	 public static function getAllByPageTitle( $pageTitle=null ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		$epClient = self::getEpClient();

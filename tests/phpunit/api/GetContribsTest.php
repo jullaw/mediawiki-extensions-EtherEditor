@@ -14,9 +14,11 @@
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
 
+require_once( 'EtherEditorApiTestCase.php' );
+
 class GetContribsTest extends EtherEditorApiTestCase {
 	function testContribsGet() {
-		global $wgMetaNamespace, $wgUser;
+		global $wgUser;
 
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
 		$epPad->authenticateUser( $wgUser->getName(), $wgUser->getId() );

@@ -17,11 +17,8 @@
 require_once( 'EtherEditorApiTestCase.php' );
 
 class EtherPadAuthTest extends EtherEditorApiTestCase {
-
-	// Hold an EtherEditorPad for testing
-	protected $epPad;
-
 	function setUp() {
+		parent::setUp();
 		$this->epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
 	}
 

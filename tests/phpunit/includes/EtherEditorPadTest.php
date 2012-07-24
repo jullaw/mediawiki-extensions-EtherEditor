@@ -43,9 +43,18 @@ class EtherEditorPadTest extends MediaWikiTestCase {
 
 	function testAuthToPad() {
 		$maybeSession = $this->epPad->authenticateUser( $this->username, $this->uid );
+		// Make sure that there's only one instance of the user in contribs list after this call.
+		$this->epPad->authenticateUser( $this->username, $this->uid );
 		$authorId = $this->epClient->createAuthorIfNotExistsFor( $this->uid, $this->username )->authorID;
 		$sessions = $this->epClient->listSessionsOfGroup( $this->epPad->getGroupId() );
 		$this->assertObjectHasAttribute( $maybeSession, $sessions );
+		$contribs = array();
+		foreach ( $this->epPad->getContribs() as $contrib ) {
+			if ( $contrib->username == $this->username ) {
+				$this->assertArrayNotHasKey( $this->username, $contribs );
+			}
+			$contribs[$contrib->username] = true;
+		}
 	}
 
 	function testFetchPad() {
@@ -73,7 +82,10 @@ class EtherEditorPadTest extends MediaWikiTestCase {
 		$this->assertFalse( $epFork->authenticateUser( 'doesexist', 51 ) );
 		$this->epClient->deletePad( $epFork->getEpId() );
 		$this->assertEquals( '', $epFork->getText() );
-		$this->assertTrue( $epFork->deleteFromDB() );
+		$otherEpFork = EtherEditorPad::newFromOldPadId( $this->epPad->getId(), $this->username );
+		$this->assertNotEquals( $otherEpFork->getEpId(), $epFork->getEpId() );
+		$this->assertEquals( $epFork->deleteFromDB(), 1 );
+		$this->assertEquals( $otherEpFork->deleteFromDB(), 1 );
 	}
 
 	function testAutoFork() {
@@ -81,6 +93,26 @@ class EtherEditorPadTest extends MediaWikiTestCase {
 		$apparentText = trim( $this->epClient->getText( $epAutoFork->getEpId() )->text );
 		$this->assertEquals( $this->testText, $apparentText );
 		$this->assertEquals( $this->testText, trim( $epAutoFork->getText() ) );
-		$this->assertTrue( $epAutoFork->deleteFromDB() );
+		$this->assertEquals( $epAutoFork->deleteFromDB(), 1 );
+	}
+
+	function testGetAllByPageTitle() {
+		$pads = EtherEditorPad::getAllByPageTitle();
+		$this->assertNotEquals( $pads, array() );
+		foreach ( $pads as $pad ) {
+			$this->assertObjectHasAttribute( 'users_connected', $pad );
+			break;
+		}
+		$oldPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', $this->epPad->getBaseRevision() - 1, true );
+		$pads = EtherEditorPad::getAllByPageTitle( $this->nameOfPad );
+		$this->assertNotEquals( $pads, array() );
+		foreach ( $pads as $pad ) {
+			if ( $pad->pad_id == $oldPad->getId() ) {
+				$this->assertEquals( $pad->base_revision, wfMessage( 'ethereditor-outdated' )->text() );
+			} else if ( $pad->pad_id == $this->epPad->getId() ) {
+				$this->assertEquals( $pad->base_revision, wfMessage( 'ethereditor-current' )->text() );
+			}
+		}
+		$this->assertEquals( $oldPad->deleteFromDB(), 1 );
 	}
 }

@@ -18,7 +18,7 @@ require_once( 'EtherEditorApiTestCase.php' );
 
 class ForkEtherPadTest extends EtherEditorApiTestCase {
 	function testForkOccursWithRightText() {
-		global $wgMetaNamespace, $wgUser;
+		global $wgUser;
 
 		$testText = 'If a fork is created with this text, the test will pass!';
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, $testText, 0, false );

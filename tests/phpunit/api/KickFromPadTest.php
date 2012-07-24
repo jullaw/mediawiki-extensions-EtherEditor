@@ -15,7 +15,6 @@
  */
 
 class KickFromPadTest extends EtherEditorApiTestCase {
-
 	function assertRequestSucceeds( $dbId, $username ) {
 		$data = $this->doApiRequest( array(
 			'action' => 'KickFromPad',
@@ -29,7 +28,7 @@ class KickFromPadTest extends EtherEditorApiTestCase {
 	}
 
 	function testKickHappensWithIdealConditions() {
-		global $wgMetaNamespace, $wgUser;
+		global $wgUser;
 
 		$kickuser = 'spammer';
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );
@@ -42,7 +41,7 @@ class KickFromPadTest extends EtherEditorApiTestCase {
 	}
 
 	function testKickFailsWithoutAdmin() {
-		global $wgMetaNamespace, $wgUser;
+		global $wgUser;
 
 		$kickuser = 'spammer';
 		$epPad = EtherEditorPad::newFromNameAndText( $this->nameOfPad, '', 0, false );

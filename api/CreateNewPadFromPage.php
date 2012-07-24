@@ -19,7 +19,11 @@ class CreateNewPadFromPage extends ApiBase {
 		$result = $this->getResult();
 		$title = Title::newFromText( $params['pageTitle'] );
 		$page = Article::newFromID( $title->getArticleID() );
-		$text = $page->fetchContent();
+		if ( isset( $page ) )  {
+			$text = $page->fetchContent();
+		} else {
+			$text = '';
+		}
 		$baseRevision = $title->getLatestRevID();
 		$epPad = EtherEditorPad::newFromNameAndText( $params['pageTitle'], $text, $baseRevision, true );
 
@@ -35,6 +39,7 @@ class CreateNewPadFromPage extends ApiBase {
 		);
 	}
 
+	// @codeCoverageIgnoreStart
 	public function getAllowedParams() {
 		return array(
 			'pageTitle' => array(
@@ -66,4 +71,5 @@ class CreateNewPadFromPage extends ApiBase {
 	public function getVersion() {
 		return __CLASS__ . ': 0.3.0';
 	}
+	// @codeCoverageIgnoreEnd
 }
