@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS /*$wgDBprefix*/ethereditor_pads (
   page_title               VARCHAR(255)        NOT NULL,
   admin_user               VARCHAR(255)        NOT NULL,
   base_revision            INTEGER             NOT NULL default '0',
+  time_created             VARBINARY(14)       NOT NULL default '20120726000000',
   public_pad               TINYINT             NOT NULL default '1'
 ) /*$wgDBTableOptions*/;
 

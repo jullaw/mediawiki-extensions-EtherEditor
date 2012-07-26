@@ -64,6 +64,15 @@ $wgResourceModules += array(
 			'ext.etherEditor.css',
 		),
 		'messages' => array(
+			'seconds',
+			'minutes',
+			'hours',
+			'days',
+			'ago',
+			'ethereditor-session-created',
+			'ethereditor-connected',
+			'ethereditor-switch-to-session',
+			'ethereditor-recover-session',
 			'ethereditor-fork-button',
 			'ethereditor-pad-list',
 			'ethereditor-user-list',
@@ -76,6 +85,7 @@ $wgResourceModules += array(
 			'mediawiki.user',
 			'jquery.etherpad',
 			'jquery.cookie',
+			'mediawiki.jqueryMsg',
 		)
 	),
 

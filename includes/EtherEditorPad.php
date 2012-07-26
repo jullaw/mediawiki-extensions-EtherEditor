@@ -75,6 +75,15 @@ class EtherEditorPad {
 	protected $baseRevision;
 
 	/**
+	 * The time this pad was created.
+	 * Uses the traditional YYYYMMDDHHMMSS format.
+	 *
+	 * @since 0.3.0
+	 * @var string
+	 */
+	protected $timeCreated;
+
+	/**
 	 * Whether the pad is public or not.
 	 *
 	 * @since 0.1.0
@@ -110,6 +119,7 @@ class EtherEditorPad {
 		$this->pageTitle = $pageTitle;
 		$this->adminUser = $adminUser;
 		$this->baseRevision = $baseRevision;
+		$this->timeCreated = null;
 		$this->publicPad = $publicPad;
 		$this->writeToDB();
 	}
@@ -584,6 +594,8 @@ class EtherEditorPad {
 	protected function insertIntoDB() {
 		$dbw = wfGetDB( DB_MASTER );
 
+		$this->timeCreated = wfTimestamp( TS_MW );
+
 		$success = $dbw->insert(
 			'ethereditor_pads',
 			array(
@@ -592,6 +604,7 @@ class EtherEditorPad {
 				'page_title' => $this->pageTitle,
 				'admin_user' => $this->adminUser,
 				'base_revision' => $this->baseRevision,
+				'time_created' => $this->timeCreated,
 				'public_pad' => $this->publicPad,
 			),
 			__METHOD__,
@@ -680,13 +693,14 @@ class EtherEditorPad {
 	public function getOtherPads( $minRevision=0, $pageTitle='' ) {
 		$dbr = wfGetDB( DB_SLAVE );
 
-		return resToArray( $dbr->select(
+		$results = resToArray( $dbr->select(
 			'ethereditor_pads',
 			array(
 				'pad_id',
 				'ep_pad_id',
 				'admin_user',
-				'group_id'
+				'group_id',
+				'time_created'
 			),
 			array(
 				'pad_id <> ' . ( isset( $this ) ? $this->id : -1 ),
@@ -696,6 +710,11 @@ class EtherEditorPad {
 			),
 			__METHOD__
 		) );
+		$epClient = self::getEpClient();
+		foreach ( $results as $session ) {
+			$session->users_connected = $epClient->padUsersCount( $session->ep_pad_id )->padUsersCount;
+		}
+		return $results;
 	}
 
 	/**

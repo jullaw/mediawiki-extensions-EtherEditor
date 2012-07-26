@@ -15,10 +15,10 @@ $messages['en'] = array(
 	'ethereditor-desc' => 'Allows users to edit via Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Enable collaborative editor (experimental)',
 	'ethereditor-collaborate-button' => 'Collaborate',
-	'ethereditor-fork-button' => 'Copy pad',
+	'ethereditor-fork-button' => 'Split session',
 	'ethereditor-contrib-button' => 'Add list of contributors to edit summary',
 	'ethereditor-kick-button' => 'Kick user',
-	'ethereditor-delete-button' => 'Delete pad',
+	'ethereditor-delete-button' => 'End session',
 	'ethereditor-cannot-nologin' => 'In order to use the EtherEditor, you must log in.',
 	'ethereditor-js-off' => 'In order to use the EtherEditor, you must enable JavaScript.',
 	'ethereditor-manager-title' => 'EtherEditor Management',
@@ -27,10 +27,14 @@ $messages['en'] = array(
 	'ethereditor-users-connected' => 'Users connected',
 	'ethereditor-admin-controls' => 'Admin controls',
 	'ethereditor-user-list' => 'User list',
-	'ethereditor-pad-list' => 'Pad list',
+	'ethereditor-pad-list' => 'Session list',
 	'ethereditor-current' => 'Current',
 	'ethereditor-outdated' => 'Outdated',
 	'ethereditor-summary-message' => ' using EtherEditor, contributors: $1.',
+	'ethereditor-session-created' => 'Session started by $1 $2',
+	'ethereditor-connected' => '$1 connected {{PLURAL:$1|user|users}}',
+	'ethereditor-switch-to-session' => 'Switch to this session',
+	'ethereditor-recover-session' => 'Recover this session'
 );
 
 /** Message documentation (Message documentation)
@@ -57,6 +61,10 @@ $messages['qqq'] = array(
 	'ethereditor-current' => 'Indicates that this pad is up-to-date',
 	'ethereditor-outdated' => 'Indicates that this pad is no longer up-to-date',
 	'ethereditor-summary-message' => 'This message goes into the edit summary automatically. The parameter is for a comma-separated list of users, but we are not referring to the users in any substantial way, only to list them.',
+	'ethereditor-session-created' => 'This message is how users browse the session list. $1 is the name of the admin user, $2 is something like "2 minutes ago", see the "ago" message, and $3 is the number of connected users in this session.',
+	'ethereditor-connected' => 'This message shows how many users are connected. $1 is the number of connected users in this session.',
+	'ethereditor-switch-to-session' => 'This button will bring the user to a session. The button will be next to the session in question.',
+	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.'
 );
 
 /** German (Deutsch)

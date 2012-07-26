@@ -485,7 +485,37 @@
 						$pad.addClass( 'odd' );
 					}
 					var $padname = $( '<span class="ethereditor-padname"></span>' );
-					$padname.html( pad.ep_pad_id.substr( 19 ) );
+					var ot = pad.time_created;
+					var createtime = new Date(
+						parseInt( ot.substr( 0, 4 ), 10 ),
+						parseInt( ot.substr( 4, 2 ), 10 ) - 1,
+						parseInt( ot.substr( 6, 2 ), 10 ),
+						parseInt( ot.substr( 8, 2 ), 10 ),
+						parseInt( ot.substr( 10, 2 ), 10 ),
+						parseInt( ot.substr( 12, 2 ), 10 )
+					);
+					var timeago = new Date() - createtime;
+					var tunits = {
+						minutes: 60,
+						hours: 60,
+						days: 24
+					};
+					var curoff = 1000;
+					timeago -= timeago % curoff;
+					var timestring = mw.msg( 'seconds', timeago / curoff )
+					for ( var tunit in tunits ) {
+						curoff *= tunits[tunit];
+						if ( timeago / curoff > 1 ) {
+							timeago -= timeago % curoff;
+							timestring = mw.msg( tunit, timeago / curoff );
+						} else {
+							break;
+						}
+					}
+					var msg = mw.msg( 'ethereditor-session-created', mw.user.name(), mw.msg( 'ago', timestring ) );
+					$padname.text( msg );
+					$padname.append( '<br />' );
+					$padname.append( mw.message( 'ethereditor-connected', pad.users_connected ).escaped() );
 					$pad.append( $padname );
 
 					var $padminctrls = $( '<span class="padminctrls"></span>' );

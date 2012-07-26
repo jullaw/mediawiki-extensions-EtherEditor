@@ -188,6 +188,10 @@ class EtherEditorHooks {
 		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'base_revision',
 			dirname( __FILE__ ) . '/sql/AddBaseRevision.patch.sql', true ) );
 
+		// Make various changes for dealing with sessions (not pads)
+		$updater->addExtensionUpdate( array( 'addField', 'ethereditor_pads', 'time_created',
+			dirname( __FILE__ ) . '/sql/UpdateForSessions.patch.sql', true ) );
+
 		return true;
 	}
 
