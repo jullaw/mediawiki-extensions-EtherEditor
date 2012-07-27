@@ -36,9 +36,10 @@ class ForkEtherPadTest extends EtherEditorApiTestCase {
 		$dbId = $data['dbId'];
 		$this->assertPadExists( $dbId );
 		$this->assertPadHasText( $dbId, $testText );
-		$this->assertUserHasAuth( $epPad, $this->userId, $this->userName );
 		$this->assertIsAdmin( $dbId, $this->userName );
 
 		$epPad->deleteFromDB();
+		$epFork = EtherEditorPad::newFromId( $dbId );
+		$epFork->deleteFromDB();
 	}
 }

@@ -33,5 +33,6 @@ class GetEtherPadTextTest extends EtherEditorApiTestCase {
 			$testText,
 			trim( $data['text'] )
 		);
+		$epPad->deleteFromDB();
 	}
 }

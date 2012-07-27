@@ -31,7 +31,7 @@ class EtherEditorApiTestCase extends ApiTestCase {
 	function setUp() {
 		parent::setUp();
 		$this->doLogin();
-		$this->nameOfPad = strval( time() );
+		$this->nameOfPad = strval( microtime( true ) );
 		global $wgUser;
 		$this->userId = $wgUser->getId();
 		$this->userName = $wgUser->getName();

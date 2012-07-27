@@ -24,7 +24,8 @@ class EtherPadAuthTest extends EtherEditorApiTestCase {
 
 	function tearDown() {
 		$this->epPad->deleteFromDB();
-		$this->epPad = null;
+		unset( $this->epPad );
+		parent::tearDown();
 	}
 
 	function testUserDoesNotGetAuthedUsually() {
