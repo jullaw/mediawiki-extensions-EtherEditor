@@ -64,20 +64,21 @@ $messages['qqq'] = array(
 	'ethereditor-session-created' => 'This message is how users browse the session list. $1 is the name of the admin user, $2 is something like "2 minutes ago", see the "ago" message, and $3 is the number of connected users in this session.',
 	'ethereditor-connected' => 'This message shows how many users are connected. $1 is the number of connected users in this session.',
 	'ethereditor-switch-to-session' => 'This button will bring the user to a session. The button will be next to the session in question.',
-	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.'
+	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.',
 );
 
 /** German (Deutsch)
  * @author Kghbln
+ * @author Metalhead64
  */
 $messages['de'] = array(
 	'ethereditor-desc' => 'Ermöglicht es Benutzern, Seiten mit dem EtherPad-Editor zu bearbeiten',
 	'ethereditor-prefs-enable-ether' => 'EtherPad-Editor aktivieren (experimentell)',
 	'ethereditor-collaborate-button' => 'Mitmachen',
-	'ethereditor-fork-button' => 'EtherPad kopieren',
+	'ethereditor-fork-button' => 'Sitzung aufteilen',
 	'ethereditor-contrib-button' => 'Liste der Bearbeiter der Bearbeitungszusammenfassung hinzufügen',
 	'ethereditor-kick-button' => 'Benutzer ausschließen',
-	'ethereditor-delete-button' => 'EtherPad löschen',
+	'ethereditor-delete-button' => 'Sitzung beenden',
 	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, musst du dich anmelden.',
 	'ethereditor-js-off' => 'Um den EtherPad-Editor nutzen zu können, musst du JavaScript aktivieren.',
 	'ethereditor-manager-title' => 'Verwaltung des EtherPad-Editors',
@@ -85,10 +86,15 @@ $messages['de'] = array(
 	'ethereditor-base-revision' => 'Ursprungsversion',
 	'ethereditor-users-connected' => 'Verbundene Benutzer',
 	'ethereditor-admin-controls' => 'Administrationssteuerung',
+	'ethereditor-user-list' => 'Benutzerliste',
+	'ethereditor-pad-list' => 'Sitzungsliste',
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Veraltet',
 	'ethereditor-summary-message' => 'Benutzer, die den EtherPad-Editor verwendet haben: $1',
-	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Du kannst diese Seite gerne weiter bearbeiten, allerdings könnten deine Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlege, ob du dich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchtest, indem du die Schaltfläche „{{int:ethereditor-collaborate-button}}“ anklickst. Du findest sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise kannst Du Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
+	'ethereditor-session-created' => 'Sitzung gestartet von $1 $2',
+	'ethereditor-connected' => '{{PLURAL:$1|Ein verbundener Benutzer|$1 verbundene Benutzer}}',
+	'ethereditor-switch-to-session' => 'Zu dieser Sitzung wechseln',
+	'ethereditor-recover-session' => 'Diese Sitzung wiederherstellen',
 );
 
 /** German (formal address) (‪Deutsch (Sie-Form)‬)
@@ -107,11 +113,20 @@ $messages['dsb'] = array(
 	'ethereditor-desc' => 'Źmóžnja wužywarjam z pomocu Etherpada wobźěłaś',
 	'ethereditor-prefs-enable-ether' => 'Editor za zgromadne woźěłowanje zmóžniś (wjelgin eksperimentelny)',
 	'ethereditor-collaborate-button' => 'Sobuźěłaś',
-	'ethereditor-fork-button' => 'Dalšne tekstowe pólo napóraś',
+	'ethereditor-fork-button' => 'Tekstowe pólo kopěrowaś',
 	'ethereditor-contrib-button' => 'Lisćinu sobustatkujucych wobźěłowanja zespominanja pśidaś',
 	'ethereditor-kick-button' => 'Wužywarja wen chyśiś',
-	'ethereditor-delete-button' => 'Toś to pólo lašowaś',
+	'ethereditor-delete-button' => 'Tekstowe pólo lašowaś',
 	'ethereditor-cannot-nologin' => 'Aby EtherEditor wužywał, musyš pśizjawjony byś.',
+	'ethereditor-js-off' => 'Aby EtherEditor wužywał, musyš JavaScript zmóžniś.',
+	'ethereditor-manager-title' => 'EtherEditor - zarědowanje',
+	'ethereditor-pad-title' => 'Titel tekstowego póla',
+	'ethereditor-base-revision' => 'Zakładna wersija',
+	'ethereditor-users-connected' => 'Zwězane wužywarje',
+	'ethereditor-admin-controls' => 'Administraciske wóźenje',
+	'ethereditor-current' => 'Aktualny',
+	'ethereditor-outdated' => 'Zestarjony',
+	'ethereditor-summary-message' => 'wužywarje, kótarež su EtherEditor wužyli: $1',
 );
 
 /** Spanish (español)
@@ -121,26 +136,50 @@ $messages['es'] = array(
 	'ethereditor-desc' => 'Permite a los usuarios editar mediante Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Activar el editor colaborativo (muy experimental)',
 	'ethereditor-collaborate-button' => 'Colaborar',
-	'ethereditor-fork-button' => 'Abrir una ventana separada',
+	'ethereditor-fork-button' => 'Dividir sesión',
 	'ethereditor-contrib-button' => 'Añadir una lista de los colaboradores al resumen de edición',
 	'ethereditor-kick-button' => 'Echar a un usuario',
-	'ethereditor-delete-button' => 'Eliminar esta ventana',
+	'ethereditor-delete-button' => 'Finalizar sesión de edición',
 	'ethereditor-cannot-nologin' => 'Para poder utilizar el sistema EtherEditor, debes iniciar sesión.',
+	'ethereditor-js-off' => 'Para poder utilizar EtherEditor, debe habilitar JavaScript.',
+	'ethereditor-manager-title' => 'Administración de EtherEditor',
+	'ethereditor-pad-title' => 'Título de la ventana de texto a editar',
+	'ethereditor-base-revision' => 'Revisión base',
+	'ethereditor-users-connected' => 'Usuarios conectados',
+	'ethereditor-admin-controls' => 'Controles de administración',
+	'ethereditor-user-list' => 'Lista de usuarios',
+	'ethereditor-pad-list' => 'Lista de sesiones',
+	'ethereditor-current' => 'Actual',
+	'ethereditor-outdated' => 'Desactualizado',
+	'ethereditor-summary-message' => 'utilizando EtherEditor, colaboradores: $1.',
+	'ethereditor-session-created' => 'Sesión iniciada por $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|usuario conectado|usuarios conectados}}',
+	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
+	'ethereditor-recover-session' => 'Recuperar esta sesión',
 );
 
 /** French (français)
  * @author Gomoko
+ * @author IAlex
  * @author MarkTraceur
  */
 $messages['fr'] = array(
 	'ethereditor-desc' => 'Permet aux utilisateurs de modifier avec Etherpad',
 	'ethereditor-prefs-enable-ether' => "Activer l'éditeur collaboratif (expérimental)",
 	'ethereditor-collaborate-button' => 'Collaborez',
-	'ethereditor-fork-button' => 'Copiez ce bloc-note',
+	'ethereditor-fork-button' => 'Copier le bloc-note',
 	'ethereditor-contrib-button' => "Ajouter la liste des contributeurs au résumé d'édition",
 	'ethereditor-kick-button' => 'Bloquez utilisateur',
-	'ethereditor-delete-button' => 'Supprimer ce bloc',
+	'ethereditor-delete-button' => 'Supprimer le bloc',
 	'ethereditor-cannot-nologin' => 'Pour pouvoir utiliser EtherEditor, vous devez être connecté.',
+	'ethereditor-js-off' => 'Vous devez activer JavaScript pour utiliser EtherEditor.',
+	'ethereditor-manager-title' => 'Gestion de EtherEditor',
+	'ethereditor-pad-title' => 'Titre du bloc',
+	'ethereditor-base-revision' => 'Révision de base',
+	'ethereditor-users-connected' => 'Utilisateurs connectés',
+	'ethereditor-current' => 'Actuel',
+	'ethereditor-outdated' => 'Obsolète',
+	'ethereditor-summary-message' => " à l'aide de EtherEditor, contributeurs : $1.",
 );
 
 /** Galician (galego)
@@ -150,11 +189,20 @@ $messages['gl'] = array(
 	'ethereditor-desc' => 'Permite aos usuarios editar a través do Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Activar o editor colaborativo (moi experimental)',
 	'ethereditor-collaborate-button' => 'Colaborar',
-	'ethereditor-fork-button' => 'Abrir unha ventá separada',
+	'ethereditor-fork-button' => 'Copiar a outra ventá',
 	'ethereditor-contrib-button' => 'Engadir unha lista dos colaboradores ao resumo de edición',
 	'ethereditor-kick-button' => 'Botar ao usuario',
-	'ethereditor-delete-button' => 'Pechar esta ventá separada',
+	'ethereditor-delete-button' => 'Pechar esta ventá',
 	'ethereditor-cannot-nologin' => 'Cómpre acceder ao sistema para utilizar o EtherEditor.',
+	'ethereditor-js-off' => 'Cómpre activar o JavaScript para usar o EtherEditor.',
+	'ethereditor-manager-title' => 'Administración do EtherEditor',
+	'ethereditor-pad-title' => 'Título da ventá',
+	'ethereditor-base-revision' => 'Revisión de base',
+	'ethereditor-users-connected' => 'Usuarios conectados',
+	'ethereditor-admin-controls' => 'Controis administrativos',
+	'ethereditor-current' => 'Actual',
+	'ethereditor-outdated' => 'Anticuada',
+	'ethereditor-summary-message' => ' mediante o EtherEditor. Colaboradores: $1.',
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -164,11 +212,20 @@ $messages['hsb'] = array(
 	'ethereditor-desc' => 'Źmóžnja wužiwarjam z pomocu Etherpada wobdźěłać',
 	'ethereditor-prefs-enable-ether' => 'Editor za zhromadne wodźěłowanje zmóžnić (jara eksperimentelny)',
 	'ethereditor-collaborate-button' => 'Sobudźěłać',
-	'ethereditor-fork-button' => 'Dalše tekstowe polo wutworić',
+	'ethereditor-fork-button' => 'Tekstowe polo kopěrować',
 	'ethereditor-contrib-button' => 'Lisćinu sobuskutkowacych wobdźěłowanskeho zjeća přidać',
 	'ethereditor-kick-button' => 'Wužiwarja won ćisnyć',
-	'ethereditor-delete-button' => 'Tute polo zhašeć',
+	'ethereditor-delete-button' => 'Polo zhašeć',
 	'ethereditor-cannot-nologin' => 'Zo by EtherEditor wužiwał, dyrbiš přizjewjeny być.',
+	'ethereditor-js-off' => 'Zo by EtherEditor wužiwał, dyrbiš JavaScript zmóžnić.',
+	'ethereditor-manager-title' => 'EtherEditor - zarjadowanje',
+	'ethereditor-pad-title' => 'Titul tekstoweho pola',
+	'ethereditor-base-revision' => 'Zakładna wersija',
+	'ethereditor-users-connected' => 'Zwjazani wužiwarjo',
+	'ethereditor-admin-controls' => 'Administraciske wodźenje',
+	'ethereditor-current' => 'Aktualny',
+	'ethereditor-outdated' => 'Zestarjeny',
+	'ethereditor-summary-message' => 'wužiwarjo, kotřiž su EtherEditor wužili: $1',
 );
 
 /** Interlingua (interlingua)
@@ -178,11 +235,26 @@ $messages['ia'] = array(
 	'ethereditor-desc' => 'Permitte al usatores modificar per medio de Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Activar le editor collaborative (experimental)',
 	'ethereditor-collaborate-button' => 'Collaborar',
-	'ethereditor-fork-button' => 'Copiar iste "pad"',
+	'ethereditor-fork-button' => 'Divider session',
 	'ethereditor-contrib-button' => 'Adder lista de contributores al summario de modification',
 	'ethereditor-kick-button' => 'Ejectar usator',
-	'ethereditor-delete-button' => 'Deler iste pad',
+	'ethereditor-delete-button' => 'Finir session',
 	'ethereditor-cannot-nologin' => 'Pro usar le EtherEditor, tu debe aperir session.',
+	'ethereditor-js-off' => 'Pro usar EtherEditor, tu debe activar JavaScript.',
+	'ethereditor-manager-title' => 'Gestion de EtherEditor',
+	'ethereditor-pad-title' => 'Titulo del pad',
+	'ethereditor-base-revision' => 'Version de base',
+	'ethereditor-users-connected' => 'Usatores connectite',
+	'ethereditor-admin-controls' => 'Controlos administrative',
+	'ethereditor-user-list' => 'Lista de usatores',
+	'ethereditor-pad-list' => 'Lista de sessiones',
+	'ethereditor-current' => 'Actual',
+	'ethereditor-outdated' => 'Obsolete',
+	'ethereditor-summary-message' => ' usante EtherEditor, contributores: $1.',
+	'ethereditor-session-created' => 'Session comenciate per $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|usator|usatores}} connectite',
+	'ethereditor-switch-to-session' => 'Cambiar a iste session',
+	'ethereditor-recover-session' => 'Recuperar iste session',
 );
 
 /** Italian (italiano)
@@ -192,9 +264,10 @@ $messages['it'] = array(
 	'ethereditor-desc' => 'Consente agli utenti di modificare tramite Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Abilita la modifica collaborativa (molto sperimentale)',
 	'ethereditor-collaborate-button' => 'Collabora',
-	'ethereditor-fork-button' => 'Dividi questo pad',
+	'ethereditor-fork-button' => 'Copia pad',
 	'ethereditor-contrib-button' => "Aggiungi lista dei contributori all'oggetto della modifica",
 	'ethereditor-kick-button' => 'Allontana utente',
+	'ethereditor-delete-button' => 'Cancella pad',
 );
 
 /** Colognian (Ripoarisch)
@@ -227,14 +300,24 @@ $messages['mk'] = array(
 	'ethereditor-desc' => 'Им овозможува на корисниците да уредуваат преку Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Овозможи соработен уредник (многу експериментален)',
 	'ethereditor-collaborate-button' => 'Соработка',
-	'ethereditor-fork-button' => 'Направи друга текстуална кутија',
+	'ethereditor-fork-button' => 'Прекопирај го блокот',
 	'ethereditor-contrib-button' => 'Додај список на учесници во описот на уредувањето',
 	'ethereditor-kick-button' => 'Клоцни го корисникот',
-	'ethereditor-delete-button' => 'Избриши го овој EtherPad',
+	'ethereditor-delete-button' => 'Избриши го блокот',
 	'ethereditor-cannot-nologin' => 'За да го користите EtherEditor, мора прво да се најавите.',
+	'ethereditor-js-off' => 'За да го користите уредникот EtherEditor, ќе мора да овозможите JavaScript.',
+	'ethereditor-manager-title' => 'Раководење со EtherEditor',
+	'ethereditor-pad-title' => 'Наслов на блокот',
+	'ethereditor-base-revision' => 'Основна ревизија',
+	'ethereditor-users-connected' => 'Поврзани корисници',
+	'ethereditor-admin-controls' => 'Админ-ски контроли',
+	'ethereditor-current' => 'Тековен',
+	'ethereditor-outdated' => 'Застарен',
+	'ethereditor-summary-message' => ' користејќи го EtherEditor, учесници: $1.',
 );
 
 /** Dutch (Nederlands)
+ * @author SPQRobin
  * @author Saruman
  * @author Siebrand
  */
@@ -245,8 +328,16 @@ $messages['nl'] = array(
 	'ethereditor-fork-button' => 'Kopie van deze pad maken',
 	'ethereditor-contrib-button' => 'Lijst met auteurs toevoegen aan bewerkingssamenvatting',
 	'ethereditor-kick-button' => 'Gebruiker verwijderen',
-	'ethereditor-delete-button' => 'Deze EtherPad verwijderen',
+	'ethereditor-delete-button' => 'EtherPad verwijderen',
 	'ethereditor-cannot-nologin' => 'U moet aanmelden om EtherEditor te kunnen gebruiken.',
+	'ethereditor-js-off' => 'Om EtherEditor te kunnen gebruiken, moet u JavaScript inschakelen.',
+	'ethereditor-manager-title' => 'EtherEditor-beheer',
+	'ethereditor-pad-title' => 'Titel van de pad',
+	'ethereditor-base-revision' => 'Basisversie',
+	'ethereditor-users-connected' => 'Verbonden gebruikers',
+	'ethereditor-current' => 'Bijgewerkt',
+	'ethereditor-outdated' => 'Verouderd',
+	'ethereditor-summary-message' => ' met behulp van EtherEditor, bijdragers: $1.',
 );
 
 /** Tagalog (Tagalog)
@@ -256,9 +347,25 @@ $messages['tl'] = array(
 	'ethereditor-desc' => 'Nagpapahintulot sa mga tagagamit na makapamatnugot sa pamamagitan ng Etherpad',
 	'ethereditor-prefs-enable-ether' => 'Paganahin ang pampagtutulungang patungot (napaka pang-eksperimento)',
 	'ethereditor-collaborate-button' => 'Makipagtulungan',
-	'ethereditor-fork-button' => 'Kopyahin ang saping ito',
+	'ethereditor-fork-button' => 'Hatiin ang inilaang panahon',
 	'ethereditor-contrib-button' => 'Idagdag ang listahan ng mga nag-aambag sa buod ng pamamatnugot',
 	'ethereditor-kick-button' => 'Sipain ang tagagamit',
-	'ethereditor-delete-button' => 'Burahin ang saping ito',
+	'ethereditor-delete-button' => 'Wakasan na ang inilaang panahon',
 	'ethereditor-cannot-nologin' => 'Upang magamit ang EtherEditor, dapat na nakalagda ka.',
+	'ethereditor-js-off' => 'Upang magamit ang EtherEditor, dapat na paganahin ang JavaScript.',
+	'ethereditor-manager-title' => 'Pamamahala ng EtherEditor',
+	'ethereditor-pad-title' => 'Pamagat ng sapin',
+	'ethereditor-base-revision' => 'Saligang rebisyon',
+	'ethereditor-users-connected' => 'Nakakabit na mga tagagamit',
+	'ethereditor-admin-controls' => 'Mga pantaban ng tagapangasiwa',
+	'ethereditor-user-list' => 'Tala ng tagagamit',
+	'ethereditor-pad-list' => 'Tala ng paglalaan ng panahon',
+	'ethereditor-current' => 'Pangkasalukuyan',
+	'ethereditor-outdated' => 'Hindi na napapanahon',
+	'ethereditor-summary-message' => 'paggamit ng EtherEditor, mga mang-aambag: $1',
+	'ethereditor-session-created' => 'Sinimulan ni $1 ang inilaang panahon $2',
+	'ethereditor-connected' => 'Ikinabit ni $1 ang {{PLURAL:$1|tagagamit|mga tagagamit}}',
+	'ethereditor-switch-to-session' => 'Lumipat papunta sa laang panahon na ito',
+	'ethereditor-recover-session' => 'Bawiin ang laang panahong ito',
 );
+
