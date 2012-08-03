@@ -102,7 +102,6 @@
 				window.addEventListener( 'message', function ( event ) {
 					if ( event.data == 'ethereditor-init' && event.origin == _this.padUrl && !_this.iframeready ) {
 						_this.iframeready = true;
-						_this.initializeUserList();
 						_this.initializeFormattingControls();
 						if ( _this.iframetimeout !== null ) {
 							clearTimeout( _this.iframetimeout );
@@ -154,10 +153,6 @@
 			} );
 
 			_this.initializePad();
-			_this.$pctrls = $( '<span></span>' );
-			_this.$pctrls.attr( 'id', 'ethereditor-pad-ctrls' );
-			_this.$ctrls.append( _this.$pctrls );
-			_this.initializePadList();
 			_this.initializeContribs();
 		},
 		/**
@@ -242,31 +237,32 @@
 		initializeUserList: function () {
 			var _this = this;
 			_this.$userlist = $( '#ethereditor-userlist' );
-			if ( _this.$userlist.length == 0 ) {
-				_this.$userlist = $( '<span></span>' );
-				_this.$userlist.addClass( 'hidden' );
-				var $ucontain = $( '<span></span>' );
-				$ucontain.attr( 'id', 'ethereditor-userlist-contain' );
-				var $uimg = $( '<img />' );
-				// TODO add an icon for the user list
-				// I'm adding in the img element with an alt attribute because the number isn't clear at all.
-				$uimg.attr( 'src', 'placeholder' );
-				$uimg.attr( 'alt', mw.msg( 'ethereditor-user-list' ) );
-				$uimg.addClass( 'listicon' );
-				$ucontain.append( $uimg );
-				_this.$userlist.attr( 'id', 'ethereditor-userlist' );
-				$ucontain.append( _this.$userlist );
-				_this.$pctrls.append( $ucontain );
-				_this.$usercount = $( '<span></span>' );
-				_this.$usercount.attr( 'id', 'ethereditor-usercount' );
-				$ucontain.append( _this.$usercount );
-				_this.$usercount.add( $( '.listicon', $ucontain ) ).click( function () {
-					if ( _this.$userlist.hasClass( 'hidden' ) && _this.$padlist !== null ) {
-						_this.$padlist.addClass( 'hidden' );
-					}
-					_this.$userlist.toggleClass( 'hidden' );
-				} );
-			}
+			_this.$userlist = $( '<ul></ul>' )
+				.addClass( 'user' )
+				.addClass( 'dropdown' )
+				.addClass( 'hidden' );
+			var $ucontain = $( '<span></span>' );
+			$ucontain.attr( 'id', 'ethereditor-userlist-contain' );
+			var $uimg = $( '<img />' );
+			var imgurl = mw.config.get( 'wgExtensionAssetsPath' )
+				+ '/EtherEditor/modules/images/userlist.png';
+			$uimg.attr( 'src', imgurl );
+			$uimg.attr( 'alt', mw.msg( 'ethereditor-user-list' ) );
+			$uimg.addClass( 'listicon' );
+			$ucontain.append( $uimg );
+			_this.$userlist.attr( 'id', 'ethereditor-userlist' );
+			$ucontain.append( _this.$userlist );
+			_this.$pctrls.append( $ucontain );
+			_this.$usercount = $( '<span></span>' )
+				.html( 0 )
+				.attr( 'id', 'ethereditor-usercount' );
+			$ucontain.append( _this.$usercount );
+			_this.$usercount.add( $( '.listicon', $ucontain ) ).click( function () {
+				if ( _this.$userlist.hasClass( 'hidden' ) && _this.$padlist !== null ) {
+					_this.$padlist.addClass( 'hidden' );
+				}
+				_this.$userlist.toggleClass( 'hidden' );
+			} );
 			if ( _this.isAdmin ) {
 				_this.$userlist.removeClass( 'notadmin' );
 			} else {
@@ -281,7 +277,6 @@
 						}
 						_this.userJoinOrUpdate( msg.users[ux] );
 					}
-					_this.$usercount.html( $( '.ethereditor-username' ).length );
 				}
 			}, false );
 		},
@@ -299,17 +294,31 @@
 			}
 			var doesexist = _this.users[user.name];
 			_this.users[user.name] = true;
+			var len = function ( obj ) {
+				var c = 0;
+				for ( var ix in obj ) {
+					c++;
+				}
+				return c;
+			};
+			_this.$usercount.html( len( _this.users ) );
 			var $user = $( '[data-username="' + user.id + '"]' );
 			if ( !doesexist ) {
-				$user = $( '<div></div>' );
+				var $userli = $( '<li></li>' );
+				$user = $( '<div></div>' )
+					.addClass( 'session-info' );
 				$user.attr( 'data-username', user.name );
-				_this.$userlist.append( $user );
+				_this.$userlist.append( $userli.append( $user ) );
 				$user.append( '<span class="ethereditor-usercolor">&nbsp;</span>');
-				$user.append( '<span class="ethereditor-username"></span>');
+				$user.append( $( '<span></span>')
+					.addClass( 'user-details' )
+					.text( user.name ) );
 
 				if ( user.name != mw.user.name() ) {
-					var $userctrls = $( '<span class="userctrls"></span>' );
-					var $kick = $( '<button></button>' );
+					var $userctrls = $( '<div class="sesison-button"></div>' );
+					var $kick = $( '<button></button>' )
+						.addClass( 'blue' )
+						.addClass( 'button' );
 					$kick.html( mw.msg( 'ethereditor-kick-button' ) );
 					$kick.click( ( function ( username ) {
 						return function () {
@@ -488,6 +497,10 @@
 			_this.$sharelink = $( '<input type="text" />' );
 			_this.$ctrls.append( _this.$sharelink );
 
+			_this.$pctrls = $( '<span></span>' );
+			_this.$pctrls.attr( 'id', 'ethereditor-pad-ctrls' );
+			_this.$ctrls.append( _this.$pctrls );
+
 			var eventHandle = function () {
 				this.selectionStart = 0;
 				this.selectionEnd = $( this ).val().length;
@@ -497,6 +510,8 @@
 			_this.$sharelink.focus( eventHandle );
 			_this.$sharelink.click( eventHandle );
 			_this.$sharelink.on( 'keyup', eventHandle );
+			_this.initializePadList();
+			_this.initializeUserList();
 		},
 		/**
 		 * Initializes an automatic process of constantly checking for, and
@@ -528,32 +543,32 @@
 		initializePadList: function () {
 			var _this = this;
 			_this.$padlist = $( '#ethereditor-padlist' );
-			if ( _this.$padlist.length == 0 ) {
-				_this.$padlist = $( '<span></span>' );
-				_this.$padlist.addClass( 'hidden' );
-				var $pcontain = $( '<span></span>' );
-				$pcontain.attr( 'id', 'ethereditor-padlist-contain' );
-				var $pimg = $( '<img />' );
-				// TODO add an icon for the pad list
-				// I'm adding in the img element with an alt attribute because the number isn't clear at all.
-				$pimg.attr( 'src', 'placeholder' );
-				$pimg.attr( 'alt', mw.msg( 'ethereditor-pad-list' ) );
-				$pimg.addClass( 'listicon' );
-				$pcontain.append( $pimg );
-				_this.$padlist.attr( 'id', 'ethereditor-padlist' );
-				$pcontain.append( _this.$padlist );
-				_this.$pctrls.append( $pcontain );
-				_this.$padcount = $( '<span></span>' );
-				_this.$padcount.attr( 'id', 'ethereditor-padcount' );
-				_this.$padcount.html( _this.pads.length );
-				$pcontain.append( _this.$padcount );
-				_this.$padcount.add( $( '.listicon', $pcontain ) ).click( function () {
-					if ( _this.$padlist.hasClass( 'hidden' ) && _this.$userlist !== null ) {
-						_this.$userlist.addClass( 'hidden' );
-					}
-					_this.$padlist.toggleClass( 'hidden' );
-				} );
-			}
+			_this.$padlist = $( '<ul></ul>' )
+				.addClass( 'hidden' )
+				.addClass( 'session' )
+				.addClass( 'dropdown' );
+			var $pcontain = $( '<span></span>' );
+			$pcontain.attr( 'id', 'ethereditor-padlist-contain' );
+			var $pimg = $( '<img />' );
+			var imgurl = mw.config.get( 'wgExtensionAssetsPath' )
+				+ '/EtherEditor/modules/images/sessionlist.png';
+			$pimg.attr( 'src', imgurl );
+			$pimg.attr( 'alt', mw.msg( 'ethereditor-pad-list' ) );
+			$pimg.addClass( 'listicon' );
+			$pcontain.append( $pimg );
+			_this.$padlist.attr( 'id', 'ethereditor-padlist' );
+			$pcontain.append( _this.$padlist );
+			_this.$pctrls.append( $pcontain );
+			_this.$padcount = $( '<span></span>' );
+			_this.$padcount.attr( 'id', 'ethereditor-padcount' );
+			_this.$padcount.html( _this.pads.length );
+			$pcontain.append( _this.$padcount );
+			_this.$padcount.add( $( '.listicon', $pcontain ) ).click( function () {
+				if ( _this.$padlist.hasClass( 'hidden' ) && _this.$userlist !== null ) {
+					_this.$userlist.addClass( 'hidden' );
+				}
+				_this.$padlist.toggleClass( 'hidden' );
+			} );
 			if ( _this.isAdmin ) {
 				_this.$padlist.removeClass( 'notadmin' );
 			} else {
@@ -572,10 +587,12 @@
 				var isOdd = 1;
 				for ( var px in _this.pads ) {
 					var pad = _this.pads[px];
-					var $pad = $( '<div></div>' );
+					var $padli = $( '<li></li>' );
+					var $pad = $( '<div></div>' )
+						.addClass( 'session-info' );
 					$pad.attr( 'data-padid', pad.pad_id );
-					_this.$padlist.append( $pad );
-					var $padname = $( '<span class="ethereditor-padname"></span>' );
+					_this.$padlist.append( $padli.append( $pad ) );
+					var $padname = $( '<p class="session-details"></span>' );
 					var ot = pad.time_created;
 					var createtime = new Date(
 						parseInt( ot.substr( 0, 4 ), 10 ),
@@ -605,25 +622,38 @@
 					}
 					var msg = mw.msg( 'ethereditor-session-created', mw.user.name(), mw.msg( 'ago', timestring ) );
 					$padname.text( msg );
-					$padname.append( '<br />' );
-					$padname.append( mw.message( 'ethereditor-connected', pad.users_connected ).escaped() );
 					$pad.append( $padname );
 
-					var $padminctrls = $( '<span class="padminctrls"></span>' );
+					var $padcount = $( '<p class="connected-users"></p>' );
+					$padcount.text( mw.msg( 'ethereditor-connected', pad.users_connected ) );
+					$pad.append( $padcount );
 
-					var $copy = $( '<button></button>' );
-					$copy.html( mw.msg( 'ethereditor-fork-button' ) );
-					$copy.click( ( function ( padId ) {
-						return function () {
-							_this.forkPad( padId );
-							return false;
-						};
-					} )( pad.pad_id ) );
-					$padminctrls.append( $copy );
+					var $padminctrls = $( '<div class="session-button"></div>' );
+
+					// Only render the "split" button (used to be "fork") if the
+					// user is connected to this session, so they know what they're
+					// copying.
+					if ( pad.pad_id === _this.dbId ) {
+						// Also, add a class (for later CSS)
+						$padli.addClass( 'current-pad' );
+						var $copy = $( '<button></button>' )
+							.addClass( 'button' )
+							.addClass( 'blue' );
+						$copy.text( mw.msg( 'ethereditor-fork-button' ) );
+						$copy.click( ( function ( padId ) {
+							return function () {
+								_this.forkPad( padId );
+								return false;
+							};
+						} )( pad.pad_id ) );
+						$padminctrls.append( $copy );
+					}
 
 					if ( pad.admin_user == mw.user.name() ) {
-						var $delete = $( '<button></button>' );
-						$delete.html( mw.msg( 'ethereditor-delete-button' ) );
+						var $delete = $( '<button></button>' )
+							.addClass( 'button' )
+							.addClass( 'blue' );
+						$delete.text( mw.msg( 'ethereditor-delete-button' ) );
 						$delete.click( ( function ( padId ) {
 							return function () {
 								_this.deletePad( padId );
@@ -633,9 +663,12 @@
 						$padminctrls.append( $delete );
 					}
 
-					$pad.append( $padminctrls );
+					$padli.append( $padminctrls );
 					$pad.click( ( function ( thispad ) {
 						return function () {
+							if ( _this.iframe === null ) {
+								_this.enableEther();
+							}
 							_this.dbId = thispad.pad_id;
 							_this.padId = thispad.ep_pad_id;
 							_this.authenticateUser( function () {
@@ -647,19 +680,15 @@
 			};
 			if ( updateRemote ) {
 				var pads = _this.pads;
-				var $forkbtn = $( '<button></button>' );
-				$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
-				$forkbtn.click( function () {
-					$.ajax( {
-						url: mw.util.wikiScript( 'api' ),
-						method: 'GET',
-						data: { format: 'json', action: 'GetOtherEtherpads', padId: _this.dbId },
-						success: function ( data ) {
-							_this.pads = data.GetOtherEtherpads.pads;
-							finishUpdate();
-						},
-						dataType: 'json'
-					} );
+				$.ajax( {
+					url: mw.util.wikiScript( 'api' ),
+					method: 'GET',
+					data: { format: 'json', action: 'GetOtherEtherpads', padId: _this.dbId },
+					success: function ( data ) {
+						_this.pads = data.GetOtherEtherpads.pads;
+						finishUpdate();
+					},
+					dataType: 'json'
 				} );
 			} else {
 				finishUpdate();
@@ -719,6 +748,7 @@
 				$( '#ethereditor-admin-ctrls' ).show();
 			}
 			_this.signalReady();
+			_this.updatePadList( true );
 		},
 		/**
 		 * Update the share link to reflect the current pad's information
@@ -740,10 +770,7 @@
 			_this.iframetimeout = null;
 			_this.iframeready = false;
 			var epframeid = '#epframe' + _this.$textarea.attr( 'id' );
-			$( epframeid )
-				.add( '#ethereditor-admin-ctrls' )
-				.add( '#ethereditor-pad-ctrls' )
-				.remove();
+			$( epframeid ).remove();
 		},
 		/**
 		 * Deletes the pad's contents. (requires admin, of course)
