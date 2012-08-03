@@ -131,12 +131,19 @@
 					e.stopPropagation();
 					_this.hasSubmitted = true;
 					var __this = this;
+					var $form = _this.$textarea.closest( 'form' );
 					$.ajax( {
 						url: mw.util.wikiScript( 'api' ),
 						method: 'GET',
 						data: { format: 'json', action: 'GetEtherPadText', padId: _this.dbId },
 						success: function( data ) {
 							_this.$textarea.html( data.GetEtherPadText.text );
+							var origact = $form.attr( 'action' );
+							var newact = origact + '&collaborate=true';
+							if ( _this.padId ) {
+								newact += '&padId=' + _this.dbId;
+							}
+							$form.attr( 'action', newact );
 							$( __this ).click();
 							return 0;
 						},
@@ -192,7 +199,7 @@
 			}
 			var oldsmry = $smry.val();
 			var newsmry = mw.msg( 'ethereditor-summary-message', contribstr );
-			var sumregex = new RegExp( mw.msg( 'ethereditor-summary-message' ).replace( '$1.', '[^\\.]*(,[^\\.]*)*\\.' ), '' );
+			var sumregex = new RegExp( mw.msg( 'ethereditor-summary-message' ).replace( '$1', '[^\\.]*(,[^\\.]*)*' ), '' );
 			if ( oldsmry.match( sumregex ) !== null ) {
 				oldsmry = oldsmry.replace( sumregex, newsmry );
 			} else {
@@ -568,10 +575,6 @@
 					var $pad = $( '<div></div>' );
 					$pad.attr( 'data-padid', pad.pad_id );
 					_this.$padlist.append( $pad );
-					// Alternate even and odd, add class conditionally
-					if ( isOdd ^= 1 ) {
-						$pad.addClass( 'odd' );
-					}
 					var $padname = $( '<span class="ethereditor-padname"></span>' );
 					var ot = pad.time_created;
 					var createtime = new Date(

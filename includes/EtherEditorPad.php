@@ -703,7 +703,6 @@ class EtherEditorPad {
 				'time_created'
 			),
 			array(
-				'pad_id <> ' . ( isset( $this ) ? $this->id : -1 ),
 				'base_revision >= ' . $minRevision,
 				'page_title' => $pageTitle == '' ? $this->pageTitle : $pageTitle,
 				'public_pad' => '1'
@@ -714,6 +713,7 @@ class EtherEditorPad {
 		foreach ( $results as $session ) {
 			$session->users_connected = $epClient->padUsersCount( $session->ep_pad_id )->padUsersCount;
 		}
+		array_splice( $results, 10 );
 		return $results;
 	}
 
