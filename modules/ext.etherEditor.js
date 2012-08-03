@@ -646,19 +646,20 @@
 				}
 			};
 			if ( updateRemote ) {
-			var pads = _this.pads;
-			var $forkbtn = $( '<button></button>' );
-			$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
-			$forkbtn.click( function () {
-				$.ajax( {
-					url: mw.util.wikiScript( 'api' ),
-					method: 'GET',
-					data: { format: 'json', action: 'GetOtherEtherpads', padId: _this.dbId },
-					success: function ( data ) {
-						_this.pads = data.GetOtherEtherpads.pads;
-						finishUpdate();
-					},
-					dataType: 'json'
+				var pads = _this.pads;
+				var $forkbtn = $( '<button></button>' );
+				$forkbtn.html( mw.msg( 'ethereditor-fork-button' ) );
+				$forkbtn.click( function () {
+					$.ajax( {
+						url: mw.util.wikiScript( 'api' ),
+						method: 'GET',
+						data: { format: 'json', action: 'GetOtherEtherpads', padId: _this.dbId },
+						success: function ( data ) {
+							_this.pads = data.GetOtherEtherpads.pads;
+							finishUpdate();
+						},
+						dataType: 'json'
+					} );
 				} );
 			} else {
 				finishUpdate();
