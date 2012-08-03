@@ -59,7 +59,7 @@
 					}
 				}
 				_this.authenticateUser( function () {
-					$( '#ethereditor-collab-switch' ).attr( 'checked', 'checked' );
+					$( '#ethereditor-collab-switch' ).prop( 'checked', true );
 					_this.enableEther();
 				} );
 			}
@@ -207,24 +207,31 @@
 		*/
 		initializeControls: function ( cb ) {
 			var _this = this;
-			cb = cb || function () {};
+			var $toolbar = $( '#wikiEditor-ui-toolbar' );
+
+			// Check whether WikiEditor needs to be loaded before we can continue.
+			// We use this way because checking for the DOM element won't work if
+			// the WikiEditor interface isn't done loading yet (happens (frequently))
+
+			var isUsingWikiEditor = mw.config.exists( 'wgWikiEditorToolbarClickTracking' );
+			if ( isUsingWikiEditor && $toolbar.length === 0 ) {
+				// If we are using WikiEditor, and the toolbar hasn't loaded, use
+				// mw.loader.using to jerry-rig a callback for when WE *is* loaded.
+
+				mw.loader.using( 'jquery.wikiEditor.toolbar', function () {
+					_this.initializeControls( cb );
+				} );
+
+				return;
+			}
+
+			cb = typeof cb == 'function' ? cb : function () {};
 			_this.$ctrls = $( '<div></div>' );
 			_this.$ctrls.attr( 'id', 'ethereditor-ctrls' );
 			_this.$ctrls.css( 'float', 'right' );
-			var $toolbar = $( '#wikiEditor-ui-toolbar' );
-			// When mw.config.get can't find a config variable, it returns null.
-			// We use that fact to check whether WikiEditor needs to be loaded before we can continue.
-			if ( !mw.config.exists( 'wgWikiEditorToolbarClickTracking' ) ) {
+
+			if ( !isUsingWikiEditor ) {
 				$toolbar.append( _this.$ctrls );
-			} else if ( $toolbar.length == 0 ) {
-				// If we are using WikiEditor, and the toolbar hasn't loaded,
-				// we wait until it is before we can load our controls.
-				// This shouldn't take more than a few seconds, but there's no
-				// better way to do it, at least not right now.
-				setTimeout( function () {
-					_this.initializeControls( cb );
-				}, 400 );
-				return;
 			} else {
 				$( '.tabs', $toolbar ).after( _this.$ctrls );
 			}
@@ -332,6 +339,9 @@
 			}
 			$( '.ethereditor-username', $user ).html( user.name );
 			$( '.ethereditor-usercolor', $user ).css( 'background-color', user.color );
+			// Since a user just joined (or changed), might as well check for new contributors.
+			// Yay, no more constantly polling the server!
+			_this.initializeContribs();
 		},
 		/**
 		 * Add events to each formatting button, see that they work properly.
@@ -528,7 +538,6 @@
 					if ( oldDbId == _this.dbId ) {
 						_this.contribs = data.GetContribs.contribs;
 						_this.populateSummary();
-						setTimeout( function () { _this.initializeContribs() }, 5000 );
 					} else {
 						_this.initializeContribs();
 					}

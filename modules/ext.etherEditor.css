@@ -1,13 +1,11 @@
 #ethereditor-userlist-contain,
 #ethereditor-padlist-contain {
-	background-color: #eeeeee;
 	position: relative;
-	padding-right: 5px;
 }
 
 img.listicon {
-	height: 15px;
-	width: 15px;
+	height: 16px;
+	width: 16px;
 }
 
 #ethereditor-usercount,
@@ -15,19 +13,6 @@ img.listicon {
 img.listicon {
 	cursor: pointer;
 	padding: 4px;
-}
-
-#ethereditor-userlist {
-	position: absolute;
-	top: 20px;
-	right: 0px;
-	background-color: #eeeeee;
-	border: 1px solid #cccccc;
-}
-
-#ethereditor-userlist {
-	padding-bottom: 5px;
-	width: 300px;
 }
 
 .isnotadmin .userctrls {
@@ -118,7 +103,7 @@ img.listicon {
 	border-width: 0 8px 8px;
 	content: "";
 	display: block;
-	right: 20px;
+	right: 5px;
 	position: absolute;
 	top: -8px;
 	width: 0;
@@ -131,7 +116,7 @@ img.listicon {
 	border-width: 0 8px 8px;
 	content: "";
 	display: block;
-	right: 20px;
+	right: 5px;
 	position: absolute;
 	top: -7px;
 	width: 0;
