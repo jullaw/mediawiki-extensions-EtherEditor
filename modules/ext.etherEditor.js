@@ -10,6 +10,18 @@
 
 ( function( $, mw ) {
 
+	/** Utility function for having non-stupid Dates in the GMT timezone.
+	 * Javascript can die in a fire for not having proper timezone handling.
+	 */
+	function dateUTC( date ) {
+		if ( !( date instanceof Date ) ) {
+			date = new Date( date );
+		}
+		var timeoff = date.getTimezoneOffset() * 60 * 1000;
+		date = new Date( date.getTime() + timeoff );
+		return date;
+	}
+
 	/**
 	 * Creates a new remote editor object
 	 *
@@ -611,7 +623,7 @@
 						parseInt( ot.substr( 10, 2 ), 10 ),
 						parseInt( ot.substr( 12, 2 ), 10 )
 					);
-					var timeago = new Date() - createtime;
+					var timeago = dateUTC( new Date() ) - createtime;
 					var tunits = {
 						minutes: 60,
 						hours: 60,
