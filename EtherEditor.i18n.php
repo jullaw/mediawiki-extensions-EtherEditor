@@ -41,6 +41,7 @@ $messages['en'] = array(
  * @author Kghbln
  * @author Mark Holmquist
  * @author Raymond
+ * @author Siebrand
  */
 $messages['qqq'] = array(
 	'ethereditor-desc' => '{{desc}}',
@@ -61,7 +62,10 @@ $messages['qqq'] = array(
 	'ethereditor-current' => 'Indicates that this pad is up-to-date',
 	'ethereditor-outdated' => 'Indicates that this pad is no longer up-to-date',
 	'ethereditor-summary-message' => 'This message goes into the edit summary automatically. The parameter is for a comma-separated list of users, but we are not referring to the users in any substantial way, only to list them.',
-	'ethereditor-session-created' => 'This message is how users browse the session list. $1 is the name of the admin user, $2 is something like "2 minutes ago", see the "ago" message, and $3 is the number of connected users in this session.',
+	'ethereditor-session-created' => 'This message is how users browse the session list. Parameters:
+* $1 is the name of the admin user,
+* $2 is something like "2 minutes ago", see the "ago" message,
+* $3 is the number of connected users in this session.',
 	'ethereditor-connected' => 'This message shows how many users are connected. $1 is the number of connected users in this session.',
 	'ethereditor-switch-to-session' => 'This button will bring the user to a session. The button will be next to the session in question.',
 	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.',
@@ -359,9 +363,16 @@ $messages['nl'] = array(
 	'ethereditor-pad-title' => 'Titel van de pad',
 	'ethereditor-base-revision' => 'Basisversie',
 	'ethereditor-users-connected' => 'Verbonden gebruikers',
+	'ethereditor-admin-controls' => 'Beheerdershandelingen',
+	'ethereditor-user-list' => 'Gebruikerslijst',
+	'ethereditor-pad-list' => 'Sessielijst',
 	'ethereditor-current' => 'Bijgewerkt',
 	'ethereditor-outdated' => 'Verouderd',
 	'ethereditor-summary-message' => ' met behulp van EtherEditor, bijdragers: $1.',
+	'ethereditor-session-created' => 'Sessie $2 gestart door $1',
+	'ethereditor-connected' => '{{PLURAL:$1|Eén verbonden gebruiker|$1 verbonden gebruikers}}',
+	'ethereditor-switch-to-session' => 'Overschakelen naar deze sessie',
+	'ethereditor-recover-session' => 'Deze sessie herstellen',
 );
 
 /** Tagalog (Tagalog)
