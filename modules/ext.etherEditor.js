@@ -604,6 +604,9 @@
 		updatePadList: function ( updateRemote ) {
 			var _this = this;
 			_this.$padlist.empty();
+			_this.$padlist.append( $( '<li></li>' )
+				.addClass( 'empty-pad' )
+				.hide() );
 			var finishUpdate = function () {
 				var isOdd = 1;
 				for ( var px in _this.pads ) {
@@ -612,7 +615,9 @@
 					var $pad = $( '<div></div>' )
 						.addClass( 'session-info' );
 					$pad.attr( 'data-padid', pad.pad_id );
-					_this.$padlist.append( $padli.append( $pad ) );
+					_this.$padlist
+						.find( '.empty-pad:first' )
+						.before( $padli.append( $pad ) );
 					var $padname = $( '<p class="session-details"></span>' );
 					var ot = pad.time_created;
 					var createtime = new Date(
@@ -647,6 +652,13 @@
 
 					var $padcount = $( '<p class="connected-users"></p>' );
 					$padcount.text( mw.msg( 'ethereditor-connected', pad.users_connected ) );
+					if ( pad.users_connected == 0 ) {
+						$padli.addClass( 'empty-pad' );
+						$padcount.hide();
+					} else {
+						$padli.removeClass( 'empty-pad' );
+						$padcount.show();
+					}
 					$pad.append( $padcount );
 
 					var $padminctrls = $( '<div class="session-button"></div>' );
