@@ -168,6 +168,13 @@ $messages['es'] = array(
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
 );
 
+/** Persian (فارسی)
+ * @author Mjbmr
+ */
+$messages['fa'] = array(
+	'ethereditor-user-list' => 'فهرست کاربران',
+);
+
 /** French (français)
  * @author Gomoko
  * @author IAlex
@@ -373,6 +380,13 @@ $messages['nl'] = array(
 	'ethereditor-connected' => '{{PLURAL:$1|Eén verbonden gebruiker|$1 verbonden gebruikers}}',
 	'ethereditor-switch-to-session' => 'Overschakelen naar deze sessie',
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
+);
+
+/** Sinhala (සිංහල)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['si'] = array(
+	'ethereditor-current' => 'වත්මන්',
 );
 
 /** Tagalog (Tagalog)
