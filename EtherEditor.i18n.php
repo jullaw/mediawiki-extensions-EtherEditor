@@ -176,6 +176,7 @@ $messages['fa'] = array(
 );
 
 /** French (français)
+ * @author Brunoperel
  * @author Gomoko
  * @author IAlex
  * @author MarkTraceur
@@ -194,9 +195,16 @@ $messages['fr'] = array(
 	'ethereditor-pad-title' => 'Titre du bloc',
 	'ethereditor-base-revision' => 'Révision de base',
 	'ethereditor-users-connected' => 'Utilisateurs connectés',
+	'ethereditor-admin-controls' => "Commandes d'administrateur",
+	'ethereditor-user-list' => 'Liste des utilisateurs',
+	'ethereditor-pad-list' => 'Liste de sessions',
 	'ethereditor-current' => 'Actuel',
 	'ethereditor-outdated' => 'Obsolète',
 	'ethereditor-summary-message' => " à l'aide de EtherEditor, contributeurs : $1.",
+	'ethereditor-session-created' => 'Session commencée par $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|utilisateur connecté|utilisateurs connectés}}',
+	'ethereditor-switch-to-session' => 'Basculer sur cette session',
+	'ethereditor-recover-session' => 'Récupérer cette session',
 );
 
 /** Galician (galego)
@@ -226,6 +234,13 @@ $messages['gl'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|usuario conectado|usuarios conectados}}',
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
+);
+
+/** Hebrew (עברית)
+ * @author YaronSh
+ */
+$messages['he'] = array(
+	'ethereditor-kick-button' => 'בעיטה במשתמש',
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -297,6 +312,25 @@ $messages['it'] = array(
 	'ethereditor-contrib-button' => "Aggiungi lista dei contributori all'oggetto della modifica",
 	'ethereditor-kick-button' => 'Allontana utente',
 	'ethereditor-delete-button' => 'Terminare sessione',
+);
+
+/** Japanese (日本語)
+ * @author Shirayuki
+ */
+$messages['ja'] = array(
+	'ethereditor-user-list' => '利用者一覧',
+	'ethereditor-pad-list' => 'セッション一覧',
+	'ethereditor-current' => '現在',
+	'ethereditor-switch-to-session' => 'このセッションに切り替え',
+);
+
+/** Georgian (ქართული)
+ * @author David1010
+ */
+$messages['ka'] = array(
+	'ethereditor-user-list' => 'მომხმარებლების სია',
+	'ethereditor-current' => 'მიმდინარე',
+	'ethereditor-outdated' => 'მოძველებული',
 );
 
 /** Colognian (Ripoarisch)
