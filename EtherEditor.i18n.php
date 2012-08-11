@@ -419,7 +419,17 @@ $messages['nl'] = array(
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
+	'ethereditor-delete-button' => 'සැසිය අවසන් කරන්න',
+	'ethereditor-user-list' => 'පරිශීලක ලැයිස්තුව',
+	'ethereditor-pad-list' => 'සැසි ලැයිස්තුව',
 	'ethereditor-current' => 'වත්මන්',
+);
+
+/** Telugu (తెలుగు)
+ * @author Veeven
+ */
+$messages['te'] = array(
+	'ethereditor-user-list' => 'వాడుకరుల జాబితా',
 );
 
 /** Tagalog (Tagalog)
