@@ -107,7 +107,6 @@ $messages['de'] = array(
 $messages['de-formal'] = array(
 	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie sich anmelden.',
 	'ethereditor-js-off' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie JavaScript aktivieren.',
-	'ethereditor-warn-others' => 'Warnung: Andere Benutzer bearbeiten diese Seite gerade gemeinsam mit dem EtherPad-Editor. Sie können diese Seite gerne weiter bearbeiten, allerdings könnten Ihre Bearbeitungen im Konflikt zu deren Bearbeitungen stehen. Überlegen Sie sich, ob Sie sich ihnen nicht beim gemeinsamen Bearbeiten anschließen möchten, indem Sie die Schaltfläche {{int:ethereditor-collaborate-button}} anklicken. Sie finden sie in der oberen rechten Ecke des Bildschirms. Auf diese Weise können Sie Zusammenführungskonflikte beim Speichern der Seite vermeiden.',
 );
 
 /** Lower Sorbian (dolnoserbski)
