@@ -419,10 +419,21 @@ $messages['nl'] = array(
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
+	'ethereditor-collaborate-button' => 'සහයෝගයෙන් ක්‍රියා කරන්න',
 	'ethereditor-delete-button' => 'සැසිය අවසන් කරන්න',
+	'ethereditor-admin-controls' => 'පරිපාලක පාලක',
 	'ethereditor-user-list' => 'පරිශීලක ලැයිස්තුව',
 	'ethereditor-pad-list' => 'සැසි ලැයිස්තුව',
 	'ethereditor-current' => 'වත්මන්',
+	'ethereditor-outdated' => 'යල් පැන ගිය',
+);
+
+/** Tamil (தமிழ்)
+ * @author Karthi.dr
+ */
+$messages['ta'] = array(
+	'ethereditor-current' => 'நடப்பு',
+	'ethereditor-outdated' => 'காலாவதியானது',
 );
 
 /** Telugu (తెలుగు)
