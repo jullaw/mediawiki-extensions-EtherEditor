@@ -428,6 +428,17 @@ $messages['si'] = array(
 	'ethereditor-outdated' => 'යල් පැන ගිය',
 );
 
+/** Swedish (svenska)
+ * @author WikiPhoenix
+ */
+$messages['sv'] = array(
+	'ethereditor-user-list' => 'Användarlista',
+	'ethereditor-current' => 'Aktuell',
+	'ethereditor-outdated' => 'Föråldrad',
+	'ethereditor-connected' => '$1 anslutna {{PLURAL:$1|användare|användare}}',
+	'ethereditor-switch-to-session' => 'Växla till denna session',
+);
+
 /** Tamil (தமிழ்)
  * @author Karthi.dr
  */
