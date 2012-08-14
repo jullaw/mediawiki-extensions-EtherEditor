@@ -384,6 +384,13 @@ $messages['mk'] = array(
 	'ethereditor-recover-session' => 'Поврати ја сесијава',
 );
 
+/** Malay (Bahasa Melayu)
+ * @author Anakmalaysia
+ */
+$messages['ms'] = array(
+	'ethereditor-desc' => 'Membolehkan pengguna untuk menyunting melalui Etherpad',
+);
+
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Saruman
@@ -415,6 +422,13 @@ $messages['nl'] = array(
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
 );
 
+/** tarandíne (tarandíne)
+ * @author Joetaras
+ */
+$messages['roa-tara'] = array(
+	'ethereditor-current' => 'Corrende',
+);
+
 /** Sinhala (සිංහල)
  * @author පසිඳු කාවින්ද
  */
@@ -441,8 +455,12 @@ $messages['sv'] = array(
 
 /** Tamil (தமிழ்)
  * @author Karthi.dr
+ * @author மதனாஹரன்
  */
 $messages['ta'] = array(
+	'ethereditor-delete-button' => 'அமர்வை நிறைவு செய்யவும்',
+	'ethereditor-user-list' => 'பயனர் பட்டியல்',
+	'ethereditor-pad-list' => 'அமர்வுப் பட்டியல்',
 	'ethereditor-current' => 'நடப்பு',
 	'ethereditor-outdated' => 'காலாவதியானது',
 );
