@@ -206,6 +206,13 @@ $messages['fr'] = array(
 	'ethereditor-recover-session' => 'Récupérer cette session',
 );
 
+/** Irish (Gaeilge)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ga'] = array(
+	'ethereditor-current' => 'reatha',
+);
+
 /** Galician (galego)
  * @author Toliño
  */
