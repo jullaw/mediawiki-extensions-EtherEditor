@@ -71,8 +71,9 @@ class EtherEditorPadTest extends MediaWikiTestCase {
 
 	function testForkingAction() {
 		$epFork = EtherEditorPad::newFromOldPadId( $this->epPad->getId(), $this->username );
-		$this->assertArrayHasKey( 0, $this->epPad->getOtherPads(), "The fork didn't happen, or wasn't reported in the database, or getOtherPads is broken." );
-		$this->assertArrayNotHasKey( 1, $this->epPad->getOtherPads() );
+		$this->assertArrayHasKey( 0, $this->epPad->getOtherPads(), "The original pad doesn't show up in the list of pads. Wrong." );
+		$this->assertArrayHasKey( 1, $this->epPad->getOtherPads(), "The fork didn't happen, or wasn't reported in the database, or getOtherPads is broken." );
+		$this->assertArrayNotHasKey( 2, $this->epPad->getOtherPads() );
 		$this->assertEquals( trim( $this->epPad->getText() ), trim( $epFork->getText() ) );
 		$this->assertTrue( $epFork->isAdmin( $this->username ) );
 		$this->assertTrue( $epFork->kickUser( $this->username, 'doesnotexist', 50 ) );
