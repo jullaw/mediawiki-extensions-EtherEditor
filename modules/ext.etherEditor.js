@@ -515,7 +515,9 @@
 			$collabLabel.append( $turnOnCollab );
 			_this.$ctrls.append( $collabLabel );
 
-			_this.$sharelink = $( '<input type="text" />' );
+			_this.$sharelink = $( '<input />' )
+				.attr( 'type', 'text' )
+				.attr( 'readonly', 'readonly' );
 			_this.$ctrls.append( _this.$sharelink );
 
 			_this.$pctrls = $( '<span></span>' );
@@ -530,7 +532,7 @@
 
 			_this.$sharelink.focus( eventHandle );
 			_this.$sharelink.click( eventHandle );
-			_this.$sharelink.on( 'keyup', eventHandle );
+			_this.$sharelink.on( 'keydown', eventHandle );
 			_this.initializePadList();
 			_this.initializeUserList();
 		},
