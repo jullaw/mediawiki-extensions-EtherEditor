@@ -174,6 +174,16 @@ $messages['fa'] = array(
 	'ethereditor-user-list' => 'فهرست کاربران',
 );
 
+/** Finnish (suomi)
+ * @author Beluga
+ */
+$messages['fi'] = array(
+	'ethereditor-collaborate-button' => 'Tee yhteistyötä',
+	'ethereditor-user-list' => 'Käyttäjäluettelo',
+	'ethereditor-current' => 'Nykyinen',
+	'ethereditor-outdated' => 'Vanhentunut',
+);
+
 /** French (français)
  * @author Brunoperel
  * @author Gomoko
@@ -204,6 +214,30 @@ $messages['fr'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|utilisateur connecté|utilisateurs connectés}}',
 	'ethereditor-switch-to-session' => 'Basculer sur cette session',
 	'ethereditor-recover-session' => 'Récupérer cette session',
+);
+
+/** Franco-Provençal (arpetan)
+ * @author ChrisPtDe
+ */
+$messages['frp'] = array(
+	'ethereditor-collaborate-button' => 'Colaborâd',
+	'ethereditor-fork-button' => 'Divisar la sèance',
+	'ethereditor-contrib-button' => 'Apondre na lista des contributors u rèsumâ de changement',
+	'ethereditor-delete-button' => 'Chavonar la sèance',
+	'ethereditor-cannot-nologin' => 'Vos dête étre branchiê por povêr empleyér EtherEditor.',
+	'ethereditor-js-off' => 'Vos dête activar JavaScript por povêr empleyér EtherEditor.',
+	'ethereditor-manager-title' => 'Administracion de EtherEditor',
+	'ethereditor-pad-title' => 'Titro du bloco',
+	'ethereditor-base-revision' => 'Vèrsion de bâsa',
+	'ethereditor-users-connected' => 'Utilisators branchiês',
+	'ethereditor-admin-controls' => 'Comandes d’administrator',
+	'ethereditor-user-list' => 'Lista des utilisators',
+	'ethereditor-pad-list' => 'Lista de sèances',
+	'ethereditor-current' => 'D’ora',
+	'ethereditor-outdated' => 'Dèpassâ',
+	'ethereditor-summary-message' => ' avouéc EtherEditor, contributors : $1',
+	'ethereditor-session-created' => 'Sèance comenciêye per $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|utilisator branchiê|utilisators branchiês}}',
 );
 
 /** Irish (Gaeilge)
@@ -244,9 +278,13 @@ $messages['gl'] = array(
 
 /** Hebrew (עברית)
  * @author YaronSh
+ * @author ערן
  */
 $messages['he'] = array(
+	'ethereditor-desc' => 'מאפשר למשתמשים לערוך דרך Etherpad',
+	'ethereditor-prefs-enable-ether' => 'הפעלת עורך שיתופי (ניסיוני)',
 	'ethereditor-kick-button' => 'בעיטה במשתמש',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|משתמש מחובר|משתמשים מחוברים}}',
 );
 
 /** Upper Sorbian (hornjoserbsce)
@@ -309,6 +347,7 @@ $messages['ia'] = array(
 
 /** Italian (italiano)
  * @author Beta16
+ * @author Darth Kule
  */
 $messages['it'] = array(
 	'ethereditor-desc' => 'Consente agli utenti di modificare tramite Etherpad',
@@ -318,6 +357,22 @@ $messages['it'] = array(
 	'ethereditor-contrib-button' => "Aggiungi lista dei contributori all'oggetto della modifica",
 	'ethereditor-kick-button' => 'Allontana utente',
 	'ethereditor-delete-button' => 'Terminare sessione',
+	'ethereditor-cannot-nologin' => "È necessario effettuare l'accesso per usare EtherEditor.",
+	'ethereditor-js-off' => 'È necessario attivare JavaScript per usare EtherEditor.',
+	'ethereditor-manager-title' => 'Gestione EtherEditor',
+	'ethereditor-pad-title' => 'Titolo pad',
+	'ethereditor-base-revision' => 'Versione di base',
+	'ethereditor-users-connected' => 'Utenti connessi',
+	'ethereditor-admin-controls' => 'Controlli amministratori',
+	'ethereditor-user-list' => 'Elenco degli utenti',
+	'ethereditor-pad-list' => 'Elenco sessioni',
+	'ethereditor-current' => 'Attuale',
+	'ethereditor-outdated' => 'Da aggiornare',
+	'ethereditor-summary-message' => 'usando EtherEditor, contributori: $1',
+	'ethereditor-session-created' => 'Sessione avviata da $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|utente connesso|utenti connessi}}',
+	'ethereditor-switch-to-session' => 'Passa a questa sessione',
+	'ethereditor-recover-session' => 'Riprendi questa sessione',
 );
 
 /** Japanese (日本語)
@@ -506,5 +561,19 @@ $messages['tl'] = array(
 	'ethereditor-connected' => 'Ikinabit ni $1 ang {{PLURAL:$1|tagagamit|mga tagagamit}}',
 	'ethereditor-switch-to-session' => 'Lumipat papunta sa laang panahon na ito',
 	'ethereditor-recover-session' => 'Bawiin ang laang panahong ito',
+);
+
+/** Vietnamese (Tiếng Việt)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['vi'] = array(
+	'ethereditor-current' => 'Hiện hành',
+);
+
+/** Yiddish (ייִדיש)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['yi'] = array(
+	'ethereditor-current' => 'לויפֿיקע',
 );
 
