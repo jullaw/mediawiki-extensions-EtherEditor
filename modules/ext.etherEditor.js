@@ -304,7 +304,6 @@
 		 */
 		userJoinOrUpdate: function ( user ) {
 			var _this = this;
-			console.log( user );
 			if ( !user || !user.name || user.name == '' ) {
 				setTimeout( function () {
 					_this.sendMessage( 'updateusers' );
