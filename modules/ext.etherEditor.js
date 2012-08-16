@@ -111,22 +111,41 @@
 		signalReady: function () {
 			var _this = this;
 			if ( _this.iframetimeout === null ) {
-				window.addEventListener( 'message', function ( event ) {
-					if ( event.data == 'ethereditor-init' && event.origin == _this.padUrl && !_this.iframeready ) {
-						_this.iframeready = true;
-						_this.initializeFormattingControls();
-						if ( _this.iframetimeout !== null ) {
-							clearTimeout( _this.iframetimeout );
-						}
-						_this.sendMessage( 'updateusers' );
-					}
-				}, false );
+				window.addEventListener( 'message', this.initListener, false );
 			}
 			if ( _this.iframe !== null && !_this.iframeready ) {
 				_this.iframe.contentWindow.postMessage( 'ethereditor-init', _this.padUrl );
 				_this.iframetimeout = setTimeout( function () {
 					_this.signalReady();
 				}, 200 );
+			}
+		},
+		/**
+		 * Listen for user updates
+		 */
+		userListener: function ( event ) {
+			var msg = event.data;
+			if ( msg && msg.type && msg.type == 'userinfo' ) {
+				for ( var ux in msg.users ) {
+					if ( msg.users[ux].name == '' ) {
+						msg.users[ux].name = mw.user.name();
+					}
+					this.userJoinOrUpdate( msg.users[ux] );
+				}
+			}
+		},
+		/**
+		 * Listen for the init event
+		 */
+		initListener: function ( event ) {
+			if ( event.data == 'ethereditor-init' && event.origin == this.padUrl && !this.iframeready ) {
+				this.iframeready = true;
+				this.initializeFormattingControls();
+				if ( this.iframetimeout !== null ) {
+					clearTimeout( this.iframetimeout );
+				}
+				this.sendMessage( 'updateusers' );
+				window.removeEventListener( 'message', this.initListener );
 			}
 		},
 		/**
@@ -277,6 +296,9 @@
 				.attr( 'id', 'ethereditor-usercount' );
 			$ucontain.append( _this.$usercount );
 			_this.$usercount.add( $( '.listicon', $ucontain ) ).click( function () {
+				if ( _this.$userlist.children().length === 0 ) {
+					return 0;
+				}
 				if ( _this.$userlist.hasClass( 'hidden' ) && _this.$padlist !== null ) {
 					_this.$padlist.addClass( 'hidden' );
 				}
@@ -287,17 +309,7 @@
 			} else {
 				_this.$userlist.addClass( 'notadmin' );
 			}
-			window.addEventListener( 'message', function ( event ) {
-				var msg = event.data;
-				if ( msg && msg.type && msg.type == 'userinfo' ) {
-					for ( var ux in msg.users ) {
-						if ( msg.users[ux].name == '' ) {
-							msg.users[ux].name = mw.user.name();
-						}
-						_this.userJoinOrUpdate( msg.users[ux] );
-					}
-				}
-			}, false );
+			window.addEventListener( 'message', this.userListener, false );
 		},
 		/**
 		 * Given user info, either create or update the relevant entry.
@@ -798,12 +810,15 @@
 		 * Disable the collaborative editor
 		 */
 		disableEther: function () {
-			var _this = this;
-			_this.$textarea.show();
-			_this.iframe = null;
-			_this.iframetimeout = null;
-			_this.iframeready = false;
-			var epframeid = '#epframe' + _this.$textarea.attr( 'id' );
+			this.$textarea.show();
+			this.$userlist.empty();
+			this.users = {};
+			this.iframe = null;
+			this.iframetimeout = null;
+			this.iframeready = false;
+			var epframeid = '#epframe' + this.$textarea.attr( 'id' );
+			this.sendMessage( 'removeevents' );
+			window.removeEventListener( 'message', this.userListener );
 			$( epframeid ).remove();
 		},
 		/**
