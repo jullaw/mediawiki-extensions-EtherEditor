@@ -31,6 +31,7 @@ foreach ( array(
 		'ForkEtherPad' => '/api/ForkEtherPad',
 		'DeleteEtherPad' => '/api/DeleteEtherPad',
 		'EtherPadAuth' => '/api/EtherPadAuth',
+		'GetCurrentUsers' => '/api/GetCurrentUsers',
 		'GetContribs' => '/api/GetContribs',
 		'KickFromPad' => '/api/KickFromPad',
 		'GetOtherEtherpads' => '/api/GetOtherEtherpads',
@@ -119,6 +120,7 @@ $wgAPIModules['ForkEtherPad'] = 'ForkEtherPad';
 $wgAPIModules['DeleteEtherPad'] = 'DeleteEtherPad';
 $wgAPIModules['EtherPadAuth'] = 'EtherPadAuth';
 $wgAPIModules['GetContribs'] = 'GetContribs';
+$wgAPIModules['GetCurrentUsers'] = 'GetCurrentUsers';
 $wgAPIModules['KickFromPad'] = 'KickFromPad';
 $wgAPIModules['GetOtherEtherpads'] = 'GetOtherEtherpads';
 $wgAPIModules['CreateNewPadFromPage'] = 'CreateNewPadFromPage';

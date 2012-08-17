@@ -22,20 +22,8 @@
 		return date;
 	}
 
-	/**
-	 * Listen for user updates
-	 */
-	var userListener = function ( remEd, event ) {
-		var msg = event.data;
-		if ( msg && msg.type && msg.type == 'userinfo' ) {
-			for ( var ux in msg.users ) {
-				if ( msg.users[ux].name == '' ) {
-					msg.users[ux].name = mw.user.name();
-				}
-				remEd.userJoinOrUpdate( msg.users[ux] );
-			}
-		}
-	};
+	var gInitListener = null;
+
 	/**
 	 * Listen for the init event
 	 */
@@ -46,8 +34,8 @@
 			if ( remEd.iframetimeout !== null ) {
 				clearTimeout( remEd.iframetimeout );
 			}
-			remEd.sendMessage( 'updateusers' );
-			window.removeEventListener( 'message', remEd.initListener );
+			window.removeEventListener( 'message', gInitListener );
+			remEd.updateUserCount();
 		}
 	};
 
@@ -81,8 +69,8 @@
 		_this.iframe = null;
 		_this.iframetimeout = null;
 		_this.iframeready = false;
-		this.userListener = userListener.bind( null, this );
-		this.initListener = initListener.bind( null, this );
+		_this.realUserListener = _this.userListener.bind( this );
+		gInitListener = initListener.bind( null, this );
 		if ( !_this.padId || !_this.sessionId ) {
 			return false; // there was an error, clearly, so let's quit
 		}
@@ -141,14 +129,29 @@
 		 */
 		signalReady: function () {
 			var _this = this;
-			if ( _this.iframetimeout === null ) {
-				window.addEventListener( 'message', this.initListener, false );
-			}
-			if ( _this.iframe !== null && !_this.iframeready ) {
-				_this.iframe.contentWindow.postMessage( 'ethereditor-init', _this.padUrl );
-				_this.iframetimeout = setTimeout( function () {
-					_this.signalReady();
-				}, 200 );
+			window.addEventListener( 'message', gInitListener, false );
+			var recurseUntilReady = function () {
+				if ( _this.iframeready === false ) {
+					_this.iframe.contentWindow.postMessage( 'ethereditor-init', _this.padUrl );
+					_this.iframetimeout = setTimeout( function () {
+						recurseUntilReady();
+					}, 200 );
+				}
+			};
+			recurseUntilReady();
+		},
+		/**
+		 * Listen for user updates
+		 */
+		userListener: function ( event ) {
+			var msg = event.data;
+			if ( msg && msg.type && msg.type == 'userinfo' ) {
+				for ( var ux in msg.users ) {
+					if ( msg.users[ux].name == '' ) {
+						msg.users[ux].name = mw.user.name();
+					}
+					this.userJoinOrUpdate( msg.users[ux] );
+				}
 			}
 		},
 		/**
@@ -187,7 +190,6 @@
 			} );
 
 			_this.initializePad();
-			_this.initializeContribs();
 		},
 		/**
 		 * Authenticate the current user to the current pad.
@@ -313,12 +315,38 @@
 			} else {
 				_this.$userlist.addClass( 'notadmin' );
 			}
-			window.addEventListener( 'message', this.userListener, false );
+			window.addEventListener( 'message', this.realUserListener, false );
+		},
+		/**
+		 * Query the API for the current user count, don't mess around with
+		 * cross-frame messages.
+		 */
+		updateUserCount: function () {
+			var _this = this,
+				oldDbId = _this.dbId;
+
+			$.ajax( {
+				url: mw.util.wikiScript( 'api' ),
+				method: 'GET',
+				data: { format: 'json', action: 'GetCurrentUsers', padId: _this.dbId },
+				success: function( data ) {
+					if ( oldDbId === _this.dbId ) {
+						for ( var ix = 0; ix < data.GetCurrentUsers.users.length; ix++ ) {
+							_this.userJoinOrUpdate( data.GetCurrentUsers.users[ix], true );
+						}
+						// This only fires when there's a change, so let's update the
+						// contribs list.
+						_this.initializeContribs();
+					}
+					return 0;
+				},
+				dataType: 'json'
+			} );
 		},
 		/**
 		 * Given user info, either create or update the relevant entry.
 		 */
-		userJoinOrUpdate: function ( user ) {
+		userJoinOrUpdate: function ( user, isOnlyUpdate ) {
 			var _this = this;
 			if ( !user || !user.name || user.name == '' ) {
 				setTimeout( function () {
@@ -364,11 +392,13 @@
 					$user.append( $userctrls );
 				}
 			}
+			if ( !isOnlyUpdate ) {
+				// Since a user just joined (or changed), might as well check for new contributors.
+				// Yay, no more constantly polling the server!
+				_this.initializeContribs();
+			}
 			$( '.ethereditor-username', $user ).html( user.name );
-			$( '.ethereditor-usercolor', $user ).css( 'background-color', user.color );
-			// Since a user just joined (or changed), might as well check for new contributors.
-			// Yay, no more constantly polling the server!
-			_this.initializeContribs();
+			$( '.ethereditor-usercolor', $user ).css( 'background-color', user.color || user.colorId || null );
 		},
 		/**
 		 * Add events to each formatting button, see that they work properly.
@@ -771,6 +801,8 @@
 		*/
 		initializePad: function () {
 			var _this = this;
+			_this.iframetimeout = null;
+			_this.iframeready = false;
 			$.cookie( 'sessionID', _this.sessionId, { domain: mw.config.get( 'wgEtherEditorApiHost' ), path: '/' } );
 			_this.$textarea.pad( {
 				padId: _this.padId,
@@ -789,8 +821,6 @@
 				borderStyle: 'solid grey'
 			} );
 			_this.updateShareLink();
-			_this.iframetimeout = null;
-			_this.iframeready = false;
 			_this.iframe = _this.$textarea.next( 'iframe' ).get(0);
 			$( 'input[name=dbId]' ).remove();
 			_this.$textarea.after( $( '<input type="hidden" name="dbId" value="' + _this.dbId + '" />' ) );
@@ -822,7 +852,7 @@
 			this.iframeready = false;
 			var epframeid = '#epframe' + this.$textarea.attr( 'id' );
 			this.sendMessage( 'removeevents' );
-			window.removeEventListener( 'message', this.userListener );
+			window.removeEventListener( 'message', this.realUserListener );
 			$( epframeid ).remove();
 		},
 		/**

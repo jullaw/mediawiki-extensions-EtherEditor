@@ -742,6 +742,18 @@ class EtherEditorPad {
 	}
 
 	/**
+	 * Get the current list of contributors to this pad. Could be big!
+	 *
+	 * @since 0.4
+	 *
+	 * @return array Array of contributors
+	 */
+	public function getConnectedUsers() {
+		$epClient = self::getEpClient();
+		return $epClient->padUsers( $this->getEpId() )->padUsers;
+	}
+
+	/**
 	 * Get all pads by the page title, or just all pads if no title
 	 *
 	 * @since 0.3.0

@@ -312,5 +312,12 @@ class EtherpadLiteClient {
       "padID" => $padID
     ));
   }
+
+  // returns list of users currently in pad
+  public function padUsers($padID){
+    return $this->get("padUsers", array(
+      "padID" => $padID
+    ));
+  }
 }
 // @codeCoverageIgnoreEnd
