@@ -23,6 +23,35 @@
 	}
 
 	/**
+	 * Listen for user updates
+	 */
+	var userListener = function ( remEd, event ) {
+		var msg = event.data;
+		if ( msg && msg.type && msg.type == 'userinfo' ) {
+			for ( var ux in msg.users ) {
+				if ( msg.users[ux].name == '' ) {
+					msg.users[ux].name = mw.user.name();
+				}
+				remEd.userJoinOrUpdate( msg.users[ux] );
+			}
+		}
+	};
+	/**
+	 * Listen for the init event
+	 */
+	var initListener = function ( remEd, event ) {
+		if ( event.data == 'ethereditor-init' && event.origin == remEd.padUrl && !remEd.iframeready ) {
+			remEd.iframeready = true;
+			remEd.initializeFormattingControls();
+			if ( remEd.iframetimeout !== null ) {
+				clearTimeout( remEd.iframetimeout );
+			}
+			remEd.sendMessage( 'updateusers' );
+			window.removeEventListener( 'message', remEd.initListener );
+		}
+	};
+
+	/**
 	 * Creates a new remote editor object
 	 *
 	 * @param {HTMLTextAreaElement} (can be jQuery-wrapped)
@@ -52,6 +81,8 @@
 		_this.iframe = null;
 		_this.iframetimeout = null;
 		_this.iframeready = false;
+		this.userListener = userListener.bind( null, this );
+		this.initListener = initListener.bind( null, this );
 		if ( !_this.padId || !_this.sessionId ) {
 			return false; // there was an error, clearly, so let's quit
 		}
@@ -118,34 +149,6 @@
 				_this.iframetimeout = setTimeout( function () {
 					_this.signalReady();
 				}, 200 );
-			}
-		},
-		/**
-		 * Listen for user updates
-		 */
-		userListener: function ( event ) {
-			var msg = event.data;
-			if ( msg && msg.type && msg.type == 'userinfo' ) {
-				for ( var ux in msg.users ) {
-					if ( msg.users[ux].name == '' ) {
-						msg.users[ux].name = mw.user.name();
-					}
-					this.userJoinOrUpdate( msg.users[ux] );
-				}
-			}
-		},
-		/**
-		 * Listen for the init event
-		 */
-		initListener: function ( event ) {
-			if ( event.data == 'ethereditor-init' && event.origin == this.padUrl && !this.iframeready ) {
-				this.iframeready = true;
-				this.initializeFormattingControls();
-				if ( this.iframetimeout !== null ) {
-					clearTimeout( this.iframetimeout );
-				}
-				this.sendMessage( 'updateusers' );
-				window.removeEventListener( 'message', this.initListener );
 			}
 		},
 		/**
@@ -238,13 +241,13 @@
 		*/
 		initializeControls: function ( cb ) {
 			var _this = this;
-			var $toolbar = $( '#wikiEditor-ui-toolbar' );
+			var $toolbar = $( '#wikiEditor-ui-toolbar .tabs' );
 
 			// Check whether WikiEditor needs to be loaded before we can continue.
 			// We use this way because checking for the DOM element won't work if
 			// the WikiEditor interface isn't done loading yet (happens (frequently))
 
-			var isUsingWikiEditor = mw.config.exists( 'wgWikiEditorToolbarClickTracking' );
+			var isUsingWikiEditor = mw.config.exists( 'wgWikiEditorEnabledModules' );
 			if ( isUsingWikiEditor && $toolbar.length === 0 ) {
 				// If we are using WikiEditor, and the toolbar hasn't loaded, use
 				// mw.loader.using to jerry-rig a callback for when WE *is* loaded.
@@ -262,9 +265,10 @@
 			_this.$ctrls.css( 'float', 'right' );
 
 			if ( !isUsingWikiEditor ) {
+				$toolbar = $( '#toolbar' );
 				$toolbar.append( _this.$ctrls );
 			} else {
-				$( '.tabs', $toolbar ).after( _this.$ctrls );
+				$toolbar.after( _this.$ctrls );
 			}
 			_this.initializeCollabControls();
 			cb();
