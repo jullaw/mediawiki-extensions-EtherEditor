@@ -284,6 +284,9 @@ $messages['he'] = array(
 	'ethereditor-desc' => 'מאפשר למשתמשים לערוך דרך Etherpad',
 	'ethereditor-prefs-enable-ether' => 'הפעלת עורך שיתופי (ניסיוני)',
 	'ethereditor-kick-button' => 'בעיטה במשתמש',
+	'ethereditor-users-connected' => 'משתמשים מחוברים',
+	'ethereditor-user-list' => 'רשימת משתמשים',
+	'ethereditor-summary-message' => 'באמצעות EtherEditor, תורמים: $1',
 	'ethereditor-connected' => '$1 {{PLURAL:$1|משתמש מחובר|משתמשים מחוברים}}',
 );
 
@@ -561,6 +564,17 @@ $messages['tl'] = array(
 	'ethereditor-connected' => 'Ikinabit ni $1 ang {{PLURAL:$1|tagagamit|mga tagagamit}}',
 	'ethereditor-switch-to-session' => 'Lumipat papunta sa laang panahon na ito',
 	'ethereditor-recover-session' => 'Bawiin ang laang panahong ito',
+);
+
+/** Urdu (اردو)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['ur'] = array(
+	'ethereditor-collaborate-button' => 'مل کر کام',
+	'ethereditor-delete-button' => 'آخر میں اجلاس',
+	'ethereditor-user-list' => 'صارف فہرست',
+	'ethereditor-pad-list' => 'اجلاس کی فہرست',
+	'ethereditor-current' => 'موجودہ',
 );
 
 /** Vietnamese (Tiếng Việt)
