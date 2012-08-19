@@ -71,6 +71,16 @@ $messages['qqq'] = array(
 	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.',
 );
 
+/** Breton (brezhoneg)
+ * @author Y-M D
+ */
+$messages['br'] = array(
+	'ethereditor-collaborate-button' => 'Kenlabourit',
+	'ethereditor-user-list' => 'Roll an implijerien',
+	'ethereditor-current' => 'Red',
+	'ethereditor-outdated' => 'Dispredet',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
@@ -107,6 +117,22 @@ $messages['de'] = array(
 $messages['de-formal'] = array(
 	'ethereditor-cannot-nologin' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie sich anmelden.',
 	'ethereditor-js-off' => 'Um den EtherPad-Editor nutzen zu können, müssen Sie JavaScript aktivieren.',
+);
+
+/** Zazaki (Zazaki)
+ * @author Erdemaslancan
+ */
+$messages['diq'] = array(
+	'ethereditor-collaborate-button' => 'Piyakarkerdış',
+	'ethereditor-fork-button' => 'Ronıştışo leteyın',
+	'ethereditor-kick-button' => 'Payçekerden karber',
+	'ethereditor-delete-button' => 'Ronıştış qedyayış',
+	'ethereditor-pad-title' => 'Tampon sername',
+	'ethereditor-admin-controls' => 'Kontrolê adminan',
+	'ethereditor-user-list' => 'Listeyê karberan',
+	'ethereditor-pad-list' => 'Listeya ronıştışan',
+	'ethereditor-current' => 'Nıkayên',
+	'ethereditor-outdated' => 'Verêna ra',
 );
 
 /** Lower Sorbian (dolnoserbski)
@@ -382,9 +408,19 @@ $messages['it'] = array(
  * @author Shirayuki
  */
 $messages['ja'] = array(
+	'ethereditor-desc' => '利用者が Etherpad で編集できるようにする',
+	'ethereditor-fork-button' => 'セッションを分割',
+	'ethereditor-delete-button' => 'セッションを終了',
+	'ethereditor-cannot-nologin' => 'EtherEditor を使用するには、ログインする必要があります。',
+	'ethereditor-js-off' => 'EtherEditor を使用するには、JavaScript を有効にする必要があります。',
+	'ethereditor-manager-title' => 'EtherEditor の管理',
+	'ethereditor-pad-title' => 'パッド名',
+	'ethereditor-users-connected' => '接続している利用者',
+	'ethereditor-admin-controls' => '管理用コントロール',
 	'ethereditor-user-list' => '利用者一覧',
 	'ethereditor-pad-list' => 'セッション一覧',
 	'ethereditor-current' => '現在',
+	'ethereditor-session-created' => '$1が $2に開始したセッション',
 	'ethereditor-switch-to-session' => 'このセッションに切り替え',
 );
 
