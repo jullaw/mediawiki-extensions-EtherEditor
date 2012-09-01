@@ -453,7 +453,13 @@ $messages['ksh'] = array(
 $messages['lb'] = array(
 	'ethereditor-prefs-enable-ether' => 'De kollaborativen Editeur aktivéieren (experimentell)',
 	'ethereditor-collaborate-button' => 'Matmaachen',
+	'ethereditor-fork-button' => 'Sessioun opdeelen',
 	'ethereditor-kick-button' => 'Benotzer erausgeheien',
+	'ethereditor-base-revision' => 'Basisversioun',
+	'ethereditor-user-list' => 'Benotzerlëscht',
+	'ethereditor-current' => 'Aktuell',
+	'ethereditor-outdated' => 'Vereelst',
+	'ethereditor-connected' => '{{PLURAL:$1|Ee verbonnene Benotzer|$1 verbonne Benotzer}}',
 );
 
 /** Macedonian (македонски)
