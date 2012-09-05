@@ -212,6 +212,7 @@ $messages['fi'] = array(
 
 /** French (français)
  * @author Brunoperel
+ * @author Cquoi
  * @author Gomoko
  * @author IAlex
  * @author MarkTraceur
@@ -220,10 +221,10 @@ $messages['fr'] = array(
 	'ethereditor-desc' => 'Permet aux utilisateurs de modifier avec Etherpad',
 	'ethereditor-prefs-enable-ether' => "Activer l'éditeur collaboratif (expérimental)",
 	'ethereditor-collaborate-button' => 'Collaborez',
-	'ethereditor-fork-button' => 'Copier le bloc-note',
+	'ethereditor-fork-button' => 'Session de Split',
 	'ethereditor-contrib-button' => "Ajouter la liste des contributeurs au résumé d'édition",
 	'ethereditor-kick-button' => 'Bloquez utilisateur',
-	'ethereditor-delete-button' => 'Supprimer le bloc',
+	'ethereditor-delete-button' => 'Terminer la session',
 	'ethereditor-cannot-nologin' => 'Pour pouvoir utiliser EtherEditor, vous devez être connecté.',
 	'ethereditor-js-off' => 'Vous devez activer JavaScript pour utiliser EtherEditor.',
 	'ethereditor-manager-title' => 'Gestion de EtherEditor',
