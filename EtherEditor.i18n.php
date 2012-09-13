@@ -530,6 +530,14 @@ $messages['nl'] = array(
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
 );
 
+/** Pashto (پښتو)
+ * @author Ahmed-Najib-Biabani-Ibrahimkhel
+ */
+$messages['ps'] = array(
+	'ethereditor-user-list' => 'کارن لړليک',
+	'ethereditor-current' => 'اوسنی',
+);
+
 /** tarandíne (tarandíne)
  * @author Joetaras
  */
