@@ -545,6 +545,35 @@ $messages['nl'] = array(
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
 );
 
+/** Polish (polski)
+ * @author BeginaFelicysym
+ */
+$messages['pl'] = array(
+	'ethereditor-desc' => 'Pozwala użytkownikom na edytowanie za pomocą Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Umożliwia wspólną edycję (eksperymentalnie)',
+	'ethereditor-collaborate-button' => 'Współpracuj',
+	'ethereditor-fork-button' => 'Podziel sesję',
+	'ethereditor-contrib-button' => 'Dodaj listę współpracowników do podsumowania edycji',
+	'ethereditor-kick-button' => 'Wyrzuć użytkownika',
+	'ethereditor-delete-button' => 'Zakończ sesję',
+	'ethereditor-cannot-nologin' => 'Aby korzystać z EtherEditor musisz się zalogować.',
+	'ethereditor-js-off' => 'Aby korzystać z EtherEditor należy włączyć JavaScript.',
+	'ethereditor-manager-title' => 'Zarządzanie EtherEditor',
+	'ethereditor-pad-title' => 'Tytuł dokumentu',
+	'ethereditor-base-revision' => 'Wersja bazowa',
+	'ethereditor-users-connected' => 'Podłączeni użytkownicy',
+	'ethereditor-admin-controls' => 'Polecenia administratora',
+	'ethereditor-user-list' => 'Lista użytkowników',
+	'ethereditor-pad-list' => 'Lista sesji',
+	'ethereditor-current' => 'Bieżąca',
+	'ethereditor-outdated' => 'Nieaktualna',
+	'ethereditor-summary-message' => 'za pomocą EtherEditor, współautorzy:$1',
+	'ethereditor-session-created' => 'Sesja rozpoczęta przez $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1| podłączony użytkownik|podłączeni użytkownicy|podłączonych użytkowników}}',
+	'ethereditor-switch-to-session' => 'Przełącz się na tą sesję',
+	'ethereditor-recover-session' => 'Odzyskaj tą sesję',
+);
+
 /** Pashto (پښتو)
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
