@@ -111,7 +111,7 @@ $messages['de'] = array(
 	'ethereditor-recover-session' => 'Diese Sitzung wiederherstellen',
 );
 
-/** German (formal address) (‪Deutsch (Sie-Form)‬)
+/** German (formal address) (Deutsch (Sie-Form)‎)
  * @author Kghbln
  */
 $messages['de-formal'] = array(
