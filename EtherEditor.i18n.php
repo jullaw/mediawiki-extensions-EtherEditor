@@ -685,4 +685,3 @@ $messages['vi'] = array(
 $messages['yi'] = array(
 	'ethereditor-current' => 'לויפֿיקע',
 );
-
