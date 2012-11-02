@@ -603,9 +603,11 @@ $messages['si'] = array(
 );
 
 /** Swedish (svenska)
+ * @author Ainali
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
+	'ethereditor-desc' => 'Låter användarna redigera via Etherpad',
 	'ethereditor-user-list' => 'Användarlista',
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Föråldrad',
