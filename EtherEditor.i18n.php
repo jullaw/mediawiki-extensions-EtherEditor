@@ -434,6 +434,35 @@ $messages['ka'] = array(
 	'ethereditor-outdated' => 'მოძველებული',
 );
 
+/** Korean (한국어)
+ * @author 아라
+ */
+$messages['ko'] = array(
+	'ethereditor-desc' => 'Etherpad를 통해 사용자가 편집하는 것을 허용',
+	'ethereditor-prefs-enable-ether' => '협업 편집기 활성화 (실험)',
+	'ethereditor-collaborate-button' => '협업',
+	'ethereditor-fork-button' => '세션 나누기',
+	'ethereditor-contrib-button' => '편집 요약에 기여자 목록 추가',
+	'ethereditor-kick-button' => '사용자 강제 퇴장',
+	'ethereditor-delete-button' => '세션 끝',
+	'ethereditor-cannot-nologin' => 'EtherEditor를 사용하려면 로그인해야 합니다.',
+	'ethereditor-js-off' => 'EtherEditer를 사용하려면 자바스크립트를 활성화해야 합니다.',
+	'ethereditor-manager-title' => 'EtherEditor 관리',
+	'ethereditor-pad-title' => '패드 제목',
+	'ethereditor-base-revision' => '기본 판',
+	'ethereditor-users-connected' => '연결한 사용자',
+	'ethereditor-admin-controls' => '관리자 컨트롤',
+	'ethereditor-user-list' => '사용자 목록',
+	'ethereditor-pad-list' => '세션 목록',
+	'ethereditor-current' => '현재',
+	'ethereditor-outdated' => '오래됨',
+	'ethereditor-summary-message' => 'EtherEditor를 사용한 기여자: $1',
+	'ethereditor-session-created' => '$2에 $1 사용자가 세션을 시작함',
+	'ethereditor-connected' => '연결한 {{PLURAL:$1|사용자}} $1명',
+	'ethereditor-switch-to-session' => '이 세션으로 전환',
+	'ethereditor-recover-session' => '이 세션 복구',
+);
+
 /** Colognian (Ripoarisch)
  * @author Purodha
  */
