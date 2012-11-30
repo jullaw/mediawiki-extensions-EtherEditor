@@ -422,6 +422,7 @@ $messages['ja'] = array(
 	'ethereditor-pad-list' => 'セッション一覧',
 	'ethereditor-current' => '現在',
 	'ethereditor-session-created' => '$1が $2に開始したセッション',
+	'ethereditor-connected' => '$1 人の{{PLURAL:$1|利用者}}が接続しています',
 	'ethereditor-switch-to-session' => 'このセッションに切り替え',
 );
 
