@@ -285,9 +285,9 @@
 				.addClass( 'user' )
 				.addClass( 'dropdown' )
 				.addClass( 'hidden' );
-			var $ucontain = $( '<span></span>' );
+			var $ucontain = $( '<span title =" ' + mw.msg('ethereditor-user-list') + ' "></span>' );
 			$ucontain.attr( 'id', 'ethereditor-userlist-contain' );
-			var $uimg = $( '<img />' );
+			var $uimg = $( '<img/>'  );
 			var imgurl = mw.config.get( 'wgExtensionAssetsPath' )
 				+ '/EtherEditor/modules/images/userlist.png';
 			$uimg.attr( 'src', imgurl );
@@ -615,9 +615,9 @@
 				.addClass( 'hidden' )
 				.addClass( 'session' )
 				.addClass( 'dropdown' );
-			var $pcontain = $( '<span></span>' );
+			var $pcontain = $( '<span title=" ' + mw.msg('ethereditor-pad-list') + ' "></span>' );
 			$pcontain.attr( 'id', 'ethereditor-padlist-contain' );
-			var $pimg = $( '<img />' );
+			var $pimg = $( '<img/>' );
 			var imgurl = mw.config.get( 'wgExtensionAssetsPath' )
 				+ '/EtherEditor/modules/images/sessionlist.png';
 			$pimg.attr( 'src', imgurl );
