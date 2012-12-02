@@ -81,6 +81,7 @@ $wgResourceModules += array(
 			'ethereditor-delete-button',
 			'ethereditor-summary-message',
 			'ethereditor-collaborate-button',
+			'ethereditor-leave',
 		),
 		'dependencies' => array(
 			'mediawiki.user',

@@ -160,7 +160,6 @@
 		enableEther: function () {
 			var _this = this;
 			_this.hasSubmitted = false;
-
 			$( 'input[type="submit"]' ).click( function ( e ) {
 				if ( ! _this.hasSubmitted ) {
 					e.preventDefault();
@@ -190,6 +189,7 @@
 			} );
 
 			_this.initializePad();
+
 		},
 		/**
 		 * Authenticate the current user to the current pad.
@@ -377,7 +377,7 @@
 					.text( user.name ) );
 
 				if ( user.name != mw.user.name() ) {
-					var $userctrls = $( '<div class="sesison-button"></div>' );
+					var $userctrls = $( '<div class="session-button"></div>' );
 					var $kick = $( '<button></button>' )
 						.addClass( 'blue' )
 						.addClass( 'button' );
@@ -547,11 +547,18 @@
 		initializeCollabControls: function () {
 			var _this = this;
 			var $turnOnCollab = $( '<input id="ethereditor-collab-switch" type="checkbox" />' );
+			/**
+			* Display message that you leave collaborative editor
+			*/
+			var $collabLabel1 = $( '<span class="leave-msg"></span>' );
+			$collabLabel1.text( mw.msg( 'ethereditor-leave' ) );
 			$turnOnCollab.click( function () {
 				var $this = $( this );
 				if ( $this.is( ':checked' ) ) {
+					$collabLabel1.detach();
 					_this.enableEther();
 				} else {
+					_this.$ctrls.before($collabLabel1);
 					_this.disableEther();
 				}
 			} );
@@ -840,6 +847,7 @@
 			shareuri.query.padId = _this.dbId;
 			_this.$sharelink.val( shareuri.toString() );
 		},
+
 		/**
 		 * Disable the collaborative editor
 		 */

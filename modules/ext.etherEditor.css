@@ -7,7 +7,6 @@ img.listicon {
 	height: 16px;
 	width: 16px;
 }
-
 #ethereditor-usercount,
 #ethereditor-padcount,
 img.listicon {
@@ -23,6 +22,11 @@ img.listicon {
 	display: none;
 }
 
+.leave-msg{
+	font-size: 12px;
+	color: #A9A9A9;
+	text-align: center;
+}
 #ethereditor-userlist div {
 	padding-top: 5px;
 	clear: both;
@@ -242,3 +246,4 @@ button.button.blue:active {
 li.current-pad {
 	background-color: #FCF8CA
 }
+

@@ -34,7 +34,8 @@ $messages['en'] = array(
 	'ethereditor-session-created' => 'Session started by $1 $2',
 	'ethereditor-connected' => '$1 connected {{PLURAL:$1|user|users}}',
 	'ethereditor-switch-to-session' => 'Switch to this session',
-	'ethereditor-recover-session' => 'Recover this session'
+	'ethereditor-recover-session' => 'Recover this session',
+	'ethereditor-leave' => ' Collaboration mode is disabled',
 );
 
 /** Message documentation (Message documentation)
@@ -69,6 +70,7 @@ $messages['qqq'] = array(
 	'ethereditor-connected' => 'This message shows how many users are connected. $1 is the number of connected users in this session.',
 	'ethereditor-switch-to-session' => 'This button will bring the user to a session. The button will be next to the session in question.',
 	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.',
+	'ethereditor-leave' => 'This message appears, when user leaves collab mode',
 );
 
 /** Breton (brezhoneg)
