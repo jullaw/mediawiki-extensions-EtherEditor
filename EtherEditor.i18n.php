@@ -111,6 +111,7 @@ $messages['de'] = array(
 	'ethereditor-connected' => '{{PLURAL:$1|Ein verbundener Benutzer|$1 verbundene Benutzer}}',
 	'ethereditor-switch-to-session' => 'Zu dieser Sitzung wechseln',
 	'ethereditor-recover-session' => 'Diese Sitzung wiederherstellen',
+	'ethereditor-leave' => 'Der Mitwirkungsmodus ist deaktiviert',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -243,6 +244,7 @@ $messages['fr'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|utilisateur connecté|utilisateurs connectés}}',
 	'ethereditor-switch-to-session' => 'Basculer sur cette session',
 	'ethereditor-recover-session' => 'Récupérer cette session',
+	'ethereditor-leave' => 'Le mode de collaboration est désactivé.',
 );
 
 /** Franco-Provençal (arpetan)
@@ -346,6 +348,7 @@ $messages['hsb'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|zwjazany wužiwar|zwjazanej wužiwarjej|zwjazani wužiwarjo|zwjazanych wužiwarjow}}',
 	'ethereditor-switch-to-session' => 'K tutomu posedźenju přeńć',
 	'ethereditor-recover-session' => 'Tute posedźenje wobnowić',
+	'ethereditor-leave' => 'Sobudźěłowy modus je znjemóžnjeny',
 );
 
 /** Interlingua (interlingua)
@@ -464,6 +467,7 @@ $messages['ko'] = array(
 	'ethereditor-connected' => '연결한 {{PLURAL:$1|사용자}} $1명',
 	'ethereditor-switch-to-session' => '이 세션으로 전환',
 	'ethereditor-recover-session' => '이 세션 복구',
+	'ethereditor-leave' => '협업 모드가 비활성화되었습니다',
 );
 
 /** Colognian (Ripoarisch)
@@ -579,6 +583,7 @@ $messages['nl'] = array(
 
 /** Polish (polski)
  * @author BeginaFelicysym
+ * @author Odie2
  */
 $messages['pl'] = array(
 	'ethereditor-desc' => 'Pozwala użytkownikom na edytowanie za pomocą Etherpad',
@@ -604,6 +609,7 @@ $messages['pl'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1| podłączony użytkownik|podłączeni użytkownicy|podłączonych użytkowników}}',
 	'ethereditor-switch-to-session' => 'Przełącz się na tą sesję',
 	'ethereditor-recover-session' => 'Odzyskaj tą sesję',
+	'ethereditor-leave' => 'Tryb współpracy jest wyłączony',
 );
 
 /** Pashto (پښتو)
