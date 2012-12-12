@@ -167,6 +167,36 @@ $messages['dsb'] = array(
 	'ethereditor-recover-session' => 'Toś to pósejźenje wótnowiś',
 );
 
+/** Greek (Ελληνικά)
+ * @author Glavkos
+ */
+$messages['el'] = array(
+	'ethereditor-desc' => 'Επιτρέπει στους χρήστες να επεξεργαστούν μέσω Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Ενεργοποίηση συνεργατικού επεξεργαστή κειμένου (πειραματικό)',
+	'ethereditor-collaborate-button' => 'Συνεργαστείτε',
+	'ethereditor-fork-button' => 'Διαίρεση περιόδου λειτουργίας',
+	'ethereditor-contrib-button' => 'Προσθήκη λίστας των συνεισφερόντων για να επεξεργαστείτε τη σύνοψη',
+	'ethereditor-kick-button' => 'Αποβολή χρήστη',
+	'ethereditor-delete-button' => 'Τέλος περιόδου λειτουργίας',
+	'ethereditor-cannot-nologin' => 'Για να χρησιμοποιήσετε το EtherEditor, θα πρέπει να συνδεθείτε.',
+	'ethereditor-js-off' => 'Για να χρησιμοποιήσετε το EtherEditor, θα πρέπει να ενεργοποιήσετε το JavaScript.',
+	'ethereditor-manager-title' => 'Διαχείριση του EtherEditor',
+	'ethereditor-pad-title' => 'Τίτλος σημείωσης',
+	'ethereditor-base-revision' => 'Αναθεώρηση βάσης',
+	'ethereditor-users-connected' => 'Συνδεδεμένοι χρήστες',
+	'ethereditor-admin-controls' => 'Διαχειριστικοί έλεγχοι',
+	'ethereditor-user-list' => 'Κατάλογος χρηστών',
+	'ethereditor-pad-list' => 'Κατάλογος περιόδου λειτουργίας',
+	'ethereditor-current' => 'Τρέχον',
+	'ethereditor-outdated' => 'Παρωχημένες',
+	'ethereditor-summary-message' => 'χρησιμοποιούν τον EtherEditor, συνεισφέροντες:$1',
+	'ethereditor-session-created' => 'Η περίοδος λειτουργίας ξεκίνησε από $1 $2',
+	'ethereditor-connected' => '$1 συνδεδεμένος/οι  {{PLURAL:$1|χρήστης|χρήστες}}',
+	'ethereditor-switch-to-session' => 'Μεταβείτε σε αυτήν την περίοδο λειτουργίας',
+	'ethereditor-recover-session' => 'Επανάκτηση αυτής της περιόδου λειτουργίας',
+	'ethereditor-leave' => 'Η λειτουργία συνεργασία είναι απενεργοποιημένη',
+);
+
 /** Spanish (español)
  * @author Armando-Martin
  */
@@ -305,6 +335,7 @@ $messages['gl'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|usuario conectado|usuarios conectados}}',
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
+	'ethereditor-leave' => 'O modo colaborativo está desactivado',
 );
 
 /** Hebrew (עברית)
@@ -541,6 +572,7 @@ $messages['mk'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|поврзан корисник|поврзани корисници}}',
 	'ethereditor-switch-to-session' => 'Префрли на сесијава',
 	'ethereditor-recover-session' => 'Поврати ја сесијава',
+	'ethereditor-leave' => 'Соработниот режим е исклучен',
 );
 
 /** Malay (Bahasa Melayu)
@@ -579,6 +611,7 @@ $messages['nl'] = array(
 	'ethereditor-connected' => '{{PLURAL:$1|Eén verbonden gebruiker|$1 verbonden gebruikers}}',
 	'ethereditor-switch-to-session' => 'Overschakelen naar deze sessie',
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
+	'ethereditor-leave' => 'Samenwerkingsmodus is uitgeschakeld',
 );
 
 /** Polish (polski)
