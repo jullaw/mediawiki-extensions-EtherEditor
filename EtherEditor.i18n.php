@@ -734,6 +734,36 @@ $messages['tl'] = array(
 	'ethereditor-recover-session' => 'Bawiin ang laang panahong ito',
 );
 
+/** Ukrainian (українська)
+ * @author Base
+ */
+$messages['uk'] = array(
+	'ethereditor-desc' => 'Дозволяє користувачам редагувати через Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Увімкнення спільного редактора (експериментально)',
+	'ethereditor-collaborate-button' => 'Співпрацювати',
+	'ethereditor-fork-button' => 'Розірвати сесію',
+	'ethereditor-contrib-button' => 'Додати список редакторів до опису редагування',
+	'ethereditor-kick-button' => 'Виключити користувача',
+	'ethereditor-delete-button' => 'Завершити сесію',
+	'ethereditor-cannot-nologin' => 'Для того, щоб використовувати EtherEditor, Ви повинні увійти до системи.',
+	'ethereditor-js-off' => 'Для того, щоб використовувати EtherEditor, Ви повинні увімкнути JavaScript.',
+	'ethereditor-manager-title' => 'Керування EtherEditor',
+	'ethereditor-pad-title' => 'Заголовок документу',
+	'ethereditor-base-revision' => 'Основна версія',
+	'ethereditor-users-connected' => 'Підключено користувачів',
+	'ethereditor-admin-controls' => 'Адміністративний контроль',
+	'ethereditor-user-list' => 'Список користувачів',
+	'ethereditor-pad-list' => 'Список сесії',
+	'ethereditor-current' => 'Актуальний',
+	'ethereditor-outdated' => 'Застарілий',
+	'ethereditor-summary-message' => ' використовуючи EtherEditor, редактори: $1',
+	'ethereditor-session-created' => 'Сесію розпочато $1 $2',
+	'ethereditor-connected' => 'Підключено $1 {{PLURAL:$1|користувача|користувачі|користувачів}}',
+	'ethereditor-switch-to-session' => 'Перемкнутись на цю сесію',
+	'ethereditor-recover-session' => 'Відновити цю сесію',
+	'ethereditor-leave' => ' Режим співпраці вимкнено',
+);
+
 /** Urdu (اردو)
  * @author පසිඳු කාවින්ද
  */
