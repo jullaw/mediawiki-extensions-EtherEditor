@@ -19,3 +19,5 @@ api:
 
 coverage:
 	${PUCOV}
+
+.PHONY: tests config includes api coverage
