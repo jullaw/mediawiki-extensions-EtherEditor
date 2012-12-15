@@ -224,6 +224,7 @@ $messages['es'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|usuario conectado|usuarios conectados}}',
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
+	'ethereditor-leave' => 'Se ha desactivado el modo de colaboración',
 );
 
 /** Persian (فارسی)
