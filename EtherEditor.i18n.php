@@ -83,6 +83,17 @@ $messages['br'] = array(
 	'ethereditor-outdated' => 'Dispredet',
 );
 
+/** Czech (česky)
+ * @author Vks
+ */
+$messages['cs'] = array(
+	'ethereditor-collaborate-button' => 'Spolupracuj',
+	'ethereditor-kick-button' => 'Vykopnout uživatele',
+	'ethereditor-user-list' => 'Seznam uživatelů',
+	'ethereditor-current' => 'Současný',
+	'ethereditor-outdated' => 'Zastaralý',
+);
+
 /** German (Deutsch)
  * @author Kghbln
  * @author Metalhead64
@@ -225,6 +236,14 @@ $messages['es'] = array(
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
 	'ethereditor-leave' => 'Se ha desactivado el modo de colaboración',
+);
+
+/** Estonian (eesti)
+ * @author Avjoska
+ */
+$messages['et'] = array(
+	'ethereditor-collaborate-button' => 'Tee koostööd',
+	'ethereditor-delete-button' => 'Lõpeta seanss',
 );
 
 /** Persian (فارسی)
@@ -410,6 +429,36 @@ $messages['ia'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|usator|usatores}} connectite',
 	'ethereditor-switch-to-session' => 'Cambiar a iste session',
 	'ethereditor-recover-session' => 'Recuperar iste session',
+);
+
+/** Indonesian (Bahasa Indonesia)
+ * @author Farras
+ */
+$messages['id'] = array(
+	'ethereditor-desc' => 'Memungkinkan pengguna menyunting lewat Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Nyalakan editor kolaboratif (uji coba)',
+	'ethereditor-collaborate-button' => 'Berkolaborasi',
+	'ethereditor-fork-button' => 'Bagi sesi',
+	'ethereditor-contrib-button' => 'Tambahkan daftar kontributor untuk menyunting ringkasan',
+	'ethereditor-kick-button' => 'Keluarkan pengguna',
+	'ethereditor-delete-button' => 'Akhiri sesi',
+	'ethereditor-cannot-nologin' => 'Untuk memakai EtherEditor, Anda perlu masuk log.',
+	'ethereditor-js-off' => 'Untuk memakai EtherEditor, Anda perlu menyalakan JavaScript.',
+	'ethereditor-manager-title' => 'EtherEditor Management',
+	'ethereditor-pad-title' => 'Judul pad',
+	'ethereditor-base-revision' => 'Revisi dasar',
+	'ethereditor-users-connected' => 'Pengguna yang terhubung',
+	'ethereditor-admin-controls' => 'Kontrol pengurus',
+	'ethereditor-user-list' => 'Daftar pengguna',
+	'ethereditor-pad-list' => 'Daftar sesi',
+	'ethereditor-current' => 'Saat ini',
+	'ethereditor-outdated' => 'Usang',
+	'ethereditor-summary-message' => 'menggunakan EtherEditor, kontributor: $1',
+	'ethereditor-session-created' => 'Sesi dimulai oleh $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|pengguna|pengguna}} terhubung',
+	'ethereditor-switch-to-session' => 'Pindah ke sesi ini',
+	'ethereditor-recover-session' => 'Pulihkan sesi ini',
+	'ethereditor-leave' => 'Mode kolaborasi dimatikan',
 );
 
 /** Italian (italiano)
@@ -652,6 +701,20 @@ $messages['pl'] = array(
 $messages['ps'] = array(
 	'ethereditor-user-list' => 'کارن لړليک',
 	'ethereditor-current' => 'اوسنی',
+);
+
+/** Romanian (română)
+ * @author Firilacroco
+ * @author Minisarm
+ * @author Stelistcristi
+ */
+$messages['ro'] = array(
+	'ethereditor-users-connected' => 'Utilizatori conectați',
+	'ethereditor-admin-controls' => 'Comenzi ale administratorilor',
+	'ethereditor-user-list' => 'Lista utilizatorilor',
+	'ethereditor-pad-list' => 'Listă de sesiuni',
+	'ethereditor-current' => 'Actual',
+	'ethereditor-outdated' => 'Învechit',
 );
 
 /** tarandíne (tarandíne)
