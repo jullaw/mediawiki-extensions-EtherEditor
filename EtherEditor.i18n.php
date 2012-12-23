@@ -73,6 +73,13 @@ $messages['qqq'] = array(
 	'ethereditor-leave' => 'This message appears, when user leaves collab mode',
 );
 
+/** Bulgarian (български)
+ * @author පසිඳු කාවින්ද
+ */
+$messages['bg'] = array(
+	'ethereditor-current' => 'Текущо',
+);
+
 /** Breton (brezhoneg)
  * @author Y-M D
  */
@@ -92,6 +99,13 @@ $messages['cs'] = array(
 	'ethereditor-user-list' => 'Seznam uživatelů',
 	'ethereditor-current' => 'Současný',
 	'ethereditor-outdated' => 'Zastaralý',
+);
+
+/** Danish (dansk)
+ * @author Tjernobyl
+ */
+$messages['da'] = array(
+	'ethereditor-user-list' => 'Brugerliste',
 );
 
 /** German (Deutsch)
@@ -595,6 +609,13 @@ $messages['lb'] = array(
 	'ethereditor-connected' => '{{PLURAL:$1|Ee verbonnene Benotzer|$1 verbonne Benotzer}}',
 );
 
+/** Lithuanian (lietuvių)
+ * @author Eitvys200
+ */
+$messages['lt'] = array(
+	'ethereditor-user-list' => 'Naudotojų sąrašas',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
@@ -630,6 +651,27 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'ethereditor-desc' => 'Membolehkan pengguna untuk menyunting melalui Etherpad',
+);
+
+/** Maltese (Malti)
+ * @author Chrisportelli
+ */
+$messages['mt'] = array(
+	'ethereditor-desc' => 'Tippermetti lill-utenti sabiex jimmodifikaw bl-Etherpad',
+	'ethereditor-collaborate-button' => 'Ikkolabora',
+	'ethereditor-fork-button' => 'Aqsam is-sessjoni',
+	'ethereditor-contrib-button' => "Żid lista ta' kontributuri fit-taqsira tal-modifika",
+	'ethereditor-kick-button' => 'Neħħi lill-utent',
+	'ethereditor-delete-button' => 'Spiċċa s-sessjoni',
+	'ethereditor-pad-title' => 'Titlu tal-pad',
+	'ethereditor-users-connected' => 'Utenti konnessi',
+	'ethereditor-user-list' => 'Lista tal-utenti',
+	'ethereditor-pad-list' => "Lista ta' sessjonijiet",
+	'ethereditor-current' => 'Attwali',
+	'ethereditor-outdated' => "Bżonn ta' aġġornament",
+	'ethereditor-session-created' => 'Sessjoni mibidja minn $1 $2',
+	'ethereditor-switch-to-session' => 'Aqleb għal din is-sessjoni',
+	'ethereditor-recover-session' => 'Irkupra din is-sessjoni',
 );
 
 /** Dutch (Nederlands)
