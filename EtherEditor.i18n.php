@@ -737,6 +737,36 @@ $messages['pl'] = array(
 	'ethereditor-leave' => 'Tryb współpracy jest wyłączony',
 );
 
+/** Piedmontese (Piemontèis)
+ * @author Dragonòt
+ */
+$messages['pms'] = array(
+	'ethereditor-desc' => "A përmëtt a j'utent ëd modifiché via Etherpad",
+	'ethereditor-prefs-enable-ether' => 'Abìlita la modìfica colaborativa (sperimental)',
+	'ethereditor-collaborate-button' => 'Colàbora',
+	'ethereditor-fork-button' => 'Divid session',
+	'ethereditor-contrib-button' => 'Gionta lista dij contributor al resumé dla modìfica',
+	'ethereditor-kick-button' => "Pija a càuss l'utent",
+	'ethereditor-delete-button' => 'Finiss session',
+	'ethereditor-cannot-nologin' => "Për dovré l'EtherEditor, it deuve intré.",
+	'ethereditor-js-off' => "Për dovré l'EtherEditor, it deuve abilité JavaScript.",
+	'ethereditor-manager-title' => 'Gestion EtherEditor',
+	'ethereditor-pad-title' => 'Tìtol ëd pad',
+	'ethereditor-base-revision' => 'Revision base',
+	'ethereditor-users-connected' => 'Utent colegà',
+	'ethereditor-admin-controls' => "Contròj d'aministrador",
+	'ethereditor-user-list' => "Lista dj'utent",
+	'ethereditor-pad-list' => 'Lista session',
+	'ethereditor-current' => 'Corent',
+	'ethereditor-outdated' => 'Veje',
+	'ethereditor-summary-message' => 'dovré EtherEditor, contribudor: $1',
+	'ethereditor-session-created' => 'Session ancaminà da $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|utent colegà}}',
+	'ethereditor-switch-to-session' => 'Passa a sta session',
+	'ethereditor-recover-session' => 'Recùpera sta session',
+	'ethereditor-leave' => "La manera colaborassion a l'é disabilità",
+);
+
 /** Pashto (پښتو)
  * @author Ahmed-Najib-Biabani-Ibrahimkhel
  */
