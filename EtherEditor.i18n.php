@@ -258,6 +258,9 @@ $messages['es'] = array(
 $messages['et'] = array(
 	'ethereditor-collaborate-button' => 'Tee koostööd',
 	'ethereditor-delete-button' => 'Lõpeta seanss',
+	'ethereditor-user-list' => 'Kasutajate loend',
+	'ethereditor-current' => 'Praegune',
+	'ethereditor-outdated' => 'Aegunud',
 );
 
 /** Persian (فارسی)
@@ -781,12 +784,17 @@ $messages['ps'] = array(
  * @author Stelistcristi
  */
 $messages['ro'] = array(
+	'ethereditor-collaborate-button' => 'Colaborați',
+	'ethereditor-delete-button' => 'Terminați sesiunea',
 	'ethereditor-users-connected' => 'Utilizatori conectați',
 	'ethereditor-admin-controls' => 'Comenzi ale administratorilor',
 	'ethereditor-user-list' => 'Lista utilizatorilor',
 	'ethereditor-pad-list' => 'Listă de sesiuni',
 	'ethereditor-current' => 'Actual',
 	'ethereditor-outdated' => 'Învechit',
+	'ethereditor-switch-to-session' => 'Comutați la această sesiune',
+	'ethereditor-recover-session' => 'Recuperați această sesiune',
+	'ethereditor-leave' => ' Modul de colaborare este dezactivat',
 );
 
 /** tarandíne (tarandíne)
@@ -802,11 +810,14 @@ $messages['roa-tara'] = array(
 $messages['si'] = array(
 	'ethereditor-collaborate-button' => 'සහයෝගයෙන් ක්‍රියා කරන්න',
 	'ethereditor-delete-button' => 'සැසිය අවසන් කරන්න',
+	'ethereditor-users-connected' => 'පරිශීලකයන් සම්බන්ධිතයි',
 	'ethereditor-admin-controls' => 'පරිපාලක පාලක',
 	'ethereditor-user-list' => 'පරිශීලක ලැයිස්තුව',
 	'ethereditor-pad-list' => 'සැසි ලැයිස්තුව',
 	'ethereditor-current' => 'වත්මන්',
 	'ethereditor-outdated' => 'යල් පැන ගිය',
+	'ethereditor-switch-to-session' => 'මෙම සැසිය වෙත මාරුවන්න',
+	'ethereditor-recover-session' => 'මෙම සැසිය ආපසු ලබාගන්න',
 );
 
 /** Swedish (svenska)
@@ -815,11 +826,29 @@ $messages['si'] = array(
  */
 $messages['sv'] = array(
 	'ethereditor-desc' => 'Låter användarna redigera via Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Aktivera gemensam redigerare (experimentell)',
+	'ethereditor-collaborate-button' => 'Samarbeta',
+	'ethereditor-fork-button' => 'Dela upp session',
+	'ethereditor-contrib-button' => 'Lägg till lista över bidragsgivare till redigeringssammanfattning',
+	'ethereditor-kick-button' => 'Sparka användare',
+	'ethereditor-delete-button' => 'Avsluta session',
+	'ethereditor-cannot-nologin' => 'För att använda EtherEditor måste du logga in.',
+	'ethereditor-js-off' => 'För att använda EtherEditor måste du aktivera JavaScript.',
+	'ethereditor-manager-title' => 'EtherEditor-hantering',
+	'ethereditor-pad-title' => 'Blocktitel',
+	'ethereditor-base-revision' => 'Basversion',
+	'ethereditor-users-connected' => 'Anslutna användare',
+	'ethereditor-admin-controls' => 'Administratörkontroller',
 	'ethereditor-user-list' => 'Användarlista',
+	'ethereditor-pad-list' => 'Sessionslista',
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Föråldrad',
+	'ethereditor-summary-message' => ' använder EtherEditor, bidragsgivare: $1',
+	'ethereditor-session-created' => 'Session startad av $1 $2',
 	'ethereditor-connected' => '$1 anslutna {{PLURAL:$1|användare|användare}}',
 	'ethereditor-switch-to-session' => 'Växla till denna session',
+	'ethereditor-recover-session' => 'Återställ denna session',
+	'ethereditor-leave' => ' Samarbetsläget ät inaktiverat',
 );
 
 /** Tamil (தமிழ்)
