@@ -272,12 +272,33 @@ $messages['fa'] = array(
 
 /** Finnish (suomi)
  * @author Beluga
+ * @author VezonThunder
  */
 $messages['fi'] = array(
+	'ethereditor-desc' => 'Antaa käyttäjien muokata Etherpadilla',
+	'ethereditor-prefs-enable-ether' => 'Salli yhteistyömuokkain (kokeellinen)',
 	'ethereditor-collaborate-button' => 'Tee yhteistyötä',
+	'ethereditor-fork-button' => 'Jaa istunto',
+	'ethereditor-contrib-button' => 'Lisää luettelo muokkaajista yhteenvetoon',
+	'ethereditor-kick-button' => 'Potki käyttäjä',
+	'ethereditor-delete-button' => 'Lopeta istunto',
+	'ethereditor-cannot-nologin' => 'Sinun tulee kirjautua sisään käyttääksesi EtherEditor-muokkainta.',
+	'ethereditor-js-off' => 'Sinun tulee sallia JavaScript käyttääksesi EtherEditor-muokkainta.',
+	'ethereditor-manager-title' => 'EtherEditor-muokkaimen hallinta',
+	'ethereditor-pad-title' => 'Lehtiön otsikko',
+	'ethereditor-base-revision' => 'Pohjana oleva versio',
+	'ethereditor-users-connected' => 'Käyttäjiä liittynyt',
+	'ethereditor-admin-controls' => 'Ylläpitäjän toiminnot',
 	'ethereditor-user-list' => 'Käyttäjäluettelo',
+	'ethereditor-pad-list' => 'Istuntoluettelo',
 	'ethereditor-current' => 'Nykyinen',
 	'ethereditor-outdated' => 'Vanhentunut',
+	'ethereditor-summary-message' => ' käyttäen EtherEditoria, muokkajat: $1',
+	'ethereditor-session-created' => '$1 aloitti istunnon $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|liittynyt käyttäjä|liittynyttä käyttäjää}}',
+	'ethereditor-switch-to-session' => 'Vaihda tähän istuntoon',
+	'ethereditor-recover-session' => 'Palauta tämä istunto',
+	'ethereditor-leave' => 'Yhteistyötila pois päältä',
 );
 
 /** French (français)
@@ -785,16 +806,16 @@ $messages['ps'] = array(
  */
 $messages['ro'] = array(
 	'ethereditor-collaborate-button' => 'Colaborați',
-	'ethereditor-delete-button' => 'Terminați sesiunea',
+	'ethereditor-delete-button' => 'Sfârșește sesiunea',
 	'ethereditor-users-connected' => 'Utilizatori conectați',
 	'ethereditor-admin-controls' => 'Comenzi ale administratorilor',
 	'ethereditor-user-list' => 'Lista utilizatorilor',
 	'ethereditor-pad-list' => 'Listă de sesiuni',
 	'ethereditor-current' => 'Actual',
 	'ethereditor-outdated' => 'Învechit',
-	'ethereditor-switch-to-session' => 'Comutați la această sesiune',
-	'ethereditor-recover-session' => 'Recuperați această sesiune',
-	'ethereditor-leave' => ' Modul de colaborare este dezactivat',
+	'ethereditor-switch-to-session' => 'Comută la această sesiune',
+	'ethereditor-recover-session' => 'Recuperează această sesiune',
+	'ethereditor-leave' => 'Modul de colaborare este dezactivat',
 );
 
 /** tarandíne (tarandíne)
