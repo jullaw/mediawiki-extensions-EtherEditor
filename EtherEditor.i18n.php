@@ -640,6 +640,15 @@ $messages['lt'] = array(
 	'ethereditor-user-list' => 'Naudotojų sąrašas',
 );
 
+/** Latvian (latviešu)
+ * @author Papuass
+ */
+$messages['lv'] = array(
+	'ethereditor-collaborate-button' => 'Sadarboties',
+	'ethereditor-current' => 'Aktuāls',
+	'ethereditor-outdated' => 'Novecojis',
+);
+
 /** Macedonian (македонски)
  * @author Bjankuloski06
  */
@@ -830,7 +839,11 @@ $messages['roa-tara'] = array(
  */
 $messages['si'] = array(
 	'ethereditor-collaborate-button' => 'සහයෝගයෙන් ක්‍රියා කරන්න',
+	'ethereditor-fork-button' => 'සැසිය විභේදනය',
+	'ethereditor-kick-button' => 'සන්තෝෂ පරිශීලක',
 	'ethereditor-delete-button' => 'සැසිය අවසන් කරන්න',
+	'ethereditor-pad-title' => 'උපධාන ශීර්ෂය',
+	'ethereditor-base-revision' => 'පාදක සංශෝධනය',
 	'ethereditor-users-connected' => 'පරිශීලකයන් සම්බන්ධිතයි',
 	'ethereditor-admin-controls' => 'පරිපාලක පාලක',
 	'ethereditor-user-list' => 'පරිශීලක ලැයිස්තුව',
