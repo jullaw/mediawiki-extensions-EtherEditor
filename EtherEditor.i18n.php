@@ -627,6 +627,7 @@ $messages['lb'] = array(
 	'ethereditor-fork-button' => 'Sessioun opdeelen',
 	'ethereditor-kick-button' => 'Benotzer erausgeheien',
 	'ethereditor-base-revision' => 'Basisversioun',
+	'ethereditor-users-connected' => 'Ageloggte Benotzer',
 	'ethereditor-user-list' => 'Benotzerlëscht',
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Vereelst',
@@ -684,6 +685,29 @@ $messages['mk'] = array(
  */
 $messages['ms'] = array(
 	'ethereditor-desc' => 'Membolehkan pengguna untuk menyunting melalui Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Hidupkan editor kerjasama (percubaan)',
+	'ethereditor-collaborate-button' => 'Bekerjasama',
+	'ethereditor-fork-button' => 'Bahagikan sesi',
+	'ethereditor-contrib-button' => 'Tambahkan senarai penyumbang ke dalam ringkasan suntingan',
+	'ethereditor-kick-button' => 'Usir pengguna',
+	'ethereditor-delete-button' => 'Tamatkan sesi',
+	'ethereditor-cannot-nologin' => 'Anda mesti log masuk untuk menggunakan EtherEditor.',
+	'ethereditor-js-off' => 'Anda mesti menghidupkan JavaScript untuk menggunakan EtherEditor.',
+	'ethereditor-manager-title' => 'Pengurusan EtherEditor',
+	'ethereditor-pad-title' => 'Tajuk pad',
+	'ethereditor-base-revision' => 'Semakan asas',
+	'ethereditor-users-connected' => 'Pengguna yang bersambung',
+	'ethereditor-admin-controls' => 'Kawalan penyelia',
+	'ethereditor-user-list' => 'Senarai pengguna',
+	'ethereditor-pad-list' => 'Senarai sesi',
+	'ethereditor-current' => 'Terkini',
+	'ethereditor-outdated' => 'Lapuk',
+	'ethereditor-summary-message' => ' menggunakan EtherEditor, penyumbang: $1',
+	'ethereditor-session-created' => 'Sesi dimulakan oleh $1 $2',
+	'ethereditor-connected' => '$1 pengguna bersambung',
+	'ethereditor-switch-to-session' => 'Beralih ke sesi ini',
+	'ethereditor-recover-session' => 'Pulihkan sesi ini',
+	'ethereditor-leave' => ' Mod kerjasama dimatikan',
 );
 
 /** Maltese (Malti)
@@ -737,6 +761,14 @@ $messages['nl'] = array(
 	'ethereditor-switch-to-session' => 'Overschakelen naar deze sessie',
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
 	'ethereditor-leave' => 'Samenwerkingsmodus is uitgeschakeld',
+);
+
+/** Nederlands (informeel)‎ (Nederlands (informeel)‎)
+ * @author Siebrand
+ */
+$messages['nl-informal'] = array(
+	'ethereditor-cannot-nologin' => 'Je moet aanmelden om EtherEditor te kunnen gebruiken.',
+	'ethereditor-js-off' => 'Om EtherEditor te kunnen gebruiken, moet je JavaScript inschakelen.',
 );
 
 /** Polish (polski)
@@ -838,10 +870,12 @@ $messages['roa-tara'] = array(
  * @author පසිඳු කාවින්ද
  */
 $messages['si'] = array(
+	'ethereditor-desc' => 'Etherpad හරහා සංස්කරණය කිරීමට පරිශීලකයන් හට ඉඩ දෙන්න',
 	'ethereditor-collaborate-button' => 'සහයෝගයෙන් ක්‍රියා කරන්න',
 	'ethereditor-fork-button' => 'සැසිය විභේදනය',
 	'ethereditor-kick-button' => 'සන්තෝෂ පරිශීලක',
 	'ethereditor-delete-button' => 'සැසිය අවසන් කරන්න',
+	'ethereditor-manager-title' => 'ඌර්ධ්වාන්තරීක්ෂසංස්කාරක කළමනාකරණය',
 	'ethereditor-pad-title' => 'උපධාන ශීර්ෂය',
 	'ethereditor-base-revision' => 'පාදක සංශෝධනය',
 	'ethereditor-users-connected' => 'පරිශීලකයන් සම්බන්ධිතයි',
@@ -850,6 +884,7 @@ $messages['si'] = array(
 	'ethereditor-pad-list' => 'සැසි ලැයිස්තුව',
 	'ethereditor-current' => 'වත්මන්',
 	'ethereditor-outdated' => 'යල් පැන ගිය',
+	'ethereditor-session-created' => '$1 විසින් සැසිය ආරම්භ කරන ලදී $2',
 	'ethereditor-switch-to-session' => 'මෙම සැසිය වෙත මාරුවන්න',
 	'ethereditor-recover-session' => 'මෙම සැසිය ආපසු ලබාගන්න',
 );
