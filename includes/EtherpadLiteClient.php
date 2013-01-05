@@ -1,8 +1,7 @@
 <?php
-// @codeCoverageIgnoreStart
 class EtherpadLiteClient {
 
-  const API_VERSION             = 1;
+  const API_VERSION             = '1.1';
 
   const CODE_OK                 = 0;
   const CODE_INVALID_PARAMETERS = 1;
@@ -14,7 +13,11 @@ class EtherpadLiteClient {
   protected $baseUrl = "http://localhost:9001/api";
   
   public function __construct($apiKey, $baseUrl = null){
+    if (strlen($apiKey) < 1){
+      throw new InvalidArgumentException("[{$apiKey}] is not a valid API key");
+    }
     $this->apiKey  = $apiKey;
+
     if (isset($baseUrl)){
       $this->baseUrl = $baseUrl;
     }
@@ -135,6 +138,11 @@ class EtherpadLiteClient {
     ));
   }
 
+  // list all groups
+  public function listAllGroups(){
+    return $this->get("listAllGroups");
+  }
+
   // AUTHORS
   // Theses authors are bind to the attributes the users choose (color and name). 
 
@@ -150,6 +158,20 @@ class EtherpadLiteClient {
     return $this->post("createAuthorIfNotExistsFor", array(
       "authorMapper" => $authorMapper,
       "name"         => $name
+    ));
+  }
+
+  // returns the ids of all pads this author as edited
+  public function listPadsOfAuthor($authorID){
+    return $this->get("listPadsOfAuthor", array(
+      "authorID" => $authorID
+    ));
+  }
+
+  // Gets an author's name
+  public function getAuthorName($authorID){
+    return $this->get("getAuthorName", array(
+      "authorID" => $authorID
     ));
   }
 
@@ -252,7 +274,14 @@ class EtherpadLiteClient {
     ));
   }
 
-  // returns the last revision's timestamp (UNIX format)
+  // returns the number of users currently editing this pad
+  public function padUsersCount($padID){
+    return $this->get("padUsersCount", array(
+      "padID" => $padID
+    ));
+  }
+
+  // return the time the pad was last edited as a Unix timestamp
   public function getLastEdited($padID){
     return $this->get("getLastEdited", array(
       "padID" => $padID
@@ -269,6 +298,13 @@ class EtherpadLiteClient {
   // returns the read only link of a pad 
   public function getReadOnlyID($padID){
     return $this->get("getReadOnlyID", array(
+      "padID" => $padID
+    ));
+  }
+
+  // returns the ids of all authors who've edited this pad
+  public function listAuthorsOfPad($padID){
+    return $this->get("listAuthorsOfPad", array(
       "padID" => $padID
     ));
   }
@@ -306,18 +342,19 @@ class EtherpadLiteClient {
     ));
   }
 
-  // returns number of users currently in pad
-  public function padUsersCount($padID){
-    return $this->get("padUsersCount", array(
-      "padID" => $padID
-    ));
-  }
-
-  // returns list of users currently in pad
+  // Get pad users
   public function padUsers($padID){
     return $this->get("padUsers", array(
       "padID" => $padID
     ));
   }
+
+  // Send all clients a message
+  public function sendClientsMessage($padID, $msg){
+    return $this->post("sendClientsMessage", array(
+      "padID" => $padID,
+      "msg"   => $msg
+    ));
+  }
 }
-// @codeCoverageIgnoreEnd
+
