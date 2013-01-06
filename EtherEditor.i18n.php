@@ -803,33 +803,34 @@ $messages['pl'] = array(
 );
 
 /** Piedmontese (Piemontèis)
+ * @author Borichèt
  * @author Dragonòt
  */
 $messages['pms'] = array(
 	'ethereditor-desc' => "A përmëtt a j'utent ëd modifiché via Etherpad",
 	'ethereditor-prefs-enable-ether' => 'Abìlita la modìfica colaborativa (sperimental)',
 	'ethereditor-collaborate-button' => 'Colàbora',
-	'ethereditor-fork-button' => 'Divid session',
-	'ethereditor-contrib-button' => 'Gionta lista dij contributor al resumé dla modìfica',
+	'ethereditor-fork-button' => 'Session ëd division',
+	'ethereditor-contrib-button' => 'Gionté la lista dij contributor al resumé dla modìfica',
 	'ethereditor-kick-button' => "Pija a càuss l'utent",
-	'ethereditor-delete-button' => 'Finiss session',
-	'ethereditor-cannot-nologin' => "Për dovré l'EtherEditor, it deuve intré.",
-	'ethereditor-js-off' => "Për dovré l'EtherEditor, it deuve abilité JavaScript.",
-	'ethereditor-manager-title' => 'Gestion EtherEditor',
-	'ethereditor-pad-title' => 'Tìtol ëd pad',
-	'ethereditor-base-revision' => 'Revision base',
+	'ethereditor-delete-button' => 'Finì la session',
+	'ethereditor-cannot-nologin' => "Për dovré l'EtherEditor, a dev esse intrà ant ël sistema.",
+	'ethereditor-js-off' => "Për dovré l'EtherEditor, a dev abilité JavaScript.",
+	'ethereditor-manager-title' => "Gestion d'EtherEditor",
+	'ethereditor-pad-title' => 'Tìtol dël blòch',
+	'ethereditor-base-revision' => 'Revision ëd base',
 	'ethereditor-users-connected' => 'Utent colegà',
-	'ethereditor-admin-controls' => "Contròj d'aministrador",
+	'ethereditor-admin-controls' => "Comand d'aministrator",
 	'ethereditor-user-list' => "Lista dj'utent",
-	'ethereditor-pad-list' => 'Lista session',
+	'ethereditor-pad-list' => 'Lista ëd session',
 	'ethereditor-current' => 'Corent',
 	'ethereditor-outdated' => 'Veje',
-	'ethereditor-summary-message' => 'dovré EtherEditor, contribudor: $1',
+	'ethereditor-summary-message' => 'dovrand EtherEditor, contributor: $1',
 	'ethereditor-session-created' => 'Session ancaminà da $1 $2',
 	'ethereditor-connected' => '$1 {{PLURAL:$1|utent colegà}}',
 	'ethereditor-switch-to-session' => 'Passa a sta session',
 	'ethereditor-recover-session' => 'Recùpera sta session',
-	'ethereditor-leave' => "La manera colaborassion a l'é disabilità",
+	'ethereditor-leave' => "La manera ëd colaborassion a l'é disabilità",
 );
 
 /** Pashto (پښتو)
