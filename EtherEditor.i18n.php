@@ -42,6 +42,7 @@ $messages['en'] = array(
  * @author Kghbln
  * @author Mark Holmquist
  * @author Raymond
+ * @author Shirayuki
  * @author Siebrand
  */
 $messages['qqq'] = array(
@@ -60,7 +61,8 @@ $messages['qqq'] = array(
 	'ethereditor-admin-controls' => 'Header for a table column that contains buttons for admin actions',
 	'ethereditor-user-list' => 'This is the button a user clicks to access a list of users connected to the current pad.',
 	'ethereditor-pad-list' => 'This is the button a user clicks to access a list of pads for the current page.',
-	'ethereditor-current' => 'Indicates that this pad is up-to-date',
+	'ethereditor-current' => 'Indicates that this pad is up-to-date.
+{{Identical|Current}}',
 	'ethereditor-outdated' => 'Indicates that this pad is no longer up-to-date',
 	'ethereditor-summary-message' => 'This message goes into the edit summary automatically. The parameter is for a comma-separated list of users, but we are not referring to the users in any substantial way, only to list them.',
 	'ethereditor-session-created' => 'This message is how users browse the session list. Parameters:
@@ -564,8 +566,8 @@ $messages['ka'] = array(
  */
 $messages['ko'] = array(
 	'ethereditor-desc' => 'Etherpad를 통해 사용자가 편집하는 것을 허용',
-	'ethereditor-prefs-enable-ether' => '협업 편집기 활성화 (실험)',
-	'ethereditor-collaborate-button' => '협업',
+	'ethereditor-prefs-enable-ether' => '공동 작업 편집기 활성화 (실험)',
+	'ethereditor-collaborate-button' => '공동 작업',
 	'ethereditor-fork-button' => '세션 나누기',
 	'ethereditor-contrib-button' => '편집 요약에 기여자 목록 추가',
 	'ethereditor-kick-button' => '사용자 강제 퇴장',
@@ -586,7 +588,7 @@ $messages['ko'] = array(
 	'ethereditor-connected' => '연결한 {{PLURAL:$1|사용자}} $1명',
 	'ethereditor-switch-to-session' => '이 세션으로 전환',
 	'ethereditor-recover-session' => '이 세션 복구',
-	'ethereditor-leave' => '협업 모드가 비활성화되었습니다',
+	'ethereditor-leave' => '공동 작업 모드가 비활성화되었습니다',
 );
 
 /** Colognian (Ripoarisch)
@@ -865,6 +867,36 @@ $messages['ro'] = array(
  */
 $messages['roa-tara'] = array(
 	'ethereditor-current' => 'Corrende',
+);
+
+/** Russian (русский)
+ * @author DCamer
+ */
+$messages['ru'] = array(
+	'ethereditor-desc' => 'Позволяет пользователям редактировать через Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Включение совместного редактора (экспериментально)',
+	'ethereditor-collaborate-button' => 'Совместно',
+	'ethereditor-fork-button' => 'Разделить сессии',
+	'ethereditor-contrib-button' => 'Добавить список авторов в описание правки',
+	'ethereditor-kick-button' => 'Кикнуть участника',
+	'ethereditor-delete-button' => 'Закончить сессию',
+	'ethereditor-cannot-nologin' => 'Для того, чтобы использовать EtherEditor, вы должны войти в систему.',
+	'ethereditor-js-off' => 'Для того, чтобы использовать EtherEditor, вы должны активировать JavaScript.',
+	'ethereditor-manager-title' => 'Управление EtherEditor',
+	'ethereditor-pad-title' => 'Название',
+	'ethereditor-base-revision' => 'Базовая версия',
+	'ethereditor-users-connected' => 'Подключено участников',
+	'ethereditor-admin-controls' => 'Управление',
+	'ethereditor-user-list' => 'Список участников',
+	'ethereditor-pad-list' => 'Список сессий',
+	'ethereditor-current' => 'Текущий',
+	'ethereditor-outdated' => 'Устаревший',
+	'ethereditor-summary-message' => ' использование EtherEditor, авторов: $1',
+	'ethereditor-session-created' => 'Сессию начал $1 $2',
+	'ethereditor-connected' => '{{PLURAL:$1|подключен $1 участник|подключено $1 участника|подключено $1 участников}}',
+	'ethereditor-switch-to-session' => 'Переключится на эту сессию',
+	'ethereditor-recover-session' => 'Восстановить эту сессию',
+	'ethereditor-leave' => ' Совместный режим отключен',
 );
 
 /** Sinhala (සිංහල)
