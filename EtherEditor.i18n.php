@@ -75,6 +75,31 @@ $messages['qqq'] = array(
 	'ethereditor-leave' => 'This message appears, when user leaves collab mode',
 );
 
+/** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
+ * @author Wizardist
+ */
+$messages['be-tarask'] = array(
+	'ethereditor-desc' => 'Дазваляе ўдзельнікам рэдагаваць праз Etherpad',
+	'ethereditor-prefs-enable-ether' => 'Уключыць супольны рэдактар (экспэрымэнтальна)',
+	'ethereditor-collaborate-button' => 'Супрацоўніцтва',
+	'ethereditor-fork-button' => 'Падзяліць сэсію',
+	'ethereditor-contrib-button' => 'Дадаць сьпіс рэдактара ў апісаньне праўкі',
+	'ethereditor-kick-button' => 'Выкінуць удзельніка',
+	'ethereditor-delete-button' => 'Скончыць сэсію',
+	'ethereditor-cannot-nologin' => 'Каб скарыстаць EtherEditor, вы мусіце ўвайсьці.',
+	'ethereditor-js-off' => 'Каб скарыстаць EtherEditor, вы мусіце ўключыць JavaScript.',
+	'ethereditor-manager-title' => 'Кіраваньне EtherEditor',
+	'ethereditor-pad-title' => 'Загаловак дакумэнту',
+	'ethereditor-base-revision' => 'Выточная вэрсія',
+	'ethereditor-users-connected' => 'Падлучаныя ўдзельнікі',
+	'ethereditor-admin-controls' => 'Прылады адміністратара',
+	'ethereditor-user-list' => 'Сьпіс удзельнікаў',
+	'ethereditor-pad-list' => 'Сьпіс сэсіяў',
+	'ethereditor-current' => 'Бягучы',
+	'ethereditor-outdated' => 'Састарэлы',
+	'ethereditor-summary-message' => 'праз EtherEditor, рэдактары: $1',
+);
+
 /** Bulgarian (български)
  * @author පසිඳු කාවින්ද
  */
@@ -557,6 +582,7 @@ $messages['ja'] = array(
  */
 $messages['ka'] = array(
 	'ethereditor-user-list' => 'მომხმარებლების სია',
+	'ethereditor-pad-list' => 'სესიების სია',
 	'ethereditor-current' => 'მიმდინარე',
 	'ethereditor-outdated' => 'მოძველებული',
 );
