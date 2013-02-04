@@ -98,6 +98,11 @@ $messages['be-tarask'] = array(
 	'ethereditor-current' => 'Бягучы',
 	'ethereditor-outdated' => 'Састарэлы',
 	'ethereditor-summary-message' => 'праз EtherEditor, рэдактары: $1',
+	'ethereditor-session-created' => 'Сэсію $2 распачаў $1',
+	'ethereditor-connected' => '{{PLURAL:$1|Падлучаны $1 удзельнік|Падлучаныя $1 удзельнікі|Падлучаныя $1 удзельнікаў}}',
+	'ethereditor-switch-to-session' => 'Пераключыцься на гэтую сэсію',
+	'ethereditor-recover-session' => 'Аднавіць гэтую сэсію',
+	'ethereditor-leave' => 'Рэжым супрацы выключаны',
 );
 
 /** Bulgarian (български)
