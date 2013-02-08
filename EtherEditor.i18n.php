@@ -75,6 +75,13 @@ $messages['qqq'] = array(
 	'ethereditor-leave' => 'This message appears, when user leaves collab mode',
 );
 
+/** Belarusian (беларуская)
+ * @author Чаховіч Уладзіслаў
+ */
+$messages['be'] = array(
+	'ethereditor-desc' => 'Дазваляе ўдзельнікам правіць праз Etherpad',
+);
+
 /** Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
  * @author Wizardist
  */
