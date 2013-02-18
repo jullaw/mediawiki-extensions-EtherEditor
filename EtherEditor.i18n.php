@@ -120,10 +120,13 @@ $messages['bg'] = array(
 );
 
 /** Breton (brezhoneg)
+ * @author Fohanno
  * @author Y-M D
  */
 $messages['br'] = array(
 	'ethereditor-collaborate-button' => 'Kenlabourit',
+	'ethereditor-kick-button' => 'Skarzhañ an implijer',
+	'ethereditor-delete-button' => "Echuiñ an dalc'h",
 	'ethereditor-user-list' => 'Roll an implijerien',
 	'ethereditor-current' => 'Red',
 	'ethereditor-outdated' => 'Dispredet',
@@ -1092,4 +1095,33 @@ $messages['vi'] = array(
  */
 $messages['yi'] = array(
 	'ethereditor-current' => 'לויפֿיקע',
+);
+
+/** Simplified Chinese (中文（简体）‎)
+ * @author Yfdyh000
+ */
+$messages['zh-hans'] = array(
+	'ethereditor-desc' => '允许用户通过 Etherpad 编辑',
+	'ethereditor-prefs-enable-ether' => '启用协作编辑器（实验性）',
+	'ethereditor-collaborate-button' => '合作',
+	'ethereditor-fork-button' => '拆分会话',
+	'ethereditor-contrib-button' => '添加贡献者名单到编辑摘要',
+	'ethereditor-kick-button' => '踢出用户',
+	'ethereditor-delete-button' => '结束会话',
+	'ethereditor-cannot-nologin' => '若要使用 EtherEditor，您必须登录。',
+	'ethereditor-js-off' => '若要使用 EtherEditor，您必须启用 JavaScript。',
+	'ethereditor-manager-title' => 'EtherEditor 管理',
+	'ethereditor-pad-title' => '便签标题',
+	'ethereditor-base-revision' => '基础版本',
+	'ethereditor-users-connected' => '已连接用户',
+	'ethereditor-user-list' => '用户列表',
+	'ethereditor-pad-list' => '会话列表',
+	'ethereditor-current' => '当前',
+	'ethereditor-outdated' => '已过期',
+	'ethereditor-summary-message' => ' 使用EtherEditor，贡献者：$1',
+	'ethereditor-session-created' => '会话由$1开始于$2',
+	'ethereditor-connected' => '$1名用户已连接',
+	'ethereditor-switch-to-session' => '切换到此会话',
+	'ethereditor-recover-session' => '恢复此会话',
+	'ethereditor-leave' => '协作模式已禁用',
 );
