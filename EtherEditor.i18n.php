@@ -46,7 +46,7 @@ $messages['en'] = array(
  * @author Siebrand
  */
 $messages['qqq'] = array(
-	'ethereditor-desc' => '{{desc}}',
+	'ethereditor-desc' => '{{desc|name=Ether Editor|url=http://www.mediawiki.org/wiki/Extension:EtherEditor}}',
 	'ethereditor-prefs-enable-ether' => 'A preference that enables the experimental collaborative editor.',
 	'ethereditor-collaborate-button' => 'A button at the top of the page (near read/edit) that invites the user to collaborate with others.',
 	'ethereditor-fork-button' => 'A button above the textarea that allows the user to create a separate pad.',
