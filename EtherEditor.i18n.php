@@ -125,6 +125,7 @@ $messages['bg'] = array(
  */
 $messages['br'] = array(
 	'ethereditor-collaborate-button' => 'Kenlabourit',
+	'ethereditor-fork-button' => "Rannañ an dalc'h",
 	'ethereditor-kick-button' => 'Skarzhañ an implijer',
 	'ethereditor-delete-button' => "Echuiñ an dalc'h",
 	'ethereditor-user-list' => 'Roll an implijerien',
