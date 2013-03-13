@@ -75,6 +75,36 @@ $messages['qqq'] = array(
 	'ethereditor-leave' => 'This message appears, when user leaves collab mode',
 );
 
+/** Asturian (asturianu)
+ * @author Xuacu
+ */
+$messages['ast'] = array(
+	'ethereditor-desc' => "Permite que los usuarios editen per aciu d'Etherpad",
+	'ethereditor-prefs-enable-ether' => "Activar l'editor collaborativu (esperimental)",
+	'ethereditor-collaborate-button' => 'Collaborar',
+	'ethereditor-fork-button' => 'Dividir sesión',
+	'ethereditor-contrib-button' => "Amestar la llista de collaboradores al resume d'edición",
+	'ethereditor-kick-button' => 'Espulsar usuariu',
+	'ethereditor-delete-button' => 'Finar sesión',
+	'ethereditor-cannot-nologin' => "Pa poder usar el EtherEditor, tien d'aniciar sesión.",
+	'ethereditor-js-off' => "Pa poder usar el EtherEditor, tien d'activar JavaScript.",
+	'ethereditor-manager-title' => "Alministración d'EtherEditor",
+	'ethereditor-pad-title' => 'Títulu del bloc',
+	'ethereditor-base-revision' => 'Revisión de base',
+	'ethereditor-users-connected' => 'Usuarios coneutaos',
+	'ethereditor-admin-controls' => "Controles d'alministración",
+	'ethereditor-user-list' => "Llista d'usuarios",
+	'ethereditor-pad-list' => 'Llista de sesiones',
+	'ethereditor-current' => 'Actual',
+	'ethereditor-outdated' => 'Anticuáu',
+	'ethereditor-summary-message' => ' usando EtherEditor, collaboradores: $1',
+	'ethereditor-session-created' => 'Sesión aniciada por $1 $2',
+	'ethereditor-connected' => '$1 {{PLURAL:$1|usuariu coneutáu|usuarios coneutaos}}',
+	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
+	'ethereditor-recover-session' => 'Recuperar esta sesión',
+	'ethereditor-leave' => 'El mou de collaboración ta desactiváu',
+);
+
 /** Belarusian (беларуская)
  * @author Чаховіч Уладзіслаў
  */
