@@ -79,6 +79,21 @@ class EtherEditorHooks {
 	}
 
 	/**
+	* Hook: GetUserPreferences
+	* @param User $user
+	* @param array $preferences
+	* @return bool
+	*/
+	public static function getUserPreference( $user, &$preferences ) {
+		$preferences['enableether'] = array(
+			'type' => 'toggle',
+			'label-message' => 'ethereditor-preference-button',
+			'section' => 'editing/advancedediting',
+			);
+		return true;
+	}
+
+	/**
 	 * EditPage::showEditForm:initial hook
 	 *
 	 * Adds the modules to the edit form

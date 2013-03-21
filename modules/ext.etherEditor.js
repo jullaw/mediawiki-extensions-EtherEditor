@@ -75,7 +75,7 @@
 			return false; // there was an error, clearly, so let's quit
 		}
 		_this.initializeControls( function () {
-			if ( _this.uri.query.collaborate ) {
+			if ( _this.uri.query.collaborate || mw.user.options.get( 'enableether' ) ) {
 				if ( _this.uri.query.padId ) {
 					var thepad = false;
 					for ( var px in _this.pads ) {
@@ -504,7 +504,7 @@
 
 			for ( var i = 2; i < 6; i++ ) {
 				var $headings = $( 'a[rel=heading-' + i + ']' );
-				$headings.click( ( 
+				$headings.click( (
 					function( thisi ) {
 						return function () {
 							_this.sendMessage( { heading: thisi } );
@@ -550,15 +550,15 @@
 			/**
 			* Display message that you leave collaborative editor
 			*/
-			var $collabLabel1 = $( '<span class="leave-msg"></span>' );
-			$collabLabel1.text( mw.msg( 'ethereditor-leave' ) );
+			var $collabLabel = $( '<span class="leave-msg"></span>' );
+			$collabLabel.text( mw.msg( 'ethereditor-leave' ) );
 			$turnOnCollab.click( function () {
 				var $this = $( this );
 				if ( $this.is( ':checked' ) ) {
-					$collabLabel1.detach();
+					$collabLabel.detach();
 					_this.enableEther();
 				} else {
-					_this.$ctrls.before($collabLabel1);
+					_this.$ctrls.before($collabLabel);
 					_this.disableEther();
 				}
 			} );
@@ -576,6 +576,7 @@
 			_this.$pctrls = $( '<span></span>' );
 			_this.$pctrls.attr( 'id', 'ethereditor-pad-ctrls' );
 			_this.$ctrls.append( _this.$pctrls );
+
 
 			var eventHandle = function () {
 				this.selectionStart = 0;
