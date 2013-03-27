@@ -806,6 +806,13 @@ $messages['mt'] = array(
 	'ethereditor-recover-session' => 'Irkupra din is-sessjoni',
 );
 
+/** Low German (Plattdüütsch)
+ * @author Joachim Mos
+ */
+$messages['nds'] = array(
+	'ethereditor-current' => 'Aktuell',
+);
+
 /** Dutch (Nederlands)
  * @author SPQRobin
  * @author Saruman
