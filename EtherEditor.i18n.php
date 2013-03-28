@@ -579,7 +579,7 @@ $messages['id'] = array(
  */
 $messages['it'] = array(
 	'ethereditor-desc' => 'Consente agli utenti di modificare tramite Etherpad',
-	'ethereditor-prefs-enable-ether' => 'Abilita la modifica collaborativa (molto sperimentale)',
+	'ethereditor-prefs-enable-ether' => 'Abilita la modifica collaborativa (sperimentale)',
 	'ethereditor-collaborate-button' => 'Collabora',
 	'ethereditor-fork-button' => 'Dividi sessione',
 	'ethereditor-contrib-button' => "Aggiungi lista dei contributori all'oggetto della modifica",
@@ -601,6 +601,7 @@ $messages['it'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|utente connesso|utenti connessi}}',
 	'ethereditor-switch-to-session' => 'Passa a questa sessione',
 	'ethereditor-recover-session' => 'Riprendi questa sessione',
+	'ethereditor-leave' => 'La modifica collaborativa è disattivata',
 );
 
 /** Japanese (日本語)
