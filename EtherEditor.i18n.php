@@ -692,6 +692,7 @@ $messages['ksh'] = array(
 	'ethereditor-connected' => '{{PLURAL:$1|Eine|$1|Kein}} verbonge Metmaacher',
 	'ethereditor-switch-to-session' => 'Op heh di Sezong ömschallde',
 	'ethereditor-recover-session' => 'Heh di Sezong wider opnämme',
+	'ethereditor-leave' => 'Et zersamme Werke es affjeschaldt.',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
