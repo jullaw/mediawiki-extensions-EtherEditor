@@ -36,7 +36,6 @@ $messages['en'] = array(
 	'ethereditor-switch-to-session' => 'Switch to this session',
 	'ethereditor-recover-session' => 'Recover this session',
 	'ethereditor-leave' => ' Collaboration mode is disabled',
-	'ethereditor-preference-button' => 'Enable EtherEditor by default',
 );
 
 /** Message documentation (Message documentation)
