@@ -43,6 +43,7 @@ foreach ( array(
 
 $wgSpecialPages['EtherEditor'] = 'SpecialEtherEditor';
 $wgSpecialPageGroups['EtherEditor'] = 'pagetools';
+$wgHooks['GetPreferences'][] = 'EtherEditorHooks::getUserPreference';
 
 $wgHooks['UnitTestsList'][] = 'EtherEditorHooks::registerUnitTests';
 
