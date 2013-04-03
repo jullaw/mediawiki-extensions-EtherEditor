@@ -75,6 +75,7 @@ $messages['qqq'] = array(
 	'ethereditor-switch-to-session' => 'This button will bring the user to a session. The button will be next to the session in question.',
 	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.',
 	'ethereditor-leave' => 'This message appears, when user leaves collab mode',
+	'ethereditor-preference-button' => 'Used as checkbox label in {{msg-mw|Prefs-advancedediting}} fieldset, {{msg-mw|Prefs-editing}} tab, in [[Special:Preferences]].',
 );
 
 /** Asturian (asturianu)
@@ -105,6 +106,7 @@ $messages['ast'] = array(
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
 	'ethereditor-leave' => 'El mou de collaboración ta desactiváu',
+	'ethereditor-preference-button' => 'Activar EtherEditor de mou predetermináu',
 );
 
 /** Belarusian (беларуская)
@@ -184,6 +186,7 @@ $messages['da'] = array(
 );
 
 /** German (Deutsch)
+ * @author HvW
  * @author Kghbln
  * @author Metalhead64
  */
@@ -207,11 +210,12 @@ $messages['de'] = array(
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Veraltet',
 	'ethereditor-summary-message' => 'Benutzer, die den EtherPad-Editor verwendet haben: $1',
-	'ethereditor-session-created' => 'Sitzung gestartet von $1 $2',
+	'ethereditor-session-created' => 'Session begonnen von $1 $2',
 	'ethereditor-connected' => '{{PLURAL:$1|Ein verbundener Benutzer|$1 verbundene Benutzer}}',
 	'ethereditor-switch-to-session' => 'Zu dieser Sitzung wechseln',
 	'ethereditor-recover-session' => 'Diese Sitzung wiederherstellen',
 	'ethereditor-leave' => 'Der Mitwirkungsmodus ist deaktiviert',
+	'ethereditor-preference-button' => 'EtherEditor standardmäßig aktiviert',
 );
 
 /** German (formal address) (Deutsch (Sie-Form)‎)
@@ -408,6 +412,7 @@ $messages['fr'] = array(
 	'ethereditor-switch-to-session' => 'Basculer sur cette session',
 	'ethereditor-recover-session' => 'Récupérer cette session',
 	'ethereditor-leave' => 'Le mode de collaboration est désactivé.',
+	'ethereditor-preference-button' => 'Activer EtherEditor par défaut',
 );
 
 /** Franco-Provençal (arpetan)
@@ -469,6 +474,7 @@ $messages['gl'] = array(
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
 	'ethereditor-leave' => 'O modo colaborativo está desactivado',
+	'ethereditor-preference-button' => 'Activar o EtherEditor por defecto',
 );
 
 /** Hebrew (עברית)
@@ -624,6 +630,7 @@ $messages['ja'] = array(
 	'ethereditor-session-created' => '$1が $2に開始したセッション',
 	'ethereditor-connected' => '$1 人の{{PLURAL:$1|利用者}}が接続しています',
 	'ethereditor-switch-to-session' => 'このセッションに切り替え',
+	'ethereditor-preference-button' => '既定で EtherEditor を有効にする',
 );
 
 /** Georgian (ქართული)
@@ -664,6 +671,7 @@ $messages['ko'] = array(
 	'ethereditor-switch-to-session' => '이 세션으로 전환',
 	'ethereditor-recover-session' => '이 세션 복구',
 	'ethereditor-leave' => '공동 작업 모드가 비활성화되었습니다',
+	'ethereditor-preference-button' => '기본값으로 EtherEditor를 활성화',
 );
 
 /** Colognian (Ripoarisch)
@@ -756,6 +764,7 @@ $messages['mk'] = array(
 	'ethereditor-switch-to-session' => 'Префрли на сесијава',
 	'ethereditor-recover-session' => 'Поврати ја сесијава',
 	'ethereditor-leave' => 'Соработниот режим е исклучен',
+	'ethereditor-preference-button' => 'Направи го EtherEditor стандарден',
 );
 
 /** Malay (Bahasa Melayu)
@@ -786,6 +795,7 @@ $messages['ms'] = array(
 	'ethereditor-switch-to-session' => 'Beralih ke sesi ini',
 	'ethereditor-recover-session' => 'Pulihkan sesi ini',
 	'ethereditor-leave' => ' Mod kerjasama dimatikan',
+	'ethereditor-preference-button' => 'Hidupkan EtherEditor secara azali',
 );
 
 /** Maltese (Malti)
