@@ -856,6 +856,7 @@ $messages['nl'] = array(
 	'ethereditor-switch-to-session' => 'Overschakelen naar deze sessie',
 	'ethereditor-recover-session' => 'Deze sessie herstellen',
 	'ethereditor-leave' => 'Samenwerkingsmodus is uitgeschakeld',
+	'ethereditor-preference-button' => 'EtherEditor standaard inschakelen',
 );
 
 /** Nederlands (informeel)‎ (Nederlands (informeel)‎)
