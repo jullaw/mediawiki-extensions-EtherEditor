@@ -609,6 +609,7 @@ $messages['it'] = array(
 	'ethereditor-switch-to-session' => 'Passa a questa sessione',
 	'ethereditor-recover-session' => 'Riprendi questa sessione',
 	'ethereditor-leave' => 'La modifica collaborativa è disattivata',
+	'ethereditor-preference-button' => 'Abilita EtherEditor per impostazione predefinita',
 );
 
 /** Japanese (日本語)
