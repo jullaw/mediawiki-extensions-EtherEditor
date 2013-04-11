@@ -703,6 +703,7 @@ $messages['ksh'] = array(
 	'ethereditor-switch-to-session' => 'Op heh di Sezong ömschallde',
 	'ethereditor-recover-session' => 'Heh di Sezong wider opnämme',
 	'ethereditor-leave' => 'Et zersamme Werke es affjeschaldt.',
+	'ethereditor-preference-button' => 'Donn et Ändere övver en <i lang="en">etherpad</i> schtandattmääßesch aanschallde',
 );
 
 /** Luxembourgish (Lëtzebuergesch)
