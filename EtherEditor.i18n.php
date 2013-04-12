@@ -714,12 +714,15 @@ $messages['lb'] = array(
 	'ethereditor-collaborate-button' => 'Matmaachen',
 	'ethereditor-fork-button' => 'Sessioun opdeelen',
 	'ethereditor-kick-button' => 'Benotzer erausgeheien',
+	'ethereditor-js-off' => 'Fir den EtherEditor ze benotze musst Dir JavaScript aschalten.',
 	'ethereditor-base-revision' => 'Basisversioun',
 	'ethereditor-users-connected' => 'Ageloggte Benotzer',
 	'ethereditor-user-list' => 'Benotzerlëscht',
+	'ethereditor-pad-list' => 'Lëscht vun de Sessiounen',
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Vereelst',
 	'ethereditor-connected' => '{{PLURAL:$1|Ee verbonnene Benotzer|$1 verbonne Benotzer}}',
+	'ethereditor-preference-button' => 'EhterEditor als Standard aschalten',
 );
 
 /** Lithuanian (lietuvių)
