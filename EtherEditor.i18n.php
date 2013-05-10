@@ -1157,6 +1157,7 @@ $messages['yi'] = array(
 
 /** Simplified Chinese (中文（简体）‎)
  * @author Yfdyh000
+ * @author 乌拉跨氪
  */
 $messages['zh-hans'] = array(
 	'ethereditor-desc' => '允许用户通过 Etherpad 编辑',
@@ -1183,4 +1184,5 @@ $messages['zh-hans'] = array(
 	'ethereditor-switch-to-session' => '切换到此会话',
 	'ethereditor-recover-session' => '恢复此会话',
 	'ethereditor-leave' => '协作模式已禁用',
+	'ethereditor-preference-button' => '默认启用EtherEditor',
 );
