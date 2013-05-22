@@ -1102,6 +1102,7 @@ $messages['tl'] = array(
 
 /** Ukrainian (українська)
  * @author Base
+ * @author Ата
  */
 $messages['uk'] = array(
 	'ethereditor-desc' => 'Дозволяє користувачам редагувати через Etherpad',
@@ -1128,6 +1129,7 @@ $messages['uk'] = array(
 	'ethereditor-switch-to-session' => 'Перемкнутись на цю сесію',
 	'ethereditor-recover-session' => 'Відновити цю сесію',
 	'ethereditor-leave' => ' Режим співпраці вимкнено',
+	'ethereditor-preference-button' => 'Увімкнути EtherEditor за замовчуванням',
 );
 
 /** Urdu (اردو)
