@@ -965,6 +965,8 @@ $messages['ro'] = array(
  * @author Joetaras
  */
 $messages['roa-tara'] = array(
+	'ethereditor-collaborate-button' => 'Collabbore',
+	'ethereditor-fork-button' => "Spacche 'a sessione",
 	'ethereditor-current' => 'Corrende',
 );
 
