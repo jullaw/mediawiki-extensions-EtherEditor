@@ -1190,3 +1190,34 @@ $messages['zh-hans'] = array(
 	'ethereditor-leave' => '协作模式已禁用',
 	'ethereditor-preference-button' => '默认启用EtherEditor',
 );
+
+/** Traditional Chinese (中文（繁體）‎)
+ * @author Justincheng12345
+ */
+$messages['zh-hant'] = array(
+	'ethereditor-desc' => '容許用戶使用Etherpad編輯',
+	'ethereditor-prefs-enable-ether' => '啟用協作編輯器（實驗）',
+	'ethereditor-collaborate-button' => '協作',
+	'ethereditor-fork-button' => '拆分會話',
+	'ethereditor-contrib-button' => '添加貢獻者名單至編輯摘要',
+	'ethereditor-kick-button' => '踢出用戶',
+	'ethereditor-delete-button' => '結束會話',
+	'ethereditor-cannot-nologin' => '你必須登入以使用EtherEditor。',
+	'ethereditor-js-off' => '你必須啟用JavaScript使用EtherEditor。',
+	'ethereditor-manager-title' => 'EtherEditor管理',
+	'ethereditor-pad-title' => '便簽標題',
+	'ethereditor-base-revision' => '基礎版本',
+	'ethereditor-users-connected' => '已連接用戶',
+	'ethereditor-admin-controls' => '管理控制台',
+	'ethereditor-user-list' => '用戶列表',
+	'ethereditor-pad-list' => '會話清單',
+	'ethereditor-current' => '目前',
+	'ethereditor-outdated' => '已過時',
+	'ethereditor-summary-message' => '使用EtherEditor，貢獻者：$1',
+	'ethereditor-session-created' => '會話由$1於$2開始',
+	'ethereditor-connected' => '$1名用戶已連接',
+	'ethereditor-switch-to-session' => '切換到此會話',
+	'ethereditor-recover-session' => '恢復此會話',
+	'ethereditor-leave' => '協作模式已禁用',
+	'ethereditor-preference-button' => '預設啟用EtherEditor',
+);
