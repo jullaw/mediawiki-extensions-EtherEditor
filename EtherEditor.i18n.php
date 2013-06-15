@@ -714,6 +714,7 @@ $messages['lb'] = array(
 	'ethereditor-collaborate-button' => 'Matmaachen',
 	'ethereditor-fork-button' => 'Sessioun opdeelen',
 	'ethereditor-kick-button' => 'Benotzer erausgeheien',
+	'ethereditor-cannot-nologin' => 'Fir den EtherEditor ze benotze musst Dir Iech aloggen.',
 	'ethereditor-js-off' => 'Fir den EtherEditor ze benotze musst Dir JavaScript aschalten.',
 	'ethereditor-base-revision' => 'Basisversioun',
 	'ethereditor-users-connected' => 'Ageloggte Benotzer',
@@ -722,6 +723,7 @@ $messages['lb'] = array(
 	'ethereditor-current' => 'Aktuell',
 	'ethereditor-outdated' => 'Vereelst',
 	'ethereditor-connected' => '{{PLURAL:$1|Ee verbonnene Benotzer|$1 verbonne Benotzer}}',
+	'ethereditor-leave' => 'Kollaboratiouns-Modus ass ausgeschalt',
 	'ethereditor-preference-button' => 'EhterEditor als Standard aschalten',
 );
 
