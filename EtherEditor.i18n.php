@@ -973,6 +973,10 @@ $messages['ro'] = array(
 $messages['roa-tara'] = array(
 	'ethereditor-collaborate-button' => 'Collabbore',
 	'ethereditor-fork-button' => "Spacche 'a sessione",
+	'ethereditor-delete-button' => "Fine d'a sessione",
+	'ethereditor-pad-title' => "Titole d'u pad",
+	'ethereditor-base-revision' => 'Revisione de base',
+	'ethereditor-users-connected' => 'Utinde connesse',
 	'ethereditor-current' => 'Corrende',
 );
 
