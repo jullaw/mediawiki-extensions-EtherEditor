@@ -144,6 +144,7 @@ $messages['be-tarask'] = array(
 	'ethereditor-switch-to-session' => 'Пераключыцься на гэтую сэсію',
 	'ethereditor-recover-session' => 'Аднавіць гэтую сэсію',
 	'ethereditor-leave' => 'Рэжым супрацы выключаны',
+	'ethereditor-preference-button' => 'Уключыць EtherEditor дапомна',
 );
 
 /** Bulgarian (български)
