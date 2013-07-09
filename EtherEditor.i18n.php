@@ -614,11 +614,15 @@ $messages['it'] = array(
 );
 
 /** Japanese (日本語)
+ * @author Fryed-peach
  * @author Shirayuki
  */
 $messages['ja'] = array(
 	'ethereditor-desc' => '利用者が Etherpad で編集できるようにする',
+	'ethereditor-prefs-enable-ether' => '共同編集を有効にする (実験的)',
+	'ethereditor-collaborate-button' => '共同編集',
 	'ethereditor-fork-button' => 'セッションを分割',
+	'ethereditor-contrib-button' => '編集の要約文に貢献者のリストを加える',
 	'ethereditor-delete-button' => 'セッションを終了',
 	'ethereditor-cannot-nologin' => 'EtherEditor を使用するには、ログインする必要があります。',
 	'ethereditor-js-off' => 'EtherEditor を使用するには、JavaScript を有効にする必要があります。',
