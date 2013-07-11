@@ -1038,6 +1038,13 @@ $messages['si'] = array(
 	'ethereditor-recover-session' => 'මෙම සැසිය ආපසු ලබාගන්න',
 );
 
+/** Somali (Soomaaliga)
+ * @author Abshirdheere
+ */
+$messages['so'] = array(
+	'ethereditor-outdated' => 'Cusbooneeysiin',
+);
+
 /** Swedish (svenska)
  * @author Ainali
  * @author WikiPhoenix
