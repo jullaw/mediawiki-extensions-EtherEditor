@@ -886,6 +886,7 @@ $messages['nl-informal'] = array(
 /** Polish (polski)
  * @author BeginaFelicysym
  * @author Odie2
+ * @author Woytecr
  */
 $messages['pl'] = array(
 	'ethereditor-desc' => 'Pozwala użytkownikom na edytowanie za pomocą Etherpad',
@@ -912,6 +913,7 @@ $messages['pl'] = array(
 	'ethereditor-switch-to-session' => 'Przełącz się na tą sesję',
 	'ethereditor-recover-session' => 'Odzyskaj tą sesję',
 	'ethereditor-leave' => 'Tryb współpracy jest wyłączony',
+	'ethereditor-preference-button' => 'Włącz domyślnie EtherEditor',
 );
 
 /** Piedmontese (Piemontèis)
