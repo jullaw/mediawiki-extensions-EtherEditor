@@ -35,7 +35,7 @@ $messages['en'] = array(
 	'ethereditor-connected' => '$1 connected {{PLURAL:$1|user|users}}',
 	'ethereditor-switch-to-session' => 'Switch to this session',
 	'ethereditor-recover-session' => 'Recover this session',
-	'ethereditor-leave' => ' Collaboration mode is disabled',
+	'ethereditor-leave' => 'Collaboration mode is disabled',
 	'ethereditor-preference-button' => 'Enable EtherEditor by default',
 );
 
