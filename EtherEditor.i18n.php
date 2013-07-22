@@ -168,6 +168,13 @@ $messages['br'] = array(
 	'ethereditor-outdated' => 'Dispredet',
 );
 
+/** Chechen (нохчийн)
+ * @author Умар
+ */
+$messages['ce'] = array(
+	'ethereditor-pad-title' => 'ЦӀе',
+);
+
 /** Czech (česky)
  * @author Vks
  */
@@ -810,7 +817,7 @@ $messages['ms'] = array(
 	'ethereditor-connected' => '$1 pengguna bersambung',
 	'ethereditor-switch-to-session' => 'Beralih ke sesi ini',
 	'ethereditor-recover-session' => 'Pulihkan sesi ini',
-	'ethereditor-leave' => ' Mod kerjasama dimatikan',
+	'ethereditor-leave' => 'Mod kerjasama dimatikan',
 	'ethereditor-preference-button' => 'Hidupkan EtherEditor secara azali',
 );
 
@@ -1014,7 +1021,7 @@ $messages['ru'] = array(
 	'ethereditor-connected' => '{{PLURAL:$1|подключен $1 участник|подключено $1 участника|подключено $1 участников}}',
 	'ethereditor-switch-to-session' => 'Переключится на эту сессию',
 	'ethereditor-recover-session' => 'Восстановить эту сессию',
-	'ethereditor-leave' => ' Совместный режим отключен',
+	'ethereditor-leave' => 'Совместный режим отключен',
 );
 
 /** Sinhala (සිංහල)
@@ -1075,7 +1082,7 @@ $messages['sv'] = array(
 	'ethereditor-connected' => '$1 anslutna {{PLURAL:$1|användare|användare}}',
 	'ethereditor-switch-to-session' => 'Växla till denna session',
 	'ethereditor-recover-session' => 'Återställ denna session',
-	'ethereditor-leave' => ' Samarbetsläget ät inaktiverat',
+	'ethereditor-leave' => 'Samarbetsläget ät inaktiverat',
 );
 
 /** Tamil (தமிழ்)
@@ -1154,7 +1161,7 @@ $messages['uk'] = array(
 	'ethereditor-connected' => 'Підключено $1 {{PLURAL:$1|користувача|користувачі|користувачів}}',
 	'ethereditor-switch-to-session' => 'Перемкнутись на цю сесію',
 	'ethereditor-recover-session' => 'Відновити цю сесію',
-	'ethereditor-leave' => ' Режим співпраці вимкнено',
+	'ethereditor-leave' => 'Режим співпраці вимкнено',
 	'ethereditor-preference-button' => 'Увімкнути EtherEditor за замовчуванням',
 );
 
