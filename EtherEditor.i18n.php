@@ -643,6 +643,7 @@ $messages['ja'] = array(
 	'ethereditor-session-created' => '$1が $2に開始したセッション',
 	'ethereditor-connected' => '$1 人の{{PLURAL:$1|利用者}}が接続しています',
 	'ethereditor-switch-to-session' => 'このセッションに切り替え',
+	'ethereditor-leave' => '共同編集モードは無効です',
 	'ethereditor-preference-button' => '既定で EtherEditor を有効にする',
 );
 
@@ -1056,6 +1057,7 @@ $messages['so'] = array(
 
 /** Swedish (svenska)
  * @author Ainali
+ * @author Jopparn
  * @author WikiPhoenix
  */
 $messages['sv'] = array(
@@ -1082,7 +1084,7 @@ $messages['sv'] = array(
 	'ethereditor-connected' => '$1 anslutna {{PLURAL:$1|användare|användare}}',
 	'ethereditor-switch-to-session' => 'Växla till denna session',
 	'ethereditor-recover-session' => 'Återställ denna session',
-	'ethereditor-leave' => 'Samarbetsläget ät inaktiverat',
+	'ethereditor-leave' => 'Samarbetsläget är inaktiverat',
 );
 
 /** Tamil (தமிழ்)
