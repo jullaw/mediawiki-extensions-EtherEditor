@@ -791,6 +791,13 @@ $messages['mk'] = array(
 	'ethereditor-preference-button' => 'Направи го EtherEditor стандарден',
 );
 
+/** Marathi (मराठी)
+ * @author V.narsikar
+ */
+$messages['mr'] = array(
+	'ethereditor-leave' => 'सहयोग-पद्धति अक्षम करण्यात आली आहे',
+);
+
 /** Malay (Bahasa Melayu)
  * @author Anakmalaysia
  */
