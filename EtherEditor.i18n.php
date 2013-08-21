@@ -556,6 +556,8 @@ $messages['ia'] = array(
 	'ethereditor-connected' => '$1 {{PLURAL:$1|usator|usatores}} connectite',
 	'ethereditor-switch-to-session' => 'Cambiar a iste session',
 	'ethereditor-recover-session' => 'Recuperar iste session',
+	'ethereditor-leave' => 'Le modo de collaboration est disactivate.',
+	'ethereditor-preference-button' => 'Activar EtherEditor per predefinition',
 );
 
 /** Indonesian (Bahasa Indonesia)
