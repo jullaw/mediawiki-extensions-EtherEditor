@@ -66,7 +66,8 @@ $messages['qqq'] = array(
 	'ethereditor-current' => 'Indicates that this pad is up-to-date.
 {{Identical|Current}}',
 	'ethereditor-outdated' => 'Indicates that this pad is no longer up-to-date',
-	'ethereditor-summary-message' => 'This message goes into the edit summary automatically. The parameter is for a comma-separated list of users, but we are not referring to the users in any substantial way, only to list them.',
+	'ethereditor-summary-message' => 'This message goes into the edit summary automatically. Parameters:
+* $1 - list of users (comma-separated). but we are not referring to the users in any substantial way, only to list them.',
 	'ethereditor-session-created' => 'This message is how users browse the session list. Parameters:
 * $1 is the name of the admin user,
 * $2 is something like "2 minutes ago", see the "ago" message,
