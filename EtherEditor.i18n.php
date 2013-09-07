@@ -69,9 +69,9 @@ $messages['qqq'] = array(
 	'ethereditor-summary-message' => 'This message goes into the edit summary automatically. Parameters:
 * $1 - list of users (comma-separated). but we are not referring to the users in any substantial way, only to list them.',
 	'ethereditor-session-created' => 'This message is how users browse the session list. Parameters:
-* $1 is the name of the admin user,
-* $2 is something like "2 minutes ago", see the "ago" message,
-* $3 is the number of connected users in this session.',
+* $1 - the name of the admin user
+* $2 - something like "2 minutes ago", uses the message {{msg-mw|Ago}}
+* $3 - (Unused) the number of connected users in this session',
 	'ethereditor-connected' => 'This message shows how many users are connected. $1 is the number of connected users in this session.',
 	'ethereditor-switch-to-session' => 'This button will bring the user to a session. The button will be next to the session in question.',
 	'ethereditor-recover-session' => 'This button has the same effect as ethereditor-switch-to-session, but the change in verb is so they can easily tell that this session has no users attached.',
