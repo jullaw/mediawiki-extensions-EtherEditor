@@ -1007,6 +1007,7 @@ $messages['roa-tara'] = array(
 
 /** Russian (русский)
  * @author DCamer
+ * @author Okras
  */
 $messages['ru'] = array(
 	'ethereditor-desc' => 'Позволяет пользователям редактировать через Etherpad',
@@ -1033,6 +1034,7 @@ $messages['ru'] = array(
 	'ethereditor-switch-to-session' => 'Переключится на эту сессию',
 	'ethereditor-recover-session' => 'Восстановить эту сессию',
 	'ethereditor-leave' => 'Совместный режим отключен',
+	'ethereditor-preference-button' => 'Включить EtherEditor по умолчанию',
 );
 
 /** Sinhala (සිංහල)
