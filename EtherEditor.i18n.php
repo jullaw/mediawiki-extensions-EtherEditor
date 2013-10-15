@@ -1097,6 +1097,7 @@ $messages['sv'] = array(
 	'ethereditor-switch-to-session' => 'Växla till denna session',
 	'ethereditor-recover-session' => 'Återställ denna session',
 	'ethereditor-leave' => 'Samarbetsläget är inaktiverat',
+	'ethereditor-preference-button' => 'Aktivera EtherEditor som standard',
 );
 
 /** Tamil (தமிழ்)
