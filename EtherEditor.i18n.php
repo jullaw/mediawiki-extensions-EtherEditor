@@ -312,6 +312,7 @@ $messages['el'] = array(
 
 /** Spanish (español)
  * @author Armando-Martin
+ * @author Benfutbol10
  */
 $messages['es'] = array(
 	'ethereditor-desc' => 'Permite a los usuarios editar mediante Etherpad',
@@ -338,6 +339,7 @@ $messages['es'] = array(
 	'ethereditor-switch-to-session' => 'Cambiar a esta sesión',
 	'ethereditor-recover-session' => 'Recuperar esta sesión',
 	'ethereditor-leave' => 'Se ha desactivado el modo de colaboración',
+	'ethereditor-preference-button' => 'Activar EtherEditor por defecto',
 );
 
 /** Estonian (eesti)
