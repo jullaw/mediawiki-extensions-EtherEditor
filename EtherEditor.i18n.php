@@ -1208,6 +1208,7 @@ $messages['yi'] = array(
 );
 
 /** Simplified Chinese (中文（简体）‎)
+ * @author Xiaomingyan
  * @author Yfdyh000
  * @author 乌拉跨氪
  */
@@ -1224,7 +1225,7 @@ $messages['zh-hans'] = array(
 	'ethereditor-manager-title' => 'EtherEditor 管理',
 	'ethereditor-pad-title' => '便签标题',
 	'ethereditor-base-revision' => '基础版本',
-	'ethereditor-users-connected' => '已连接用户',
+	'ethereditor-users-connected' => '连接的用户',
 	'ethereditor-admin-controls' => '管理控制台',
 	'ethereditor-user-list' => '用户列表',
 	'ethereditor-pad-list' => '会话列表',
