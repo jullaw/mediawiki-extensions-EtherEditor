@@ -176,7 +176,7 @@ $messages['ce'] = array(
 	'ethereditor-pad-title' => 'ЦӀе',
 );
 
-/** Czech (česky)
+/** Czech (čeština)
  * @author Vks
  */
 $messages['cs'] = array(
@@ -530,6 +530,7 @@ $messages['hsb'] = array(
 	'ethereditor-switch-to-session' => 'K tutomu posedźenju přeńć',
 	'ethereditor-recover-session' => 'Tute posedźenje wobnowić',
 	'ethereditor-leave' => 'Sobudźěłowy modus je znjemóžnjeny',
+	'ethereditor-preference-button' => 'EtherEditor po standardźe zmóžnić',
 );
 
 /** Interlingua (interlingua)
