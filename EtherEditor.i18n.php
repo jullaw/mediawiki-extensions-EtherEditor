@@ -173,6 +173,7 @@ $messages['br'] = array(
  * @author Умар
  */
 $messages['ce'] = array(
+	'ethereditor-contrib-button' => 'Нисдарх лаьцна хааман тӀетоха авторийн могӀа',
 	'ethereditor-pad-title' => 'ЦӀе',
 );
 
