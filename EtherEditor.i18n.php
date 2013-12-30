@@ -356,9 +356,11 @@ $messages['et'] = array(
 
 /** Persian (فارسی)
  * @author Mjbmr
+ * @author Reza1615
  */
 $messages['fa'] = array(
 	'ethereditor-user-list' => 'فهرست کاربران',
+	'ethereditor-current' => 'کنونی',
 );
 
 /** Finnish (suomi)
