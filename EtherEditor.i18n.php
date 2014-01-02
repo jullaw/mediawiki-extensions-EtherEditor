@@ -355,12 +355,36 @@ $messages['et'] = array(
 );
 
 /** Persian (فارسی)
+ * @author Armin1392
  * @author Mjbmr
  * @author Reza1615
  */
 $messages['fa'] = array(
+	'ethereditor-desc' => 'اجازه به کاربران برای ویرایش از طریق اِترپَد',
+	'ethereditor-prefs-enable-ether' => 'فعال کردن ویرایشگر گروهی (تجربی)',
+	'ethereditor-collaborate-button' => 'همکاری',
+	'ethereditor-fork-button' => 'تقسیم دوره',
+	'ethereditor-contrib-button' => 'افزودن فهرست کمک‌کنندگان برای خلاصهٔ ویرایش',
+	'ethereditor-kick-button' => 'پا زدن کاربر',
+	'ethereditor-delete-button' => 'پایان دوره',
+	'ethereditor-cannot-nologin' => 'برای استفاده از ویرایشگر اِتر، باید وارد شوید.',
+	'ethereditor-js-off' => 'برای استفاده از ویرایشگر اِتر، باید جاوااسکریپت را فعال کنید.',
+	'ethereditor-manager-title' => 'مدیریت ویرایشگر اِتر',
+	'ethereditor-pad-title' => 'عنوان پد',
+	'ethereditor-base-revision' => 'بازبینی مبنا',
+	'ethereditor-users-connected' => 'اتصال کاربران',
+	'ethereditor-admin-controls' => 'کنترل‌های اجرایی',
 	'ethereditor-user-list' => 'فهرست کاربران',
+	'ethereditor-pad-list' => 'فهرست دوره',
 	'ethereditor-current' => 'کنونی',
+	'ethereditor-outdated' => 'منسوخ',
+	'ethereditor-summary-message' => 'استفاده از ویرایشگر اِتر، کمک کنندگان: $1',
+	'ethereditor-session-created' => ' آغاز دوره توسط $1 $2',
+	'ethereditor-connected' => '$1 به {{PLURAL:$1|user|users}} متصل شد',
+	'ethereditor-switch-to-session' => 'تغییر به این دوره',
+	'ethereditor-recover-session' => 'بازیابی این دوره',
+	'ethereditor-leave' => 'وضعیت همکاری غیرفعال شده‌است',
+	'ethereditor-preference-button' => ' فعال کردن ویرایشگر اِتر توسط پیش‌فرض',
 );
 
 /** Finnish (suomi)
