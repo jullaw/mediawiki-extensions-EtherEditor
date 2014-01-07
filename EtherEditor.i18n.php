@@ -1037,6 +1037,7 @@ $messages['roa-tara'] = array(
 
 /** Russian (русский)
  * @author DCamer
+ * @author Kaganer
  * @author Okras
  */
 $messages['ru'] = array(
@@ -1060,7 +1061,7 @@ $messages['ru'] = array(
 	'ethereditor-outdated' => 'Устаревший',
 	'ethereditor-summary-message' => ' использование EtherEditor, авторов: $1',
 	'ethereditor-session-created' => 'Сессию начал $1 $2',
-	'ethereditor-connected' => '{{PLURAL:$1|подключен $1 участник|подключено $1 участников|подключено $1 участника}}', # Fuzzy
+	'ethereditor-connected' => '{{PLURAL:$1|подключён $1 участник|подключено $1 участников|подключены $1 участника}}',
 	'ethereditor-switch-to-session' => 'Переключится на эту сессию',
 	'ethereditor-recover-session' => 'Восстановить эту сессию',
 	'ethereditor-leave' => 'Совместный режим отключен',
