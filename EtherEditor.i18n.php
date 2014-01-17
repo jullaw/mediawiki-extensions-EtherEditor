@@ -160,6 +160,7 @@ $messages['bg'] = array(
  * @author Y-M D
  */
 $messages['br'] = array(
+	'ethereditor-desc' => 'Aotren an implijerien da aozañ dre Etherpad',
 	'ethereditor-collaborate-button' => 'Kenlabourit',
 	'ethereditor-fork-button' => "Rannañ an dalc'h",
 	'ethereditor-kick-button' => 'Skarzhañ an implijer',
