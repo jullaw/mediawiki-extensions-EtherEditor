@@ -14,6 +14,8 @@
  * @author Mark Holmquist <mtraceur@member.fsf.org>
  */
 
+require_once( 'EtherEditorApiTestCase.php' );
+
 class GetEtherPadTextTest extends EtherEditorApiTestCase {
 	function testTextGetsReturned() {
 		$testText = 'If this text gets properly returned from the server, this test will pass!';
